@@ -280,5 +280,6 @@ export const AR: Record<string, string> = {
  "Narodno pozorište": "المسرح الوطني",
  "Znaš za dobar događaj?": "هل تعرف فعالية جيدة؟",
  "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "محاضرة أو إفطار أو معرض أو حفلة أو جولة. أرسلها لنا وسنضيفها هنا.",
- "Predloži događaj": "اقترح فعالية"
+ "Predloži događaj": "اقترح فعالية",
+ "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "لتكن بين أيام الإثنين أمسية حلال أيضًا. تقدّم بطبقك الخاص."
 };

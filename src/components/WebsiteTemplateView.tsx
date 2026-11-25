@@ -113,6 +113,7 @@ interface CulturalEvent {
   phone?: string;
   short?: string;
   posterTitle?: string;
+  photos?: string[];
   posterLabel?: string;
 }
 
@@ -214,6 +215,7 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     when: '26. novembar i 16. decembar, u 20:30',
     short: 'nov, 20:30',
     posterTitle: 'Hasanaginica',
+    photos: ['assets/events/hasanaginica-1.jpg', 'assets/events/hasanaginica-2.jpg'],
     posterLabel: 'Narodno pozorište',
     title: 'Hasanaginica u Narodnom pozorištu',
     place: 'Narodno pozorište · Scena Raša Plaović, Francuska 3',
@@ -280,6 +282,42 @@ function withDj(text: string) {
   const parts = text.split('đ');
   return parts.flatMap((part, i) =>
     i === 0 ? [part] : [<span key={i} className="dj">d</span>, part],
+  );
+}
+
+function EventPhotos({photos, alt}: {photos: string[]; alt: string}) {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    if (photos.length < 2) return;
+    const id = window.setInterval(() => setIdx((i) => (i + 1) % photos.length), 4500);
+    return () => window.clearInterval(id);
+  }, [photos.length]);
+  return (
+    <>
+      {photos.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={i === idx ? alt : ''}
+          aria-hidden={i !== idx}
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms]"
+          style={{opacity: i === idx ? 1 : 0}}
+        />
+      ))}
+      {photos.length > 1 && (
+        <div className="absolute bottom-3 start-4 flex gap-1.5">
+          {photos.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              aria-label={`${i + 1} / ${photos.length}`}
+              onClick={() => setIdx(i)}
+              className={`h-1.5 rounded-full transition-all ${i === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/60'}`}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -944,15 +982,19 @@ export function WebsiteTemplateView({
                     <span className="font-quiet text-[18px] text-[#8F8D88]">{ev.short ? t(ev.short) : `${t(ev.month).toLowerCase()}, ${ev.time}`}</span>
                   </div>
                   <div className="relative mt-5 aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
-                    {ev.instagramEmbed ? (
-                      <iframe
-                        src={ev.instagramEmbed}
-                        title={`${t(ev.title)} · Instagram`}
-                        loading="lazy"
-                        scrolling="no"
-                        tabIndex={-1}
-                        className="pointer-events-none absolute start-0 top-[-58px] h-[700px] w-full border-0"
-                      />
+                    {ev.photos && ev.photos.length > 0 ? (
+                      <EventPhotos photos={ev.photos} alt={t(ev.title)} />
+                    ) : ev.instagramEmbed ? (
+                      <div className="pointer-events-none absolute inset-x-0 top-0" style={{marginTop: 'calc(-58px - 42%)'}}>
+                        <iframe
+                          src={ev.instagramEmbed}
+                          title={`${t(ev.title)} · Instagram`}
+                          loading="lazy"
+                          scrolling="no"
+                          tabIndex={-1}
+                          className="block h-[900px] w-full border-0"
+                        />
+                      </div>
                     ) : ev.photoSrc ? (
                       <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
                     ) : (
@@ -1004,13 +1046,12 @@ export function WebsiteTemplateView({
                             {t("U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.")}
                           </p>
                           <p className="font-quiet mt-2 text-[16px] text-[#2B211C]">
-                            {t("Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.")}
+                            {t("Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.")}
                           </p>
                           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
                             <a href={`mailto:${ev.applyEmail}`} className={ACTION_CLS}>
                               <Mail className="h-3.5 w-3.5" /> {ev.applyEmail}
                             </a>
-                            <a href="#potrazi-pomoc" className={ACTION_CLS}>{t("Javi nam se")}</a>
                           </div>
                         </div>
                       )}

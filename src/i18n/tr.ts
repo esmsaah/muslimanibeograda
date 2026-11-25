@@ -280,5 +280,6 @@ export const TR: Record<string, string> = {
  "Narodno pozorište": "Ulusal Tiyatro",
  "Znaš za dobar događaj?": "İyi bir etkinlik mi biliyorsun?",
  "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "Bir konuşma, iftar, sergi, konser ya da yürüyüş. Bize gönder, buraya ekleyelim.",
- "Predloži događaj": "Etkinlik öner"
+ "Predloži događaj": "Etkinlik öner",
+ "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "Pazartesiler arasında helal bir akşam yemeği de olsun. Kendi yemeğinle başvur."
 };

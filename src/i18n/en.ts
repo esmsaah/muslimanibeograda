@@ -280,5 +280,6 @@ export const EN: Record<string, string> = {
  "Narodno pozorište": "National Theatre",
  "Znaš za dobar događaj?": "Know a good event?",
  "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "A talk, an iftar, an exhibition, a concert or a walk. Send it to us and we'll add it here.",
- "Predloži događaj": "Suggest an event"
+ "Predloži događaj": "Suggest an event",
+ "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "There could be a halal dinner among the Mondays too. Apply with your own dish."
 };
