@@ -1086,14 +1086,16 @@ export function WebsiteTemplateView({
             </div>
           )}
 
-          <div className="grid grid-cols-1 gap-x-16 gap-y-16 px-6 pt-10 pb-14 sm:px-10 lg:grid-cols-2 lg:pt-12">
-            {/* Koga zvati */}
-            <div>
-              <SignTitle caps={t("Koga")} rest={t("zvati")} accent="#9E2B45" />
-              <p className="font-quiet mt-4 max-w-xl text-[18px] leading-[1.5] text-[#2B211C]">
-                {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
-              </p>
-              <div role="group" aria-label={t("Vrsta kontakta")} className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
+          <div className="grid grid-cols-1 gap-x-16 gap-y-14 px-6 pt-9 pb-12 sm:px-10 lg:grid-cols-2 lg:gap-y-0 lg:pt-10">
+            {/* Koga zvati. Kolone dele redove (subgrid), pa su linije poravnate. */}
+            <div className="grid grid-cols-1 lg:row-span-3 lg:grid-rows-subgrid">
+              <div>
+                <SignTitle caps={t("Koga")} rest={t("zvati")} accent="#9E2B45" />
+                <p className="font-quiet mt-2 max-w-xl text-[18px] leading-[1.5] text-[#2B211C]">
+                  {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
+                </p>
+              </div>
+              <div role="group" aria-label={t("Vrsta kontakta")} className="mt-5 flex flex-wrap content-start gap-x-6 gap-y-2 text-[15px]">
                 {USEFUL_CONTACTS.map((g) => (
                   <button
                     key={g.title}
@@ -1105,7 +1107,7 @@ export function WebsiteTemplateView({
                   </button>
                 ))}
               </div>
-              <ol className="mt-6 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+              <ol className="mt-2 grid grid-cols-1 content-start gap-x-8 sm:grid-cols-2">
                 {(USEFUL_CONTACTS.find((g) => g.title === contactGroup) ?? USEFUL_CONTACTS[0]).items.map((c) => (
                   <li key={c.name} className="border-b border-[#D4D3CD] py-4">
                     <div className="font-stone text-[19px] leading-tight text-[#2B211C]">{t(c.name)}</div>
@@ -1122,23 +1124,27 @@ export function WebsiteTemplateView({
                   </li>
                 ))}
               </ol>
-              <p className="mt-4 text-[12px] leading-relaxed text-[#8F8D88]">
-                {t("Za stvari iz zajednice, smeštaj ili snalaženje u gradu piši nam preko forme Javi nam se.")}
-              </p>
             </div>
 
             {/* Imenik: Osloni se na svoje */}
-            <div id="imenik" className="scroll-mt-24">
-              <SignTitle caps={t("Osloni se")} rest={t("na svoje")} />
-              <p className="font-quiet mt-4 max-w-xl text-[18px] leading-[1.5] text-[#2B211C]">
-                {t("Muslimani koji rade u Beogradu.")}
-              </p>
-
-              {neighbors.length === 0 ? (
-                <p className="font-quiet mt-7 border-t border-[#2B211C] pt-4 text-[17px] text-[#8F8D88]">{t("Imenik tek počinje. Prvi upisi pojaviće se ovde čim ih pregledamo.")}</p>
-              ) : (<>
+            <div id="imenik" className="grid scroll-mt-24 grid-cols-1 lg:row-span-3 lg:grid-rows-subgrid">
+              <div>
+                <SignTitle caps={t("Osloni se")} rest={t("na svoje")} />
+                <p className="font-quiet mt-2 max-w-xl text-[18px] leading-[1.5] text-[#2B211C]">
+                  {t("Muslimani koji rade u Beogradu.")}
+                </p>
+              </div>
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px]">
+                <button type="button" onClick={() => { setNbrMode('self'); setNbrDone(false); setShowAddNeighbor(true); }} className="inline-flex items-center gap-1.5 pb-1 text-[#9E2B45] transition-colors hover:text-[#221D1A]">
+                  <Plus className="h-3.5 w-3.5" /> {t("Upiši svoj biznis")}
+                </button>
+                <button type="button" onClick={() => { setNbrMode('rec'); setNbrDone(false); setShowAddNeighbor(true); }} className="pb-1 text-[#8F8D88] transition-colors hover:text-[#2B211C]">
+                  {t("Preporuči nekoga")}
+                </button>
+              </div>
+              <div>
                 {neighbors.length > 6 && (
-                  <div role="group" aria-label={t("Filtriraj delatnosti")} className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
+                  <div role="group" aria-label={t("Filtriraj delatnosti")} className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
                     {(
                       [
                         ['sve', 'Sve'],
@@ -1155,7 +1161,10 @@ export function WebsiteTemplateView({
                     ))}
                   </div>
                 )}
-                <ol className="mt-7 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+              {neighbors.length === 0 ? (
+                <p className="font-quiet mt-4 text-[17px] text-[#8F8D88]">{t("Imenik tek počinje. Prvi upisi pojaviće se ovde čim ih pregledamo.")}</p>
+              ) : (
+                <ol className="mt-2 grid grid-cols-1 content-start gap-x-8 sm:grid-cols-2">
                   {filteredNeighbors.map((item) => (
                     <li key={item.id} className="border-b border-[#D4D3CD] py-4">
                       <div className="font-stone text-[19px] leading-tight text-[#2B211C]">{item.name}</div>
@@ -1165,29 +1174,8 @@ export function WebsiteTemplateView({
                     </li>
                   ))}
                 </ol>
-              </>)}
+              )}
 
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 rounded-se-[40px] bg-[#EDEDEA] px-6 py-5">
-                <span className="font-stone text-[20px] leading-tight text-[#2B211C]">{t("Imaš radnju, zanat ili uslugu?")}</span>
-                <div className="flex flex-wrap items-center gap-5">
-                  <IslamicButton
-                    variant="kocka"
-                    tone="brick"
-                    size="sm"
-                    iconLeft={<Plus className="h-3.5 w-3.5" />}
-                    onClick={() => { setNbrMode('self'); setNbrDone(false); setShowAddNeighbor(true); }}
-                  >
-                    {t("Upiši svoj biznis")}
-                  </IslamicButton>
-                  <IslamicButton
-                    variant="flowline"
-                    size="sm"
-                    onClick={() => { setNbrMode('rec'); setNbrDone(false); setShowAddNeighbor(true); }}
-                  >
-                    {t("Preporuči nekoga")}
-                  </IslamicButton>
-                </div>
-              </div>
               <div className="mt-6">
         {/* Formular za dodavanje komšije / sebe */}
         {showAddNeighbor && (
@@ -1372,6 +1360,7 @@ export function WebsiteTemplateView({
           </div>
         )}
 
+              </div>
               </div>
             </div>
           </div>
