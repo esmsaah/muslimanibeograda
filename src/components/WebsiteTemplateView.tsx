@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {ArrowUp, Check, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
+import {ArrowUp, Check, Link2, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
 import {COMMUNITY_PHOTOS} from '../data/communityPhotos';
 import {
   drawDeliveryCyclist,
@@ -245,6 +245,17 @@ export function WebsiteTemplateView({
   // RSVP
   const [rsvpEvent, setRsvpEvent] = useState<CulturalEvent | null>(null);
   const [openEventId, setOpenEventId] = useState<string | null>(route0.kind === 'dogadjaj' && CULTURAL_EVENTS.some((x) => x.id === route0.id) ? route0.id : null);
+  const [copiedEvent, setCopiedEvent] = useState<string | null>(null);
+  const copyEventLink = async (id: string) => {
+    const url = `https://muslimanibeograda.com${pathFor(lang, {kind: 'dogadjaj', id})}`;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      window.prompt(t('Kopiraj link'), url);
+    }
+    setCopiedEvent(id);
+    window.setTimeout(() => setCopiedEvent((c) => (c === id ? null : c)), 2000);
+  };
   const toggleEvent = (id: string | null) => { setOpenEventId(id); setRoute(lang, id ? {kind: 'dogadjaj', id} : {kind: 'home'}); };
   const [suggestOpen, setSuggestOpen] = useState(false);
   const [sgTitle, setSgTitle] = useState('');
@@ -981,6 +992,22 @@ export function WebsiteTemplateView({
                       className="text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]"
                     >
                       {t(open ? 'Vidi manje' : 'Vidi više')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => copyEventLink(ev.id)}
+                      aria-label={t('Kopiraj link')}
+                      title={t('Kopiraj link')}
+                      className="ms-auto inline-flex items-center gap-1.5 text-[12px] text-[#8F8D88] transition-colors hover:text-[#221D1A]"
+                    >
+                      {copiedEvent === ev.id ? (
+                        <>
+                          <Check className="h-4 w-4 text-[#0F7A53]" />
+                          <span className="text-[#0F7A53]">{t('Link kopiran')}</span>
+                        </>
+                      ) : (
+                        <Link2 className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </li>

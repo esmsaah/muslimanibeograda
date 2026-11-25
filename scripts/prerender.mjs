@@ -181,7 +181,8 @@ function page(lang, route) {
       image: `${SITE}${(e.photos?.[0] ?? e.photoSrc).replace(/^\/?/, '/')}`,
       url,
     }));
-    return {url, title, desc, graph: [website, ...events, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Kulturni događaji'), `${home}#kulturni-dogadjaji`], [name, url]])]};
+    const og = fs.existsSync(path.join(ROOT, 'public/assets/events/og', `${e.id}.jpg`)) ? `${SITE}/assets/events/og/${e.id}.jpg` : undefined;
+    return {url, title, desc, og, graph: [website, ...events, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Kulturni događaji'), `${home}#kulturni-dogadjaji`], [name, url]])]};
   }
   if (route.kind === 'vaktija') {
     return {url, title: T(lang, 'Vaktija Beograd · vreme namaza danas | Muslimani Beograda'), desc: T(lang, 'Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.'), graph: [website, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Vreme namaza · Beograd'), url]])]};
@@ -206,7 +207,7 @@ for (const route of routes()) {
   const alts = LANGS.map((a) => [a.html, SITE + pathFor(a.code, route)]);
   allUrls.push(alts);
   for (const l of LANGS) {
-    const {url, title, desc, graph} = page(l.code, route);
+    const {url, title, desc, graph, og} = page(l.code, route);
     const share = route.kind === 'home' ? T(l.code, SHARE) : desc;
     const ogTitle = route.kind === 'home' ? T(l.code, 'Sumud · Muslimani Beograda') : title;
     const head = [
@@ -225,6 +226,8 @@ for (const route of routes()) {
       .replace(/(<meta name="twitter:description" content=")[^"]*"/, `$1${esc(share)}"`)
       .replace(/(<meta property="og:url" content=")[^"]*"/, `$1${url}"`)
       .replace(/(<meta property="og:locale" content=")[^"]*"/, `$1${l.og}"`)
+      .replace(/(<meta property="og:image" content=")[^"]*"/, `$1${og ?? `${SITE}/og-image.jpg`}"`)
+      .replace(/(<meta name="twitter:image" content=")[^"]*"/, `$1${og ?? `${SITE}/og-image.jpg`}"`)
       .replace('<!--seo-->', head);
     const body = render(l.code, route);
     html = html.replace(/<div id="root">[\s\S]*?<\/div>(\s*<script|\s*<\/body>)/, `<div id="root" data-prerendered="${l.code}">${body}</div>$1`);
