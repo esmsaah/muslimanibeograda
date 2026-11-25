@@ -123,6 +123,7 @@ function routes() {
   return [
     {kind: 'home'},
     {kind: 'pitanja'},
+    {kind: 'vaktija'},
     ...HALAL_SPOTS.map((x) => ({kind: 'halal', id: x.id})),
     ...DZEMATI.map((x) => ({kind: 'dzamija', id: x.id})),
   ];
@@ -157,6 +158,9 @@ function page(lang, route) {
     const desc = `${name}, ${d.address}, ${d.district}. ${T(lang, 'Adresa, mapa i svi džemati Beograda na jednom mestu.')}`;
     const entity = {'@type': 'Mosque', '@id': `${url}#place`, name, url, address: address(d.address, d.district), hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.mapQuery)}`};
     return {url, title, desc, graph: [website, entity, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Džemati Beograda'), `${home}#dzemati`], [name, url]])]};
+  }
+  if (route.kind === 'vaktija') {
+    return {url, title: T(lang, 'Vaktija Beograd · vreme namaza danas | Muslimani Beograda'), desc: T(lang, 'Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.'), graph: [website, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Vreme namaza · Beograd'), url]])]};
   }
   if (route.kind === 'pitanja') {
     const faq = {

@@ -352,5 +352,17 @@ export const TR: Record<string, string> = {
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "Adres, telefon ve helal durumu, Belgrad'daki tüm helal mekânlarla birlikte.",
  "Muslimani Beograda": "Belgradlı Müslümanlar",
  "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "Bayraklı Camii'nin karşısında döner, falafel, humus ve şiş tavuk.",
- "U nazivu i opisu ističe da je halal.": "Adında ve tanıtımında helal olduğunu belirtiyor."
+ "U nazivu i opisu ističe da je halal.": "Adında ve tanıtımında helal olduğunu belirtiyor.",
+ "Vreme namaza · Beograd": "Namaz vakitleri · Belgrad",
+ "Sabah": "İmsak",
+ "Izlazak sunca": "Güneş",
+ "Podne": "Öğle",
+ "Ikindija": "İkindi",
+ "Akšam": "Akşam",
+ "Jacija": "Yatsı",
+ "sledeći": "sıradaki",
+ "Vaktija Beograd · vreme namaza danas | Muslimani Beograda": "Belgrad namaz vakitleri bugün | Belgradlı Müslümanlar",
+ "Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.": "Belgrad için bugünün namaz vakitleri. İmsak, öğle, ikindi, akşam ve yatsı, şehirdeki tüm camiler ve mescitlerle.",
+ "Kada je namaz u Beogradu danas?": "Bugün Belgrad'da namaz vakitleri ne zaman?",
+ "Današnja vaktija za Beograd je na sajtu, u delu Džemati Beograda. Vremena se menjaju svaki dan, a sledeći namaz je posebno označen.": "Belgrad için bugünün namaz vakitleri sitede, Belgrad Camileri bölümünde. Vakitler her gün değişir, sıradaki namaz ayrıca işaretlidir."
 };

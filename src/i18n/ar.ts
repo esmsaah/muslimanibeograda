@@ -352,5 +352,17 @@ export const AR: Record<string, string> = {
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "العنوان والهاتف وحالة الحلال، مع كل الأماكن الحلال في بلغراد.",
  "Muslimani Beograda": "مسلمو بلغراد",
  "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "شاورما وفلافل وحمص وشيش طاووق، مقابل جامع بيرقلي.",
- "U nazivu i opisu ističe da je halal.": "يذكر في اسمه ووصفه أنه حلال."
+ "U nazivu i opisu ističe da je halal.": "يذكر في اسمه ووصفه أنه حلال.",
+ "Vreme namaza · Beograd": "مواقيت الصلاة · بلغراد",
+ "Sabah": "الفجر",
+ "Izlazak sunca": "الشروق",
+ "Podne": "الظهر",
+ "Ikindija": "العصر",
+ "Akšam": "المغرب",
+ "Jacija": "العشاء",
+ "sledeći": "التالية",
+ "Vaktija Beograd · vreme namaza danas | Muslimani Beograda": "مواقيت الصلاة في بلغراد اليوم | مسلمو بلغراد",
+ "Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.": "مواقيت الصلاة اليوم في بلغراد، الفجر والظهر والعصر والمغرب والعشاء، مع كل مساجد المدينة.",
+ "Kada je namaz u Beogradu danas?": "ما هي مواقيت الصلاة في بلغراد اليوم؟",
+ "Današnja vaktija za Beograd je na sajtu, u delu Džemati Beograda. Vremena se menjaju svaki dan, a sledeći namaz je posebno označen.": "مواقيت الصلاة اليوم في بلغراد موجودة في الموقع، في قسم مساجد بلغراد. تتغير كل يوم، والصلاة التالية مميزة."
 };

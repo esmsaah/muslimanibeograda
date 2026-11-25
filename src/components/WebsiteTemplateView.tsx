@@ -11,6 +11,7 @@ import {IslamicButton} from './IslamicButton';
 import {CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
 import {currentRoute, pathFor, setRoute} from '../route';
 import type {Route} from '../route';
+import {PrayerTimesCard} from './PrayerTimesCard';
 import type {CulturalEvent, HalalSpot} from '../data/content';
 import {useLang, fill} from '../i18n';
 import SumudMark from './SumudMark';
@@ -417,7 +418,7 @@ export function WebsiteTemplateView({
     filteredHalal.find((s) => s.id === selectedSpotId) ?? filteredHalal[0];
 
   useEffect(() => {
-    const target = route0Spot ? (isMobile() ? halalDetailRef.current : document.getElementById('halal-beograd')) : route0Dzemat ? document.getElementById('dzemati') : null;
+    const target = route0Spot ? (isMobile() ? halalDetailRef.current : document.getElementById('halal-beograd')) : route0Dzemat ? document.getElementById('dzemati') : route0.kind === 'vaktija' ? document.getElementById('vaktija') : null;
     if (target) window.setTimeout(() => target.scrollIntoView({block: 'start'}), 150);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -783,6 +784,7 @@ export function WebsiteTemplateView({
               <p className="mt-6 max-w-md text-[13px] leading-relaxed text-[#8F8D88]">
                 {t("Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.")}
               </p>
+              <PrayerTimesCard />
               <div className="relative mt-10 hidden aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
@@ -1496,6 +1498,7 @@ export function WebsiteTemplateView({
               <nav className="mt-3 flex flex-col sm:mt-0 sm:flex-row sm:items-baseline sm:gap-8">
                 <button type="button" onClick={() => setCommunityModal('whatsapp')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Ženski džemat · WhatsApp")}</button>
                 <button type="button" onClick={() => setCommunityModal('facebook')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Facebook")}</button>
+                <a href={pathFor(lang, {kind: 'vaktija'})} onClick={(e) => { e.preventDefault(); setRoute(lang, {kind: 'vaktija'}); document.getElementById('vaktija')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Vreme namaza · Beograd")}</a>
                 <a href={pathFor(lang, {kind: 'pitanja'})} onClick={(e) => { e.preventDefault(); openFaq(true); }} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Česta pitanja")}</a>
                 <button type="button" onClick={() => scrollTo('o-muslimanima')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px] border-b-0 text-[#8F8D88]">{t("Povratak na vrh")}</button>
               </nav>

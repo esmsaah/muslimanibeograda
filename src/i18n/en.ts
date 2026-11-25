@@ -352,5 +352,17 @@ export const EN: Record<string, string> = {
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "Address, phone and halal status, with every halal place in Belgrade.",
  "Muslimani Beograda": "Muslims of Belgrade",
  "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "Shawarma, falafel, hummus and shish tawook, across from the Bajrakli Mosque.",
- "U nazivu i opisu ističe da je halal.": "States in its name and description that it is halal."
+ "U nazivu i opisu ističe da je halal.": "States in its name and description that it is halal.",
+ "Vreme namaza · Beograd": "Prayer times · Belgrade",
+ "Sabah": "Fajr",
+ "Izlazak sunca": "Sunrise",
+ "Podne": "Dhuhr",
+ "Ikindija": "Asr",
+ "Akšam": "Maghrib",
+ "Jacija": "Isha",
+ "sledeći": "next",
+ "Vaktija Beograd · vreme namaza danas | Muslimani Beograda": "Belgrade prayer times today · Fajr, Dhuhr, Asr, Maghrib, Isha | Muslims of Belgrade",
+ "Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.": "Today's prayer times for Belgrade. Fajr, Dhuhr, Asr, Maghrib and Isha, with every mosque and masjid in the city.",
+ "Kada je namaz u Beogradu danas?": "What are the prayer times in Belgrade today?",
+ "Današnja vaktija za Beograd je na sajtu, u delu Džemati Beograda. Vremena se menjaju svaki dan, a sledeći namaz je posebno označen.": "Today's prayer times for Belgrade are on the site, in the Mosques of Belgrade section. They change every day, and the next prayer is highlighted."
 };
