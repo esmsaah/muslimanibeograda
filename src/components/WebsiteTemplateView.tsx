@@ -1053,20 +1053,20 @@ export function WebsiteTemplateView({
 
           {/* Zajednica: Ženski džemat i Facebook */}
           {IMENIK_LAYOUT === 'd1' ? (
-            <div className="grid grid-cols-1 gap-x-8 gap-y-8 bg-[#EDEDEA] px-6 pt-8 pb-9 sm:grid-cols-2 sm:px-10">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-5 bg-[#EDEDEA] px-6 py-6 sm:px-10 md:grid-cols-2">
               {COMMUNITY_CHANNELS.map((ch) => (
-                <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group block w-full text-start">
-                  <span className="relative block h-[180px] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
-                    <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${ch.pos}`} />
+                <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group flex w-full items-stretch gap-5 text-start">
+                  <span className="relative block h-[112px] w-[44%] max-w-[240px] shrink-0 overflow-hidden rounded-se-[40px] bg-[#D4D3CD]">
+                    <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] ${ch.pos}`} />
                   </span>
-                  <span className="mt-4 flex items-baseline justify-between gap-4 border-t border-[#2B211C] pt-3">
-                    <span className="font-stone text-[24px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
-                    <span className="inline-flex shrink-0 items-center gap-2 text-[13px] text-[#0F7A53]">
+                  <span className="flex min-w-0 flex-1 flex-col justify-center border-t border-[#2B211C] pt-2">
+                    <span className="font-stone text-[22px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
+                    <span className="font-quiet mt-0.5 text-[15px] leading-snug text-[#8F8D88]">{t(ch.sub)}</span>
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-[#0F7A53]">
                       {t(ch.action)}
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:-scale-x-100" />
                     </span>
                   </span>
-                  <span className="font-quiet mt-1 block text-[15px] text-[#8F8D88]">{t(ch.sub)}</span>
                 </button>
               ))}
             </div>
