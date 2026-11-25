@@ -559,7 +559,7 @@ export function WebsiteTemplateView({
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="grid grid-cols-1 border-s border-[#2B211C] lg:grid-cols-[560px_1fr]">
           {/* Levo, uz čvrstu vertikalu */}
-          <div className="relative flex flex-col justify-between bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-8 lg:min-h-[560px] lg:pt-16 lg:pb-12">
+          <div className="relative flex flex-col justify-between gap-12 bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-8 lg:pt-16 lg:pb-12">
             <div>
               <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
                 {t("SUMUD")}
@@ -567,10 +567,19 @@ export function WebsiteTemplateView({
               <p className="font-quiet mt-4 text-[22px] leading-snug text-[#2B211C]">
                 {t("Kolektiv muslimana Beograda")}
               </p>
+              <div className="mt-8 max-w-[440px] space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
+                <p className="text-[#2B211C]">{t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}</p>
+                <p>{t(ABOUT_STORY.paragraphs[0])}</p>
+              </div>
+              <div className="mt-7">
+                <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
+                  {t("Pročitaj celu priču")}
+                </IslamicButton>
+              </div>
             </div>
             <div className="mt-8 hidden lg:mt-0 lg:block">
-              <div aria-hidden="true" className="hidden h-[96px] w-[96px] rounded-full bg-[#D9A02B] lg:block" />
-              <blockquote className="font-quiet m-0 mt-8 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
+              <div aria-hidden="true" className="hidden h-[64px] w-[64px] rounded-full bg-[#D9A02B] lg:block" />
+              <blockquote className="font-quiet m-0 mt-6 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
                 {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
               </blockquote>
               <p className="font-quiet mt-3 text-[15px] text-[#8F8D88]">{t("Hadis, beleže Buhari i Muslim")}</p>
@@ -607,38 +616,21 @@ export function WebsiteTemplateView({
       <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <ChapterMark label={t("Priča o nama")} />
-
-          {/* Fotografija preko cele širine, kao uvodna slika poglavlja */}
-          <div className="bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:pt-12 lg:pb-12">
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-[21/8]">
-              {PRICA_PHOTOS.map((p, i) => (
-                <img loading="lazy" decoding="async"
-                  key={p.src}
-                  src={p.src}
-                  alt={t(p.alt)}
-                  className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Dva teksta, dve kolone, isti font i ista veličina */}
-          <div className="grid grid-cols-1 gap-x-16 gap-y-14 bg-[#FFFFFF] px-6 pt-10 pb-14 sm:px-10 lg:grid-cols-2 lg:pt-12">
-            <div className="flex flex-col">
-              <SignTitle caps={t("Priča")} rest={t("o nama")} />
-              <div className="mt-7 space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
-                <p className="text-[#2B211C]">{t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}</p>
-                <p>{t(ABOUT_STORY.paragraphs[0])}</p>
-                <p>{t(ABOUT_STORY.paragraphs[1])}</p>
-              </div>
-              <div className="mt-auto pt-8">
-                <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
-                  {t("Pročitaj celu priču")}
-                </IslamicButton>
+          <ChapterMark label={t("Muslimani Beograda")} />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
+            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:py-12">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
+                {PRICA_PHOTOS.map((p, i) => (
+                  <img loading="lazy" decoding="async"
+                    key={p.src}
+                    src={p.src}
+                    alt={t(p.alt)}
+                    className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
+                  />
+                ))}
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-12 lg:pb-14">
               <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
               <div className="mt-7 space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
                 <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
@@ -663,7 +655,7 @@ export function WebsiteTemplateView({
         <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
           {/* Levo: indeks adresa */}
           <div className="px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
-            <SignTitle num={t("Gde jesti i kupovati")} caps={t("Halal")} rest={t("Beograd")} />
+            <SignTitle caps={t("Halal")} rest={t("Beograd")} />
 
             <div className="mt-10 flex flex-wrap items-end justify-between gap-x-7 gap-y-3">
               <div role="group" aria-label={t("Filtriraj halal kategorije")} className="flex flex-wrap gap-x-7 gap-y-2 text-[15px]">

@@ -444,5 +444,6 @@ export const TR: Record<string, string> = {
  "Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.": "Topluluk Krallık'ta ve Yugoslavya'da yenilenir ve büyür.",
  "Novi džemati i sve bogatiji društveni i kulturni život.": "Yeni cemaatler ve giderek zenginleşen sosyal ve kültürel hayat.",
  "XX vek": "20. yüzyıl",
- "Danas": "Bugün"
+ "Danas": "Bugün",
+ "O nama": "Hakkımızda"
 };

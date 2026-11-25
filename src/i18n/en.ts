@@ -444,5 +444,6 @@ export const EN: Record<string, string> = {
  "Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.": "The community renews itself and grows, in the Kingdom and in Yugoslavia.",
  "Novi džemati i sve bogatiji društveni i kulturni život.": "New communities and an ever richer social and cultural life.",
  "XX vek": "20th century",
- "Danas": "Today"
+ "Danas": "Today",
+ "O nama": "About us"
 };

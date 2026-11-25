@@ -381,7 +381,7 @@ export default function App() {
                   href="#o-muslimanima"
                   className="hover:text-[#221D1A] transition-colors whitespace-nowrap shrink-0"
                 >
-                  {t('Priča o nama')}
+                  {t('O nama')}
                 </a>
                 <a
                   href="#halal-beograd"
@@ -501,7 +501,7 @@ export default function App() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-stone border-b border-[#D4D3CD] py-3.5 text-[24px] leading-tight hover:text-[#0F7A53]"
               >
-                {t('Priča o nama')}
+                {t('O nama')}
               </a>
               <a
                 href="#halal-beograd"

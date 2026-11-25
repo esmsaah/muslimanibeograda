@@ -444,5 +444,6 @@ export const AR: Record<string, string> = {
  "Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.": "يتجدد المجتمع وينمو، في المملكة وفي يوغوسلافيا.",
  "Novi džemati i sve bogatiji društveni i kulturni život.": "جماعات جديدة وحياة اجتماعية وثقافية أغنى.",
  "XX vek": "القرن العشرون",
- "Danas": "اليوم"
+ "Danas": "اليوم",
+ "O nama": "من نحن"
 };
