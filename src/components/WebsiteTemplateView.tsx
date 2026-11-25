@@ -223,7 +223,6 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     place: 'Više lokacija u Beogradu',
     photoSrc: '',
     photos: ['assets/events/dani-solidarnosti.jpg'],
-    photoContain: '#FCF2F2',
     summary:
       'Treće izdanje programa kolektiva Za slobodnu Palestinu. Nedelju dana izložbi, predavanja, muzike i razgovora, a na kraju bazar za pomoć narodu Palestine.',
     note: 'Deo programa održava se u kafićima i barovima.',
