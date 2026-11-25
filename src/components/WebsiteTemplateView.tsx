@@ -839,30 +839,30 @@ export function WebsiteTemplateView({
                 {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
               </p>
               <PrayerTimesCard />
-              <div className="relative mt-10 hidden aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
+              <div className="relative mt-10 hidden aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
             </div>
 
             <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
-              <ol className="border-t border-[#2B211C]">
+              <ol className="grid grid-flow-row-dense grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
                 {DZEMATI.map((dz) => {
                   const open = openDzemat === dz.id;
                   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(dz.mapQuery)}&z=15&output=embed`;
                   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dz.mapQuery)}`;
                   return (
-                    <li key={dz.id} className="border-b border-[#D4D3CD]">
+                    <li key={dz.id} className={`border-b border-[#D4D3CD] ${open ? 'sm:col-span-2' : ''}`}>
                       <a
                         href={pathFor(lang, {kind: 'dzamija', id: dz.id})}
                         aria-expanded={open}
                         onClick={(e) => { e.preventDefault(); toggleDzemat(open ? null : dz.id); }}
-                        className="group flex w-full items-baseline justify-between gap-6 py-4 text-start"
+                        className="group flex w-full items-baseline justify-between gap-4 py-3.5 text-start"
                       >
                         <span>
-                          <span className={`font-stone block text-[22px] leading-tight transition-colors ${open ? 'text-[#0F7A53]' : 'text-[#2B211C] group-hover:text-[#0F7A53]'}`}>{t(dz.name)}</span>
-                          <span className="mt-1 block text-[13px] text-[#4F4A46]">{t(dz.address)} · {t(dz.district)}</span>
+                          <span className={`font-stone block text-[19px] leading-tight transition-colors ${open ? 'text-[#0F7A53]' : 'text-[#2B211C] group-hover:text-[#0F7A53]'}`}>{t(dz.name)}</span>
+                          <span className="mt-1 block text-[12px] leading-snug text-[#4F4A46]">{t(dz.address)} · {t(dz.district)}</span>
                         </span>
-                        <span className={`font-stone shrink-0 text-[24px] leading-none text-[#8F8D88] transition-transform duration-300 ${open ? 'rotate-45' : ''}`}>+</span>
+                        <span className={`font-stone shrink-0 text-[22px] leading-none text-[#8F8D88] transition-transform duration-300 ${open ? 'rotate-45' : ''}`}>+</span>
                       </a>
                       {open && (
                         <div className="animate-fade-in grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
