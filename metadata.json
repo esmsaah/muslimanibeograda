@@ -1,0 +1,6 @@
+{
+  "name": "Muslims of Belgrade — Portrait Study",
+  "description": "Six square analog-style documentary portraits against rough blue and off-white plaster walls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

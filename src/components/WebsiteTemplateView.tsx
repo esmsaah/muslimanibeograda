@@ -1,0 +1,1612 @@
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {Check, Download, Globe, Instagram, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
+import {COMMUNITY_PHOTOS} from '../data/communityPhotos';
+import {
+  drawDeliveryCyclist,
+  PAINTING_HEIGHT,
+  PAINTING_WIDTH,
+  renderBelgradeGouachePainting,
+} from '../utils/belgradePainting';
+import {IslamicButton} from './IslamicButton';
+import {useLang, fill} from '../i18n';
+import SumudMark from './SumudMark';
+import TespihRule from './TespihRule';
+import {TespihLoader} from './IslamicElements';
+
+export interface WebsiteTemplateViewProps {
+  onNavigateSeries: (series: 'landscape' | 'lines' | 'drawings' | 'photos') => void;
+  onExportGif: () => void;
+  isExportingGif?: boolean;
+  gifPercent?: number | null;
+}
+
+const FACEBOOK_URL = 'https://www.facebook.com/share/g/1DP6NJB5ka/';
+const WHATSAPP_URL = 'https://chat.whatsapp.com/GjN9oBUI2EiJ8TIm4QguJj';
+const CONTACT_EMAIL = 'muslimanibeograda@proton.me';
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+
+const openCommunity = (which: 'whatsapp' | 'facebook') => {
+  window.open(which === 'whatsapp' ? WHATSAPP_URL : FACEBOOK_URL, '_blank', 'noopener,noreferrer');
+};
+
+async function sendForm(subject: string, fields: Record<string, string>) {
+  const res = await fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+    body: JSON.stringify({_subject: subject, _template: 'table', _captcha: 'false', ...fields}),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || String((data as {success?: unknown}).success) === 'false') {
+    throw new Error('send failed');
+  }
+}
+
+const INPUT_CLS =
+  'mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#221D1A] placeholder:text-[#807E79] focus:border-[#221D1A] focus:outline-none';
+
+const telHref = (n: string) => `tel:+381${n.replace(/\D/g, '').replace(/^0/, '')}`;
+const waHref = (n: string) => `https://wa.me/381${n.replace(/\D/g, '').replace(/^0/, '')}`;
+const prettyUrl = (u: string) => u.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/(sr\/?)?$/, '').replace(/\/$/, '');
+const ACTION_CLS = 'inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]';
+
+const PRICA_PHOTOS = [
+  {src: 'assets/community/506A0447.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-center'},
+  {src: 'assets/community/506A2783.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-[50%_40%]'},
+  {src: 'assets/community/506A6413.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
+];
+
+type Dzemat = {id: string; name: string; district: string; address: string; imam?: string; photo?: string; photoAlt?: string; mapQuery: string};
+
+// Izvor: rijaset.org, Mešihat srbijanski, Muftijstvo beogradsko
+const DZEMATI: Dzemat[] = [
+  {id: 'bajrakli', name: 'Bajrakli džamija', district: 'Stari grad', address: 'Gospodar Jevremova 11', mapQuery: 'Bajrakli džamija, Gospodar Jevremova 11, Beograd'},
+  {id: 'islamski-centar', name: 'Mesdžid Islamski centar', district: 'Zvezdara', address: 'Bulevar kralja Aleksandra 241', mapQuery: 'Bulevar kralja Aleksandra 241, Beograd'},
+  {id: 'borca', name: 'Borčanska džamija', district: 'Borča', address: 'Beočinska bb', mapQuery: 'Beočinska, Borča, Beograd'},
+  {id: 'krnjaca', name: 'Mesdžid Krnjača', district: 'Krnjača', address: 'Palilula', mapQuery: '44.85369,20.51756'},
+  {id: 'karaburma', name: 'Džamija na Karaburmi', district: 'Karaburma', address: 'Mirijevsko brdo 66', mapQuery: 'Mirijevsko brdo 66, Beograd'},
+  {id: 'zemun', name: 'Mesdžid Vojni put', district: 'Zemun', address: 'Pazovački put 14c', mapQuery: '44.84606,20.37594'},
+  {id: 'zemun-polje', name: 'Džamija u Zemun Polju', district: 'Zemun Polje', address: 'Kurirska 41', mapQuery: 'Kurirska 41, Zemun Polje, Beograd'},
+  {id: 'batajnica', name: 'Džamija u Batajnici', district: 'Batajnica', address: 'Novosadska 74', mapQuery: 'Novosadska 74, Batajnica, Beograd'},
+  {id: 'ledine', name: 'Džamija na Ledinama', district: 'Ledine', address: 'Slovačka 15ž', mapQuery: 'Slovačka 15, Ledine, Beograd'},
+  {id: 'surcin', name: 'Džamija u Surčinu', district: 'Surčin', address: 'Marka Pola bb', mapQuery: 'Marka Pola, Surčin, Beograd'},
+  {id: 'sremcica', name: 'Džamija u Sremčici', district: 'Sremčica', address: 'Železnički put 13b', mapQuery: 'Železnički put 13b, Sremčica, Beograd'},
+];
+
+const ALL_AREAS = 'Ceo grad';
+
+type HalalCategory = 'sve' | 'restorani' | 'kafici' | 'prodavnice';
+type SkillCategory = 'sve' | 'zdravlje' | 'zanat' | 'biznis' | 'hrana' | 'lepota';
+
+interface HalalSpot {
+  id: string;
+  category: 'halal' | 'bez-svinjetine' | 'kafici' | 'prodavnice';
+  categoryLabel: string;
+  name: string;
+  street: string;
+  district: string;
+  hours: string;
+  note: string;
+  communityTip: string;
+  phones?: string[];
+  website?: string;
+  instagram?: string;
+  whatsapp?: string;
+  photoSrc: string;
+  photoAlt: string;
+}
+
+interface CulturalEvent {
+  id: string;
+  day: string;
+  month: string;
+  title: string;
+  place: string;
+  time: string;
+  photoSrc: string;
+  summary: string;
+}
+
+interface NeighborListing {
+  id: string;
+  category: Exclude<SkillCategory, 'sve'>;
+  categoryLabel: string;
+  name: string;
+  profession: string;
+  district: string;
+  note: string;
+  contact: string;
+  recommendedBy?: string;
+}
+
+const HISTORY_STORY = {
+  label: 'Istorija i kontinuitet · Beograd',
+  title: 'Viševekovni trag muslimana u Beogradu',
+  paragraphs: [
+    'Prisustvo muslimana u Beogradu utkano je u samo tkivo grada — od starih dorćolskih mahala, nekadašnjih džamija i česmi, do 1867. godine kada Bajrakli džamija ostaje kao jedini sačuvani svedok tog vremena.',
+    'Tokom dvadesetog veka grad je oblikovao novi val života: hiljade porodica, radnika, zanatlija i studenata iz Sandžaka, Bosne, Makedonije, sa juga i iz prijateljskih nesvrstanih zemalja gradilo je Novi Beograd i ostavilo nove generacije rođenih Beograđana.',
+    'Danas ovu mrežu čine komšije različitih pozadina i generacija. Ovaj sajt nastaje iz potrebe građana da se upoznaju, čuvaju kulturno nasleđe i podržavaju jedni druge u poslu i svakodnevnom životu — potpuno van zvaničnih institucija i bez fizičke adrese.',
+  ],
+  photoSrc: 'assets/community/506A4303.jpg',
+  photoAlt: 'Čitanje knjige pored drvenog prozora u Beogradu',
+};
+
+const SITE_GOALS = [
+  {
+    num: '01',
+    title: 'Pamćenje i otvorena priča',
+    text: 'Čuvati istoriju i današnji život muslimana u Beogradu bez stereotipa.',
+  },
+  {
+    num: '02',
+    title: 'Komšijska ekonomija',
+    text: 'Unajmljivati i preporučivati jedni druge — majstore, lekare, dizajnere, krojače.',
+  },
+  {
+    num: '03',
+    title: 'Halal & kulturna mapa',
+    text: 'Proverene adrese restorana, kafića, prodavnica i bezalkoholnih dešavanja.',
+  },
+  {
+    num: '04',
+    title: 'Van svake institucije',
+    text: 'Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.',
+  },
+];
+
+// Curated atmospheric photos for the slow cross-fade (replaces photo gallery)
+const AMBIENT_FADE_PHOTOS = [
+  COMMUNITY_PHOTOS[14], // 506A4092
+  COMMUNITY_PHOTOS[1], // 506A0447 - courtyard gathering
+  COMMUNITY_PHOTOS[15], // 506A0464
+  COMMUNITY_PHOTOS[6], // 506A4303 - quiet morning book
+  COMMUNITY_PHOTOS[9], // 506A2232 - women cultural gathering
+];
+
+const HALAL_SPOTS: HalalSpot[] = [
+  {id: 'gallos', category: 'halal', categoryLabel: 'Halal', name: 'Gallo\'s', street: 'Čika Ljubina 7 i TC Galerija (Bulevar Vudroa Vilsona 14, 2. sprat, Savski venac)', district: 'Stari grad', hours: '', note: 'Piletina sa roštilja. Dve lokacije.', communityTip: 'Ima halal certifikat, vidi se i na fotografijama u galeriji restorana.', phones: ['066 800 8599', '062 828 8088'], photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'cesnili', category: 'halal', categoryLabel: 'Halal', name: 'Češnili Doner', street: 'Zmaj Jovina 6', district: 'Stari grad', hours: '', note: 'Pileći doner, pilav i falafel.', communityTip: 'Restoran navodi da ima halal certifikat.', phones: ['011 764 3190'], photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'anadolia', category: 'halal', categoryLabel: 'Halal', name: 'Anadolija', street: 'Strahinjića Bana 66a', district: 'Stari grad', hours: '', note: 'Turska kuhinja.', communityTip: 'Restoran navodi da je halal.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'yxlanzh', category: 'halal', categoryLabel: 'Halal', name: 'YXlanzh', street: 'Jug Bogdanova 6', district: 'Savski venac', hours: '', note: 'Kineska kuhinja, ručno rađene nudle i knedle.', communityTip: 'Halal kineska kuhinja, prema restoranu.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'berlin-doner', category: 'halal', categoryLabel: 'Halal', name: 'Real Berlin Doner', street: 'Jug Bogdanova 9', district: 'Savski venac', hours: '', note: 'Doner kebab.', communityTip: 'Restoran navodi da je halal.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'mujo', category: 'halal', categoryLabel: 'Halal', name: 'Pazarski specijaliteti', street: 'Vojislava Ilića 7', district: 'Zvezdara', hours: '', note: 'Pazarski ćevapi, pite i mantije.', communityTip: 'Halal, prema restoranu.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'ike', category: 'halal', categoryLabel: 'Halal', name: 'IKE 1997', street: 'Jug Bogdanova 5', district: 'Savski venac', hours: '', note: 'Kineska kuhinja, knedle i nudle.', communityTip: 'Halal kineska kuhinja, prema restoranu.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'nemrut', category: 'halal', categoryLabel: 'Halal', name: 'Fast Food Nemrut', street: 'Jug Bogdanova 5', district: 'Savski venac', hours: '', note: 'Turski kebab i brza hrana.', communityTip: 'U nazivu ističe da je HALAL.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'hanan', category: 'halal', categoryLabel: 'Halal', name: 'Restoran Hanan', street: 'Svetogorska 2', district: 'Stari grad', hours: '', note: 'Libanska kuhinja i arapski kolači.', communityTip: 'Na sajtu navodi da služi halal hranu, osoblje je to potvrdilo i usmeno.', phones: ['011 334 5304'], photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'hanan-shawarma', category: 'halal', categoryLabel: 'Halal', name: 'Shawarma Hanan', street: 'Strahinjića Bana 57, Njegoševa 31v i Nemanjina 32', district: 'Stari grad', hours: '', note: 'Šavarma, falafel i kibbeh. Tri lokacije.', communityTip: 'Isti vlasnici kao restoran Hanan, koji navodi da služi halal hranu. Adresu na Nemanjinoj proverite pre dolaska.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'kultura', category: 'halal', categoryLabel: 'Halal', name: 'Restoran Kultura', street: 'Kralja Petra 23 i Cara Lazara 3', district: 'Stari grad', hours: '', note: 'Turska i arapska kuhinja, pide, lahmadžun, šavarma. Više lokacija.', communityTip: 'Halal vodiči je navode kao jedno od pouzdanijih halal mesta u gradu.', phones: ['069 556 5127'], photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'meze', category: 'halal', categoryLabel: 'Halal', name: 'Meze Turski Restoran', street: 'Carice Milice 5', district: 'Stari grad', hours: '', note: 'Turski restoran, iskender i adana kebab.', communityTip: 'Halal vodiči navode da je ceo meni halal.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'falafel-cose', category: 'halal', categoryLabel: 'Halal', name: 'Falafel Ćoše', street: 'Gandijeva 3, Blok 64', district: 'Novi Beograd', hours: '', note: 'Falafel, humus i domaće limunade, libanski kuhar.', communityTip: 'Halal potvrđen iz zajednice.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'studio-shawarma', category: 'halal', categoryLabel: 'Halal', name: 'Studio Shawarma', street: 'Kralja Milana 20', district: 'Stari grad', hours: '', note: 'Libanska šavarma, humus i falafel.', communityTip: 'Halalfoodle ga navodi kao halal opciju, ali restoran u svom opisu ne navodi zvanični certifikat. Služi alkohol.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'beef-noodles', category: 'halal', categoryLabel: 'Halal', name: 'Chinese Beef Noodles', street: 'Makedonska 11', district: 'Stari grad', hours: '', note: 'Lanzhou goveđe nudle u supi, ručno vučeni rezanci.', communityTip: 'U nazivu ističe HALAL, a Halalfoodle ga navodi kao halal restoran.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'savcic', category: 'bez-svinjetine', categoryLabel: 'Bez svinjetine', name: 'Ćevabdžinica Savčić', street: 'Strahinjića Bana 52', district: 'Stari grad', hours: '', note: 'Ćevapi i roštilj.', communityTip: 'Nema halal certifikat, ali ne služi svinjetinu.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'istanbul', category: 'bez-svinjetine', categoryLabel: 'Bez svinjetine', name: 'Istanbul Turkish Restaurant', street: 'Kraljice Natalije 30 (ex Narodnog fronta)', district: 'Savski venac', hours: '', note: 'Turska kuhinja, kebab, pide iz kamene peći, meze i turski doručak.', communityTip: 'Ne služi svinjetinu. Na društvenim mrežama koristi oznaku halal, ali certifikat nije naveden.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'ujgurski', category: 'halal', categoryLabel: 'Halal', name: 'R-Tiam Uyghur Restaurant', street: 'Balkanska 8', district: 'Savski venac', hours: '', note: 'Ujgurska kuhinja, ručno vučene nudle i jagnjetina.', communityTip: 'Restoran na društvenim mrežama navodi da služi samo halal hranu.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'doner-kuca', category: 'halal', categoryLabel: 'Halal', name: 'Doner kuća', street: 'Gavrila Principa 35', district: 'Savski venac', hours: '', note: 'Doner kebab.', communityTip: 'Na meniju ima halal oznaku.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'bowl-doner', category: 'bez-svinjetine', categoryLabel: 'Bez svinjetine', name: 'Bowl Doner', street: 'Banatska 89', district: 'Zemun', hours: '', note: 'Doner u činiji i sendviču.', communityTip: 'Ne služi svinjetinu. Na društvenim mrežama koristi halal oznake, ali halal nije zvanično potvrđen.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'donerium', category: 'bez-svinjetine', categoryLabel: 'Bez svinjetine', name: 'Donerium Kebab House', street: 'Milentija Popovića 32A', district: 'Novi Beograd', hours: '', note: 'Doner i kebab.', communityTip: 'Ne služi svinjetinu. Na društvenim mrežama koristi halal oznake, ali halal nije zvanično potvrđen.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'mama-sara-zemun', category: 'halal', categoryLabel: 'Halal', name: 'Mama Sara', street: 'Karađorđeva 14B', district: 'Zemun', hours: '', note: 'Šavarma, falafel, baklava i sutlijaš.', communityTip: 'Na meniju ima halal oznaku.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'mama-sara-airport', category: 'halal', categoryLabel: 'Halal', name: 'Mama Sara', street: 'Omladinskih brigada 98, Airport City', district: 'Novi Beograd', hours: '', note: 'Šavarma, falafel, baklava i sutlijaš.', communityTip: 'Na meniju ima halal oznaku.', photoSrc: 'assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
+  {id: 'alibaba', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Ali Baba Hanabal', street: 'Golsvortijeva 21', district: 'Vračar', hours: '', note: 'Arapska radnja, duh orijenta u centru grada. Ručno rađene kožne torbe, rančevi, sandale, papuče, kaiševi, novčanici i taburei, tunižanska ručno rađena keramika i tadžini, ćilimi, suveniri, nakit i nargile.', communityTip: 'Maloprodaja i veleprodaja.', phones: ['011 244 30 89', '065 57 59 385'], photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
+  {id: 'meandri', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Meandri', street: 'Jelisavete Načić 4 i Porečka 1 (Palilula)', district: 'Stari grad', hours: '', note: 'Halal mesnica. Sveže meso i peštersko-sjenički proizvodi.', communityTip: 'Halal mesnica, potvrđeno iz zajednice. Radno vreme na Jelisavete Načić od 8 do 16h.', phones: ['062 856 0014'], photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
+  {id: 'jusuf', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Jusuf', street: 'Kalenić pijaca', district: 'Vračar', hours: '', note: 'Suho meso i sir na Kalenić pijaci.', communityTip: '', phones: [], photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
+  {id: 'gari', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Gari', street: 'Palilulska pijaca', district: 'Palilula', hours: '', note: 'Zrnasti, orašasti i mahunasti proizvodi, suvo voće i začini vrhunskog kvaliteta. Dostava na kućnu adresu.', communityTip: 'Dostava na kućnu adresu, narudžbe telefonom ili preko Instagrama.', phones: ['063 190 7772'], instagram: 'gari_orah', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
+  {id: 'arapski-ducan', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Arapski dućan', street: 'Prvomajska', district: 'Zemun', hours: '', note: 'Arapske namirnice, pirinač i žitarice, mahunarke, začini, ulja i ghee, sirevi, slatkiši, urme i orašasto, sokovi i kafa, kao i paketi za mansaf, kabsu i musakhan.', communityTip: 'Radnja u Prvomajskoj, otvara se u 9h. Naručuje se i online preko sajta ili WhatsAppa, uz dostavu.', website: 'https://arapskiducan.com', whatsapp: '062 976 3260', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
+  {id: 'turk-marketi', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Belgrad Türk Marketi', street: 'Zage Malivuk 19F', district: 'Palilula', hours: '', note: 'Turske i bliskoistočne namirnice, začini, doručak, turšija, sosevi, slatkiši i rahat lokum, pića, mahunarke, gotova jela i oprema za čaj. Radi i veleprodaja.', communityTip: 'Prvi broj je za srpski i engleski, drugi za turski. Radi pon–sub 10–18h. Besplatna dostava po Beogradu za narudžbe preko 5.000 RSD.', phones: ['060 413 07 85', '060 413 07 86'], website: 'https://belgradturkmarketi.com/sr/', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
+  {id: 'latife', category: 'kafici', categoryLabel: 'Kafić', name: 'Latife Belgrade', street: 'Zmaj Jovina 7', district: 'Stari grad', hours: '', note: 'Kafić u centru grada.', communityTip: 'Nije potvrđeno halal i na meniju ima alkoholna pića (pivo, žestoka pića i rakiju). Šunka im je pureća i nemaju svinjetinu.', photoSrc: 'assets/community/IMG_7777.jpg', photoAlt: 'Kafić u Beogradu'},
+];
+
+const CULTURAL_EVENTS: CulturalEvent[] = [
+  {
+    id: 'ev-1',
+    day: '28',
+    month: 'NOV',
+    title: 'Veče čitanja, poezije i kaligrafije',
+    place: 'Kulturni prostor · Stari grad',
+    time: '18:30',
+    photoSrc: 'assets/community/506A4303.jpg',
+    summary:
+      'Otvoreno druženje uz knjigu, čaj i predstavljanje savremene grafike inspirisane tradicijom pisma.',
+  },
+  {
+    id: 'ev-2',
+    day: '05',
+    month: 'DEC',
+    title: 'Šetnja: Osmanski i moderni slojevi grada',
+    place: 'Polazak · Trg republike',
+    time: '14:00',
+    photoSrc: 'assets/community/506A0447.jpg',
+    summary:
+      'Dvosatna šetnja sa ljubiteljima gradske istorije — tragom nekadašnjih česmi, ulica i moderne arhitekture.',
+  },
+  {
+    id: 'ev-3',
+    day: '12',
+    month: 'DEC',
+    title: 'Projekcija dokumentarca o komšiluku',
+    place: 'Otvoreni atelje · Savski kej',
+    time: '19:00',
+    photoSrc: 'assets/community/506A0454.jpg',
+    summary:
+      'Projekcija kratkih filmova o životu manjina i doseljenika u Beogradu uz neformalno druženje i posluženje.',
+  },
+];
+
+const CAT_COLORS: Record<string, string> = {sve:'#2B211C',zanat:'#D9A02B',hrana:'#9E2B45',biznis:'#2B211C',zdravlje:'#0F7A53',lepota:'#9E2B45'};
+
+type UsefulContact = {name: string; note: string; phone?: string; link?: string; linkLabel?: string};
+type ContactGroup = {title: string; items: UsefulContact[]};
+
+const USEFUL_CONTACTS: ContactGroup[] = [
+  {title: 'Hitno', items: [
+    {name: 'Hitna pomoć', note: 'Medicinski hitni slučajevi', phone: '194'},
+    {name: 'Policija', note: 'Napad, krađa, nesreća', phone: '192'},
+    {name: 'Vatrogasci', note: 'Požar i spašavanje', phone: '193'},
+    {name: 'Opšti broj za hitne slučajeve', note: 'Sa mobilnog telefona', phone: '112'},
+  ]},
+  {title: 'Zdravlje', items: [
+    {name: 'Urgentni centar', note: 'Pasterova 2, radi 24h', phone: '011 361 8444'},
+    {name: 'Ambulanta Hitne pomoći za odrasle', note: 'Franše d\'Eperea 5, radi 24h', phone: '011 361 5013'},
+    {name: 'Dežurna apoteka Prvi maj', note: 'Kralja Milana 9, radi 24h', phone: '011 324 1349'},
+  ]},
+  {title: 'Papiri i posao', items: [
+    {name: 'Uprava za strance', note: 'Omladinskih brigada 1, Novi Beograd', phone: '011 361 8956'},
+    {name: 'Portal za strance', note: 'Vize, boravak i rad, zahtevi online', link: 'https://welcometoserbia.gov.rs', linkLabel: 'welcometoserbia.gov.rs'},
+    {name: 'Nacionalna služba za zapošljavanje', note: 'Oglasi za posao i savetnici', link: 'https://www.nsz.gov.rs', linkLabel: 'nsz.gov.rs'},
+  ]},
+  {title: 'Stan i grad', items: [
+    {name: 'Servisni centar Grada', note: 'Voda, grejanje, čistoća, parking', phone: '11011'},
+    {name: 'Elektrodistribucija', note: 'Struja, kvarovi i stanje brojila, besplatno', phone: '0800 360 300'},
+  ]},
+  {title: 'Prevoz', items: [
+    {name: 'Aerodrom Nikola Tesla', note: 'Informacije o letovima', phone: '011 209 4444'},
+    {name: 'Pink Taxi', note: 'Taksi, radi 24h', phone: '19803'},
+    {name: 'Naxis Taxi', note: 'Taksi, radi 24h', phone: '19804'},
+  ]},
+];
+
+// Rakkas nema slovo đ, pa ga gradimo od slova d i tanke crte
+function withDj(text: string) {
+  const parts = text.split('đ');
+  return parts.flatMap((part, i) =>
+    i === 0 ? [part] : [<span key={i} className="dj">d</span>, part],
+  );
+}
+
+function ChapterMark({num, label}: {num: string; label: string}) {
+  return (
+    <div className="flex items-baseline gap-5 border-b border-[#2B211C] px-10 py-4" data-num={num}>
+      <span className="font-quiet text-[17px] leading-none text-[#8F8D88]">{label}</span>
+    </div>
+  );
+}
+
+function SignTitle({
+  caps,
+  rest,
+  num,
+  className = '',
+  accent,
+}: {
+  caps: string;
+  rest: string;
+  num?: string;
+  dark?: boolean;
+  accent?: string;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      {num && (
+        <div className="font-mono-tabular mb-4 text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{num}</div>
+      )}
+      <h2 className="font-stone text-[40px] leading-[1.05] tracking-[0.12em] text-[#2B211C] uppercase sm:text-[48px]">
+        {caps} <span className="font-quiet normal-case tracking-normal" style={{color: accent ?? '#0F7A53'}}>{rest}</span>
+      </h2>
+    </div>
+  );
+}
+
+export function WebsiteTemplateView({
+  onNavigateSeries,
+  onExportGif,
+  isExportingGif = false,
+  gifPercent = null,
+}: WebsiteTemplateViewProps) {
+  const {t, lang} = useLang();
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const staticCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const progressRef = useRef(0.16);
+
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [ambientIdx, setAmbientIdx] = useState(0);
+  const [halalFilter, setHalalFilter] = useState<HalalCategory>('sve');
+  const [areaFilter, setAreaFilter] = useState<string>(ALL_AREAS);
+  const [areaMenuOpen, setAreaMenuOpen] = useState(false);
+  const areaMenuRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!areaMenuOpen) return;
+    const close = (e: MouseEvent) => { if (areaMenuRef.current && !areaMenuRef.current.contains(e.target as Node)) setAreaMenuOpen(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setAreaMenuOpen(false); };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('mousedown', close); document.removeEventListener('keydown', esc); };
+  }, [areaMenuOpen]);
+  const [visibleCount, setVisibleCount] = useState(8);
+  const halalListRef = useRef<HTMLOListElement | null>(null);
+
+  const [selectedSpotId, setSelectedSpotId] = useState<string>(HALAL_SPOTS[0].id);
+  const [rsvpIds, setRsvpIds] = useState<Record<string, boolean>>({});
+  const [storyOpen, setStoryOpen] = useState(false);
+  const setCommunityModal = (which: 'whatsapp' | 'facebook' | null) => {
+    if (which) openCommunity(which);
+  };
+  const [pricaIdx, setPricaIdx] = useState(0);
+  const [openDzemat, setOpenDzemat] = useState<string | null>(null);
+
+  // RSVP
+  const [rsvpEvent, setRsvpEvent] = useState<CulturalEvent | null>(null);
+  const [rsvpName, setRsvpName] = useState('');
+  const [rsvpContact, setRsvpContact] = useState('');
+  const [rsvpCount, setRsvpCount] = useState('1');
+  const [rsvpStatus, setRsvpStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
+  const [nbrDone, setNbrDone] = useState(false);
+  const [nbrError, setNbrError] = useState(false);
+  const [helpError, setHelpError] = useState(false);
+
+  // Neighbor directory
+  const [neighbors, setNeighbors] = useState<NeighborListing[]>([]);
+  const [skillFilter, setSkillFilter] = useState<SkillCategory>('sve');
+  const [showAddNeighbor, setShowAddNeighbor] = useState(false);
+  const [nbrMode, setNbrMode] = useState<'self' | 'rec'>('self');
+  const [contactGroup, setContactGroup] = useState('Hitno');
+  const [nbrName, setNbrName] = useState('');
+  const [nbrProfession, setNbrProfession] = useState('');
+  const [nbrCategory, setNbrCategory] = useState<Exclude<SkillCategory, 'sve'>>('zanat');
+  const [nbrDistrict, setNbrDistrict] = useState('');
+  const [nbrNote, setNbrNote] = useState('');
+  const [nbrContact, setNbrContact] = useState('');
+  const [nbrRecommender, setNbrRecommender] = useState('');
+  const [nbrSaving, setNbrSaving] = useState(false);
+
+  // Help form
+  const [helpName, setHelpName] = useState('');
+  const [helpContact, setHelpContact] = useState('');
+  const [helpMessage, setHelpMessage] = useState('');
+  const [helpSending, setHelpSending] = useState(false);
+  const [helpSubmitted, setHelpSubmitted] = useState(false);
+
+  // Belgrade skyline canvas animation
+  useEffect(() => {
+    const offscreen = document.createElement('canvas');
+    renderBelgradeGouachePainting(offscreen);
+    staticCanvasRef.current = offscreen;
+
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(offscreen, 0, 0);
+        drawDeliveryCyclist(ctx, progressRef.current);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    let rafId = 0;
+    let lastTime = performance.now();
+
+    const drawFrame = (now: number) => {
+      const dt = now - lastTime;
+      lastTime = now;
+
+      if (isPlaying) {
+        progressRef.current = (progressRef.current + dt / 7000) % 1;
+      }
+
+      const canvas = canvasRef.current;
+      const staticCanvas = staticCanvasRef.current;
+      if (canvas && staticCanvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(staticCanvas, 0, 0);
+          drawDeliveryCyclist(ctx, progressRef.current);
+        }
+      }
+
+      if (isPlaying) {
+        rafId = window.requestAnimationFrame(drawFrame);
+      }
+    };
+
+    if (isPlaying) {
+      rafId = window.requestAnimationFrame(drawFrame);
+    }
+
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, [isPlaying]);
+
+  // Ambient slow crossfade of Belgrade community photography (non-gallery)
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setAmbientIdx((prev) => (prev + 1) % AMBIENT_FADE_PHOTOS.length);
+    }, 4500);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setPricaIdx((prev) => (prev + 1) % PRICA_PHOTOS.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const halalByCategory = useMemo(() => {
+    const order: Record<string, number> = {halal: 0, 'bez-svinjetine': 1, kafici: 2, prodavnice: 3};
+    const sorted = [...HALAL_SPOTS].sort((x, y) => order[x.category] - order[y.category]);
+    if (halalFilter === 'sve') return sorted;
+    if (halalFilter === 'prodavnice' || halalFilter === 'kafici') return sorted.filter((x) => x.category === halalFilter);
+    return sorted.filter((x) => x.category !== 'prodavnice' && x.category !== 'kafici');
+  }, [halalFilter]);
+
+  const halalAreas = useMemo(
+    () => [ALL_AREAS, ...Array.from(new Set(halalByCategory.map((x) => x.district))).sort((a, b) => a.localeCompare(b, 'sr'))],
+    [halalByCategory],
+  );
+
+  useEffect(() => {
+    if (!halalAreas.includes(areaFilter)) setAreaFilter(ALL_AREAS);
+  }, [halalAreas, areaFilter]);
+
+  const filteredHalal = useMemo(
+    () => (areaFilter === ALL_AREAS ? halalByCategory : halalByCategory.filter((x) => x.district === areaFilter)),
+    [halalByCategory, areaFilter],
+  );
+
+  useEffect(() => {
+    setVisibleCount(8);
+    if (filteredHalal[0]) setSelectedSpotId(filteredHalal[0].id);
+    if (halalListRef.current) halalListRef.current.scrollTop = 0;
+  }, [filteredHalal]);
+
+  const showMoreHalal = () => {
+    const firstNew = visibleCount;
+    setVisibleCount((v) => v + 10);
+    window.setTimeout(() => {
+      const list = halalListRef.current;
+      const el = list?.children[firstNew] as HTMLElement | undefined;
+      if (list && el) list.scrollTo({top: el.offsetTop - 8, behavior: 'smooth'});
+    }, 60);
+  };
+
+  const filteredNeighbors = useMemo(() => {
+    if (skillFilter === 'sve') return neighbors;
+    return neighbors.filter((n) => n.category === skillFilter);
+  }, [neighbors, skillFilter]);
+
+  const selectedSpot =
+    filteredHalal.find((s) => s.id === selectedSpotId) ?? filteredHalal[0];
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+  };
+
+  const handleAddNeighbor = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!nbrName.trim() || !nbrProfession.trim()) return;
+    const catLabels: Record<Exclude<SkillCategory, 'sve'>, string> = {
+      zdravlje: 'Doktori i zdravlje',
+      zanat: 'Zanati i majstori',
+      biznis: 'Preduzetnici i frilenseri',
+      hrana: 'Hrana i ketering',
+      lepota: 'Lepota i njega',
+    };
+    setNbrSaving(true);
+    setNbrError(false);
+    sendForm(`Imenik · ${nbrMode === 'rec' ? 'preporuka' : 'novi unos'} · ${nbrProfession.trim()}`, {
+      'Ime ili radnja': nbrName.trim(),
+      'Zanimanje / usluga': nbrProfession.trim(),
+      Oblast: catLabels[nbrCategory],
+      'Deo grada': nbrDistrict.trim() || '—',
+      Kontakt: nbrContact.trim() || '—',
+      'Preporučio/la': nbrRecommender.trim() || 'Samostalna prijava',
+      Opis: nbrNote.trim() || '—',
+    })
+      .then(() => {
+        setNbrName('');
+        setNbrProfession('');
+        setNbrDistrict('');
+        setNbrNote('');
+        setNbrContact('');
+        setNbrRecommender('');
+        setNbrDone(true);
+      })
+      .catch(() => setNbrError(true))
+      .finally(() => setNbrSaving(false));
+  };
+
+  const handleHelpSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!helpMessage.trim() && !helpContact.trim()) return;
+    setHelpSending(true);
+    setHelpError(false);
+    sendForm('Javi nam se · poruka sa sajta', {
+      Ime: helpName.trim() || '—',
+      Kontakt: helpContact.trim(),
+      Poruka: helpMessage.trim(),
+    })
+      .then(() => setHelpSubmitted(true))
+      .catch(() => setHelpError(true))
+      .finally(() => setHelpSending(false));
+  };
+
+  const openRsvp = (ev: CulturalEvent) => {
+    setRsvpEvent(ev);
+    setRsvpStatus(rsvpIds[ev.id] ? 'done' : 'idle');
+  };
+
+  const handleRsvpSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!rsvpEvent || !rsvpName.trim()) return;
+    setRsvpStatus('sending');
+    sendForm(`RSVP · ${rsvpEvent.title} · ${rsvpEvent.day} ${rsvpEvent.month}`, {
+      Događaj: `${rsvpEvent.title} (${rsvpEvent.day} ${rsvpEvent.month}, ${rsvpEvent.time}, ${rsvpEvent.place})`,
+      Ime: rsvpName.trim(),
+      Kontakt: rsvpContact.trim() || '—',
+      'Broj osoba': rsvpCount,
+    })
+      .then(() => {
+        setRsvpIds((prev) => ({...prev, [rsvpEvent.id]: true}));
+        setRsvpStatus('done');
+      })
+      .catch(() => setRsvpStatus('error'));
+  };
+
+  const currentFadePhoto = AMBIENT_FADE_PHOTOS[ambientIdx];
+
+  return (
+    <div className="bg-[#FFFFFF] text-[#221D1A] overflow-x-hidden">
+      {/* 1. O MUSLIMANIMA BEOGRADA — Uvod & panorama grada */}
+      <section id="o-muslimanima" className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)]">
+        <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="grid grid-cols-1 border-s border-[#2B211C] lg:grid-cols-[560px_1fr]">
+          {/* Levo, uz čvrstu vertikalu */}
+          <div className="relative flex flex-col justify-between bg-[#FFFFFF] px-10 pt-14 pb-12 lg:min-h-[560px] lg:pt-16">
+            <div>
+              <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
+                {t("SUMUD")}
+              </h1>
+              <p className="font-quiet mt-4 text-[22px] leading-snug text-[#2B211C]">
+                {t("Kolektiv muslimana Beograda")}
+              </p>
+            </div>
+            <div className="mt-24 lg:mt-0">
+              <div aria-hidden="true" className="h-[96px] w-[96px] rounded-full bg-[#D9A02B]" />
+              <blockquote className="font-quiet m-0 mt-8 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
+                {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
+              </blockquote>
+              <p className="font-quiet mt-3 text-[15px] text-[#8F8D88]">{t("Hadis, beleže Buhari i Muslim")}</p>
+            </div>
+          </div>
+
+          {/* Desno, betonsko polje sa crtežom */}
+          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-10 pt-12 pb-8 lg:px-14 lg:pt-14">
+            <div className="pointer-events-none relative mt-24 overflow-hidden" style={{aspectRatio: '2400 / 820'}}>
+              <canvas
+                ref={canvasRef}
+                width={PAINTING_WIDTH}
+                height={PAINTING_HEIGHT}
+                aria-label={t("Ilustracija Beograda sa Bajrakli džamijom u centru i biciklistom u pokretu")}
+                className="absolute start-0 block h-auto w-full mix-blend-multiply"
+                style={{top: '-47%'}}
+              />
+            </div>
+
+          </div>
+        </div>
+        </div>
+      </section>
+
+      {/* Istorija, ciljevi i tihi foto-fade u jednom kadru (bez galerije) */}
+      <div className="bg-[#FFFFFF]">
+      <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+          <ChapterMark num="I" label={t("Priča o nama")} />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_560px]">
+            {/* Levo: jedna fotografija kao ploča */}
+            <div className="bg-[#EDEDEA] px-10 pt-10 pb-10 lg:pt-12">
+              <div className="relative aspect-[4/5] w-full max-w-[560px] overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+                {PRICA_PHOTOS.map((p, i) => (
+                  <img
+                    key={p.src}
+                    src={p.src}
+                    alt={t(p.alt)}
+                    className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Desno: priča */}
+            <div className="bg-[#FFFFFF] px-10 pt-10 pb-14 lg:pt-12">
+              <SignTitle caps={t("Priča")} rest={t("o nama")} />
+              <p className="font-quiet mt-8 text-[21px] leading-[1.5] text-[#2B211C]">
+                {t(HISTORY_STORY.paragraphs[0])}
+              </p>
+              <p className="mt-4 text-[15px] leading-relaxed text-[#4F4A46]">
+                {t(HISTORY_STORY.paragraphs[1])}
+              </p>
+              <div className="mt-8">
+                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                  {t("Pročitaj ceo tekst")}
+                </IslamicButton>
+              </div>
+
+              <dl className="mt-14 border-t border-[#2B211C]">
+                {SITE_GOALS.map((goal) => (
+                  <div key={goal.num} className="border-b border-[#D4D3CD] py-4">
+                    <dt className="sr-only">{goal.num}</dt>
+                    <dd className="m-0">
+                      <div className="font-stone text-[20px] text-[#2B211C]">{t(goal.title)}</div>
+                      <div className="mt-1 text-[13px] leading-relaxed text-[#4F4A46]">{t(goal.text)}</div>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      {/* 2. HALAL BEOGRAD — Redizajnirani arhitektonski gradski vodič */}
+      <div className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)]">
+      <section id="halal-beograd" className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="border-s border-[#2B211C] bg-[#EDEDEA]">
+          <ChapterMark num="III" label={t("Halal Beograd")} />
+        <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
+          {/* Levo: indeks adresa */}
+          <div className="px-10 pt-10 pb-14 lg:pt-12">
+            <SignTitle num={t("Gde jesti i kupovati")} caps={t("Halal")} rest={t("Beograd")} />
+
+            <div className="mt-10 flex flex-wrap items-end justify-between gap-x-7 gap-y-3">
+              <div role="group" aria-label={t("Filtriraj halal kategorije")} className="flex flex-wrap gap-x-7 gap-y-2 text-[15px]">
+                {([['sve', 'Sve'], ['restorani', 'Restorani'], ['kafici', 'Kafići'], ['prodavnice', 'Prodavnice']] as const).map(([key, label]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setHalalFilter(key)}
+                    className={`pb-1 transition-colors ${halalFilter === key ? 'border-b border-[#2B211C] text-[#2B211C]' : 'text-[#8F8D88] hover:text-[#2B211C]'}`}
+                  >
+                    {t(label)}
+                  </button>
+                ))}
+              </div>
+
+              <div ref={areaMenuRef} className="relative pb-1">
+                <button
+                  type="button"
+                  aria-haspopup="listbox"
+                  aria-expanded={areaMenuOpen}
+                  onClick={() => setAreaMenuOpen((o) => !o)}
+                  className={`inline-flex items-center gap-1.5 text-[13px] transition-colors ${areaFilter !== ALL_AREAS ? 'text-[#2B211C]' : 'text-[#8F8D88] hover:text-[#2B211C]'}`}
+                >
+                  <MapPin className="h-3 w-3" />
+                  {t(areaFilter)}
+                  <svg viewBox="0 0 10 6" className={`h-1.5 w-2.5 transition-transform ${areaMenuOpen ? 'rotate-180' : ''}`} aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.2" /></svg>
+                </button>
+                {areaMenuOpen && (
+                  <ul role="listbox" aria-label={t("Opština")} className="absolute end-0 z-20 mt-2 min-w-[180px] border border-[#D4D3CD] bg-white py-1.5 shadow-[0_8px_24px_rgba(43,33,28,0.08)]">
+                    {halalAreas.map((area) => (
+                      <li key={area}>
+                        <button
+                          type="button"
+                          role="option"
+                          aria-selected={areaFilter === area}
+                          onClick={() => { setAreaFilter(area); setAreaMenuOpen(false); }}
+                          className={`flex w-full items-center justify-between gap-4 px-4 py-1.5 text-start text-[13px] transition-colors hover:bg-[#EDEDEA] ${areaFilter === area ? 'text-[#2B211C]' : 'text-[#4F4A46]'}`}
+                        >
+                          {t(area)}
+                          {areaFilter === area && <Check className="h-3 w-3 text-[#0F7A53]" />}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+
+            <ol
+              ref={halalListRef}
+              className={`relative mt-8 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2 ${visibleCount > 8 ? 'thin-scroll max-h-[560px] overflow-y-auto pe-2' : ''}`}
+            >
+              {filteredHalal.slice(0, visibleCount).map((spot, idx) => {
+                const isSelected = selectedSpot?.id === spot.id;
+                return (
+                  <li key={spot.id} className="border-b border-[#D4D3CD]">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedSpotId(spot.id)}
+                      className="block w-full py-3 text-start"
+                    >
+                      <span>
+                        <span className={`font-stone flex items-baseline justify-between gap-3 text-[18px] leading-tight transition-colors ${isSelected ? 'text-[#9E2B45]' : 'text-[#2B211C]'}`}>
+                          {spot.name}
+                          {spot.category === 'halal' && (
+                            <span className="font-mono-tabular shrink-0 text-[10px] tracking-[0.12em] text-[#0F7A53] uppercase">{t("Halal")}</span>
+                          )}
+                        </span>
+                        <span className="mt-1 block text-[13px] text-[#4F4A46]">
+                          {t(spot.street)} · {t(spot.district)}
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+            {filteredHalal.length === 0 && (
+              <p className="font-quiet mt-5 text-[18px] text-[#8F8D88]">{t("Za ovaj izbor još nema upisanih mesta.")}</p>
+            )}
+            {filteredHalal.length > visibleCount && (
+              <button
+                type="button"
+                onClick={showMoreHalal}
+                className="font-quiet mt-5 text-[18px] text-[#0F7A53] hover:underline"
+              >
+                + {Math.min(10, filteredHalal.length - visibleCount)}{' '}{t("mesta")}
+              </button>
+            )}
+            <p className="mt-6 text-[12px] leading-relaxed text-[#8F8D88]">
+              {t("Kod svakog mesta piše odakle je podatak o halal statusu. Oznaka Halal znači da je halal potvrđen ili da ga restoran sam navodi. Certifikat uvek proverite na licu mesta.")}
+            </p>
+          </div>
+
+          {/* Desno: velika ploča, pa ispod tekst i mala slika izabranog mesta */}
+          {selectedSpot && (
+            <div className="px-10 pt-10 pb-12 lg:sticky lg:top-24 lg:self-start lg:px-14 lg:pt-12">
+              <div className="relative aspect-[16/7] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+                <img src="assets/community/IMG_7777.jpg" alt={t("Kuskus, tadžin i čorba na stolu")} className="absolute inset-0 h-full w-full object-cover object-[50%_55%]" />
+              </div>
+              <div className="mt-8 grid grid-cols-1 gap-8 border-t border-[#2B211C] pt-6 lg:grid-cols-[1fr_200px]">
+                <div>
+                  <div className={`inline-block px-2 py-0.5 text-[12px] ${selectedSpot.category === 'halal' ? 'bg-[#0F7A53] text-white' : 'bg-[#D4D3CD] text-[#2B211C]'}`}>{t(selectedSpot.category === 'halal' ? 'Halal' : selectedSpot.category === 'prodavnice' ? 'Prodavnica' : selectedSpot.category === 'kafici' ? 'Kafić' : 'Restoran')}</div>
+                  <h3 className="font-stone mt-2 text-[30px] leading-tight text-[#2B211C]">{selectedSpot.name}</h3>
+                  <div className="font-quiet mt-1 text-[19px] text-[#9E2B45]">{t(selectedSpot.street)}, {t(selectedSpot.district)}</div>
+                  <p className="mt-4 max-w-md text-[14px] leading-relaxed text-[#4F4A46]">{t(selectedSpot.note)}</p>
+                  {selectedSpot.communityTip && (
+                    <div className="mt-4 max-w-md border-s-2 border-[#0F7A53] ps-3">
+                      <div className="font-mono-tabular text-[10px] tracking-[0.12em] text-[#8F8D88] uppercase">{t(selectedSpot.category === 'prodavnice' ? 'Kontakt i info' : 'Halal status')}</div>
+                      <p className="mt-1 text-[13px] leading-relaxed text-[#2B211C]">{t(selectedSpot.communityTip)}</p>
+                    </div>
+                  )}
+                  <div className="mt-5 flex max-w-md flex-wrap gap-x-6 gap-y-2">
+                    {selectedSpot.phones?.map((n) => (
+                      <a key={n} href={telHref(n)} className={ACTION_CLS}>
+                        <Phone className="h-3.5 w-3.5" /> {n}
+                      </a>
+                    ))}
+                    {selectedSpot.whatsapp && (
+                      <a href={waHref(selectedSpot.whatsapp)} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                        <MessageCircle className="h-3.5 w-3.5" />{' '}{t("WhatsApp")}
+                      </a>
+                    )}
+                    {selectedSpot.website && (
+                      <a href={selectedSpot.website} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                        <Globe className="h-3.5 w-3.5" /> {prettyUrl(selectedSpot.website)}
+                      </a>
+                    )}
+                    {selectedSpot.instagram && (
+                      <a href={`https://www.instagram.com/${selectedSpot.instagram}/`} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                        <Instagram className="h-3.5 w-3.5" /> @{selectedSpot.instagram}
+                      </a>
+                    )}
+                    {selectedSpot.district !== 'Online' && (
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${selectedSpot.name} ${selectedSpot.street} Beograd`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={ACTION_CLS}
+                      >
+                        <MapPin className="h-3.5 w-3.5" />{' '}{t("Otvori na mapi")}
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className="relative aspect-square w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD]">
+                  <img key={selectedSpot.id} src={`assets/halal/${selectedSpot.id}.jpg`} alt={selectedSpot.name} onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = selectedSpot.photoSrc; } }} className="animate-fade-in absolute inset-0 h-full w-full object-cover" />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        </div>
+      </section>
+      </div>
+
+      {/* 3. DŽEMATI BEOGRADA */}
+      <section id="dzemati" className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)]">
+        <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+          <ChapterMark num="III" label={t("Džemati Beograda")} />
+          <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
+            <div className="px-10 pt-10 pb-14 lg:pt-12">
+              <SignTitle caps={t("Gde")} rest={t("klanjati")} />
+              <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
+                {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
+              </p>
+              <p className="mt-6 max-w-md text-[13px] leading-relaxed text-[#8F8D88]">
+                {t("Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.")}
+              </p>
+              <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+                <img src="assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
+              </div>
+            </div>
+
+            <div className="bg-[#EDEDEA] px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
+              <ol className="border-t border-[#2B211C]">
+                {DZEMATI.map((dz) => {
+                  const open = openDzemat === dz.id;
+                  const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(dz.mapQuery)}&z=15&output=embed`;
+                  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dz.mapQuery)}`;
+                  return (
+                    <li key={dz.id} className="border-b border-[#D4D3CD]">
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        onClick={() => setOpenDzemat(open ? null : dz.id)}
+                        className="group flex w-full items-baseline justify-between gap-6 py-4 text-start"
+                      >
+                        <span>
+                          <span className={`font-stone block text-[22px] leading-tight transition-colors ${open ? 'text-[#0F7A53]' : 'text-[#2B211C] group-hover:text-[#0F7A53]'}`}>{t(dz.name)}</span>
+                          <span className="mt-1 block text-[13px] text-[#4F4A46]">{t(dz.address)} · {t(dz.district)}</span>
+                        </span>
+                        <span className={`font-stone shrink-0 text-[24px] leading-none text-[#8F8D88] transition-transform duration-300 ${open ? 'rotate-45' : ''}`}>+</span>
+                      </button>
+                      {open && (
+                        <div className="animate-fade-in grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
+                          {dz.photo ? (
+                            <div className="relative aspect-square w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD]">
+                              <img src={dz.photo} alt={dz.photoAlt ?? dz.name} className="absolute inset-0 h-full w-full object-cover" />
+                            </div>
+                          ) : null}
+                          <div className={`relative w-full overflow-hidden bg-[#D4D3CD] ${dz.photo ? 'aspect-square' : 'aspect-[16/10] sm:col-span-2 rounded-se-[48px]'}`}>
+                            <iframe
+                              title={`${t('Mapa')}, ${t(dz.name)}`}
+                              src={mapSrc}
+                              loading="lazy"
+                              referrerPolicy="no-referrer-when-downgrade"
+                              className="absolute inset-0 h-full w-full border-0 grayscale-[0.6] contrast-[0.95]"
+                            />
+                          </div>
+                          <div className="flex flex-wrap items-baseline justify-between gap-4 sm:col-span-2">
+                            <span />
+                            <IslamicButton variant="flowline" href={mapLink} target="_blank" rel="noopener noreferrer">{t("Otvori u mapama")}</IslamicButton>
+                          </div>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      {/* 3. KULTURNI DOGAĐAJI — Halal i kulturna dešavanja u gradu */}
+      <div className="bg-[#FFFFFF]">
+      <section id="kulturni-dogadjaji" className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF] pb-16">
+          <ChapterMark num="IV" label={t("Kulturni događaji")} />
+          <div className="px-10 pt-10 lg:pt-12">
+          <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
+
+          <ol className="mt-10 grid grid-cols-1 gap-x-10 border-t border-[#D4D3CD] lg:grid-cols-3">
+            {CULTURAL_EVENTS.map((ev, i) => {
+              const joined = Boolean(rsvpIds[ev.id]);
+              return (
+                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-8 lg:border-b-0 lg:border-e lg:pe-10 lg:last:border-e-0">
+                  <div className="flex items-baseline justify-between">
+                    <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{ev.day}</span>
+                    <span className="font-quiet text-[18px] text-[#8F8D88]">{t(ev.month).toLowerCase()}, {ev.time}</span>
+                  </div>
+                  <div className={`relative mt-5 aspect-[4/3] w-full overflow-hidden bg-[#EDEDEA] rounded-se-[96px]`}>
+                    <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
+                  </div>
+
+                  <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#2B211C]">{t(ev.title)}</h3>
+                  <div className="font-quiet mt-1 text-[17px] text-[#9E2B45]">{t(ev.place)}</div>
+                  <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[#4F4A46]">{t(ev.summary)}</p>
+                  <div className="mt-6">
+                    <IslamicButton
+                      variant={joined ? 'kocka' : 'flowline'}
+                      tone={joined ? 'emerald' : 'charcoal'}
+                      size="sm"
+                      onClick={() => openRsvp(ev)}
+                      iconLeft={joined ? <Check className="h-3.5 w-3.5" /> : undefined}
+                    >
+                      {t(joined ? 'Zabeleženo' : 'Planiram doći')}
+                    </IslamicButton>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+          </div>
+      </section>
+      </div>
+
+      {/* 4. UMREŽAVANJA — Ženski džemat + Facebook + Komšijski imenik */}
+      <div className="bg-[#FFFFFF]">
+      <section
+        id="umrezavanja"
+        className="mx-auto max-w-[1440px] lg:ps-[130px]"
+      >
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+          <ChapterMark num="V" label={t("Umrežavanje muslimana")} />
+        <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr]">
+          {/* Levo: dva kanala kao dve ploče */}
+          <div className="flex flex-col gap-12 bg-[#EDEDEA] px-10 pt-10 pb-12 lg:pt-12">
+            {[
+              {id: 'whatsapp' as const, src: 'assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski džemat', sub: 'WhatsApp grupa'},
+              {id: 'facebook' as const, src: 'assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Javni kanal'},
+            ].map((ch) => (
+              <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group block w-full text-start">
+                <span className="relative block aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+                  <img src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover ${ch.pos}`} />
+                </span>
+                <span className="mt-4 flex items-baseline justify-between border-t border-[#2B211C] pt-3">
+                  <span className="font-stone text-[26px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
+                  <span className="font-quiet text-[15px] text-[#8F8D88]">{t(ch.sub)}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Desno: važni kontakti pa imenik */}
+          <div className="bg-[#FFFFFF] px-10 pt-10 pb-14 lg:pt-12">
+            <SignTitle caps={t("Koga")} rest={t("zvati")} accent="#9E2B45" />
+            <p className="font-quiet mt-5 max-w-xl text-[19px] leading-[1.5] text-[#2B211C]">
+              {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
+            </p>
+
+            <div role="group" aria-label={t("Vrsta kontakta")} className="mt-10 flex flex-wrap gap-x-7 gap-y-2 text-[15px]">
+              {USEFUL_CONTACTS.map((g) => (
+                <button
+                  key={g.title}
+                  type="button"
+                  onClick={() => setContactGroup(g.title)}
+                  className={`pb-1 transition-colors ${contactGroup === g.title ? 'border-b border-[#2B211C] text-[#2B211C]' : 'text-[#8F8D88] hover:text-[#2B211C]'}`}
+                >
+                  {t(g.title)}
+                </button>
+              ))}
+            </div>
+
+            <ol className="mt-8 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+              {(USEFUL_CONTACTS.find((g) => g.title === contactGroup) ?? USEFUL_CONTACTS[0]).items.map((c) => (
+                <li key={c.name} className="border-b border-[#D4D3CD] py-4">
+                  <div className="font-stone text-[20px] leading-tight text-[#2B211C]">{t(c.name)}</div>
+                  <div className="mt-1 text-[13px] text-[#8F8D88]">{t(c.note)}</div>
+                  {c.phone ? (
+                    <a href={telHref(c.phone)} className="font-quiet mt-2 inline-flex items-center gap-1.5 text-[19px] text-[#0F7A53] hover:underline">
+                      <Phone className="h-3.5 w-3.5" /> {c.phone}
+                    </a>
+                  ) : c.link ? (
+                    <a href={c.link} target="_blank" rel="noopener noreferrer" className="font-quiet mt-2 inline-flex items-center gap-1.5 text-[19px] text-[#0F7A53] hover:underline">
+                      <Globe className="h-3.5 w-3.5" /> {c.linkLabel}
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+            <p className="mt-5 text-[12px] leading-relaxed text-[#8F8D88]">
+              {t("Za stvari iz zajednice, smeštaj ili snalaženje u gradu piši nam preko forme Javi nam se.")}
+            </p>
+
+            {/* Imenik muslimanskih privrednika */}
+            <div id="imenik" className="mt-16 scroll-mt-24">
+              <SignTitle caps={t("Osloni se")} rest={t("na svoje")} />
+              <div className="mt-6 rounded-se-[64px] bg-[#EDEDEA] p-7 sm:p-9">
+                <h3 className="font-stone text-[26px] leading-tight text-[#2B211C] sm:text-[30px]">{t("Imaš radnju, zanat ili uslugu?")}</h3>
+                <p className="font-quiet mt-3 max-w-xl text-[19px] leading-[1.5] text-[#2B211C]">
+                  {t("Pravimo imenik muslimana koji rade u Beogradu. Doktori i stomatolozi, majstori i zanatlije, preduzetnici i frilenseri, hrana, lepota i sve između. Upis je besplatan. Znaš nekog ko bi trebalo da bude ovde? Preporuči ga.")}
+                </p>
+                <div className="mt-7 flex flex-wrap items-center gap-6">
+                  <IslamicButton
+                    variant="kocka"
+                    tone="brick"
+                    size="md"
+                    iconLeft={<Plus className="h-3.5 w-3.5" />}
+                    onClick={() => { setNbrMode('self'); setNbrDone(false); setShowAddNeighbor(true); }}
+                  >
+                    {t("Upiši svoj biznis")}
+                  </IslamicButton>
+                  <IslamicButton
+                    variant="flowline"
+                    size="sm"
+                    onClick={() => { setNbrMode('rec'); setNbrDone(false); setShowAddNeighbor(true); }}
+                  >
+                    {t("Preporuči nekoga")}
+                  </IslamicButton>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6">
+
+        {/* Formular za dodavanje komšije / sebe */}
+        {showAddNeighbor && (
+          <div className="mb-10 border border-[#D4D3CD] bg-[#EAEAE6]/55 p-7 sm:p-9">
+            {nbrSaving ? (
+              <div className="flex min-h-[180px] flex-col items-center justify-center">
+                <TespihLoader size={58} label={t("Šaljemo vaš unos...")} />
+              </div>
+            ) : nbrDone ? (
+              <div className="py-4">
+                <div className="inline-flex h-9 w-9 items-center justify-center bg-[#0F7A53] text-[#FFFFFF]">
+                  <Check className="h-4 w-4" />
+                </div>
+                <h3 className="font-stone mt-4 text-[24px] text-[#221D1A]">{t("Hvala, unos je poslan")}</h3>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-[#4F4A46]">
+                  {t("Pregledaćemo ga i dodati u imenik u narednim danima.")}
+                </p>
+                <div className="mt-5 flex items-center gap-6">
+                  <IslamicButton variant="kocka" tone="concrete" size="sm" onClick={() => setNbrDone(false)}>
+                    {t("Dodaj još jednog")}
+                  </IslamicButton>
+                  <button type="button" onClick={() => { setNbrDone(false); setShowAddNeighbor(false); }} className="text-xs text-[#807E79] hover:text-[#221D1A]">
+                    {t("Zatvori")}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleAddNeighbor} className="space-y-5">
+                <div className="font-stone text-[22px] text-[#221D1A]">{t(nbrMode === 'rec' ? 'Preporuči nekoga' : 'Upiši svoj biznis')}</div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div>
+                    <label
+                      htmlFor="nbr-name"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Ime ili radnja")}
+                    </label>
+                    <input
+                      id="nbr-name"
+                      type="text"
+                      required
+                      value={nbrName}
+                      onChange={(e) => setNbrName(e.target.value)}
+                      placeholder={t("Npr. Edin S.")}
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="nbr-prof"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Zanimanje / usluga")}
+                    </label>
+                    <input
+                      id="nbr-prof"
+                      type="text"
+                      required
+                      value={nbrProfession}
+                      onChange={(e) => setNbrProfession(e.target.value)}
+                      placeholder={t("Npr. Automehaničar")}
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="nbr-cat"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Oblast")}
+                    </label>
+                    <select
+                      id="nbr-cat"
+                      value={nbrCategory}
+                      onChange={(e) =>
+                        setNbrCategory(e.target.value as Exclude<SkillCategory, 'sve'>)
+                      }
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                    >
+                      <option value="zdravlje">{t("Doktori i zdravlje")}</option>
+                      <option value="zanat">{t("Zanati i majstori")}</option>
+                      <option value="biznis">{t("Preduzetnici i frilenseri")}</option>
+                      <option value="hrana">{t("Hrana i ketering")}</option>
+                      <option value="lepota">{t("Lepota i njega")}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div>
+                    <label
+                      htmlFor="nbr-dist"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Deo grada")}
+                    </label>
+                    <input
+                      id="nbr-dist"
+                      type="text"
+                      value={nbrDistrict}
+                      onChange={(e) => setNbrDistrict(e.target.value)}
+                      placeholder={t("Npr. Voždovac / Dorćol")}
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="nbr-contact"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Kontakt (telefon / IG / email)")}
+                    </label>
+                    <input
+                      id="nbr-contact"
+                      type="text"
+                      value={nbrContact}
+                      onChange={(e) => setNbrContact(e.target.value)}
+                      placeholder={t("Telefon ili profil")}
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="nbr-rec"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Preporučio/la (opcionalno)")}
+                    </label>
+                    <input
+                      id="nbr-rec"
+                      type="text"
+                      value={nbrRecommender}
+                      onChange={(e) => setNbrRecommender(e.target.value)}
+                      placeholder={t("Ime ili ostavite prazno")}
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="nbr-note"
+                    className="block text-xs font-medium text-[#221D1A]"
+                  >
+                    {t("Kratak opis onoga što radite")}
+                  </label>
+                  <input
+                    id="nbr-note"
+                    type="text"
+                    value={nbrNote}
+                    onChange={(e) => setNbrNote(e.target.value)}
+                    placeholder={t("Šta nudite i kako vas komšije mogu angažovati...")}
+                    className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3 py-2 text-sm focus:border-[#221D1A] focus:outline-none"
+                  />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <IslamicButton
+                    type="submit"
+                    variant="kocka"
+                    tone="charcoal"
+                    size="sm"
+                    iconLeft={<Plus className="h-3.5 w-3.5" />}
+                  >
+                    {t("Pošalji unos")}
+                  </IslamicButton>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddNeighbor(false)}
+                    className="text-xs text-[#807E79] hover:text-[#221D1A]"
+                  >
+                    {t("Otkaži")}
+                  </button>
+                </div>
+                {nbrError && (
+                  <p className="text-sm text-[#9E2B45]">
+                    {t("Slanje nije uspelo. Pokušajte ponovo ili pišite na")}{' '}{CONTACT_EMAIL}.
+                  </p>
+                )}
+              </form>
+            )}
+          </div>
+        )}
+
+        {neighbors.length === 0 ? (
+          <p className="font-quiet text-[18px] text-[#8F8D88]">{t("Imenik tek počinje. Prvi upisi pojaviće se ovde čim ih pregledamo.")}</p>
+        ) : (<>
+        {/* Filteri delatnosti */}
+        <div
+          role="group"
+          aria-label={t("Filtriraj delatnosti")}
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 pb-4 text-[13px]"
+        >
+          {(
+            [
+              ['sve', 'Sve'],
+              ['zdravlje', 'Doktori i zdravlje'],
+              ['zanat', 'Zanati i majstori'],
+              ['biznis', 'Preduzetnici i frilenseri'],
+              ['hrana', 'Hrana i ketering'],
+              ['lepota', 'Lepota i njega'],
+            ] as const
+          ).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setSkillFilter(key)}
+              className={`pb-1 transition-colors whitespace-nowrap shrink-0 ${
+                skillFilter === key
+                  ? 'border-b border-[#2B211C] text-[#2B211C]'
+                  : 'text-[#8F8D88] hover:text-[#2B211C]'
+              }`}
+            >
+              {t(label)}
+            </button>
+          ))}
+        </div>
+
+        {/* Čist dvoslojni imenik bez suvišnih kartica */}
+        <div className="grid grid-cols-1 gap-x-12 border-t border-[#2B211C] md:grid-cols-2">
+          {filteredNeighbors.map((item) => (
+            <div key={item.id} className="border-b border-[#D4D3CD] py-6">
+              <h3 className="font-stone text-[22px] leading-tight text-[#2B211C]">
+                {item.profession}
+              </h3>
+              <div className="font-quiet mt-1 text-[18px] text-[#9E2B45]">
+                {item.name} <span className="text-[#8F8D88]">· {item.district}</span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-[#4F4A46]">
+                {item.note}
+              </p>
+              <div className="mt-3 text-[13px] text-[#4F4A46]">{item.contact}</div>
+            </div>
+          ))}
+        </div>
+        </>)}
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+      </div>
+
+      {/* 5. POTRAŽI POMOĆ — Isključivo građanska solidarnost van institucija */}
+      <section id="potrazi-pomoc" className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)]">
+        <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
+          <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+          <ChapterMark num="VI" label={t("Javi nam se")} />
+          <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
+            <div className="flex flex-col justify-between bg-[#FFFFFF] px-10 pt-10 pb-14 lg:pt-12">
+              <div>
+                <SignTitle caps={t("Javi se,")} rest={t("tu smo")} />
+                <p className="font-quiet mt-6 text-[19px] leading-[1.5] text-[#2B211C]">
+                  {t("Ovaj sajt nema fizičku adresu, kancelariju niti je povezan sa zvaničnim islamskim zajednicama. Obraćate se direktno komšijama i volonterima za snalaženje u gradu, studentski smeštaj ili razgovor.")}
+                </p>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-[#EAEAE6] pt-6 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setCommunityModal('whatsapp')}
+                  className="font-medium text-[#0F7A53] hover:text-[#221D1A] transition-colors"
+                >
+                  {t("Ženski džemat · WhatsApp")}
+                </button>
+                <span aria-hidden="true" className="text-[#D4D3CD]">
+                  /
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setCommunityModal('facebook')}
+                  className="font-medium text-[#221D1A] hover:text-[#0F7A53] transition-colors"
+                >
+                  {t("Facebook stranica")}
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-[#EDEDEA] px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
+              {helpSending ? (
+                <div className="flex min-h-[240px] flex-col items-center justify-center py-10">
+                  <TespihLoader size={64} label={t("Šaljemo vaš upit komšijama...")} />
+                </div>
+              ) : helpSubmitted ? (
+                <div className="py-10">
+                  <div className="inline-flex h-9 w-9 items-center justify-center bg-[#0F7A53] text-[#FFFFFF]">
+                    <Check className="h-4 w-4" />
+                  </div>
+                  <h3 className="font-human mt-5 text-2xl font-medium text-[#221D1A]">
+                    {t("Poruka je zabeležena")}
+                  </h3>
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-[#4F4A46]">
+                    {helpName ? fill(t('Hvala, {name}. Neko iz građanske mreže u Beogradu javiće vam se u najkraćem roku.'), {name: helpName}) : t('Hvala. Neko iz građanske mreže u Beogradu javiće vam se u najkraćem roku.')}
+                  </p>
+                  <div className="mt-6">
+                    <IslamicButton
+                      variant="kocka"
+                      tone="concrete"
+                      size="sm"
+                      onClick={() => {
+                        setHelpSubmitted(false);
+                        setHelpMessage('');
+                      }}
+                    >
+                      {t("Nova poruka")}
+                    </IslamicButton>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleHelpSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label
+                        htmlFor="help-name"
+                        className="block text-xs font-medium text-[#221D1A]"
+                      >
+                        {t("Ime (opcionalno)")}
+                      </label>
+                      <input
+                        id="help-name"
+                        type="text"
+                        value={helpName}
+                        onChange={(e) => setHelpName(e.target.value)}
+                        placeholder={t("Kako da vas oslovimo")}
+                        className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#221D1A] placeholder:text-[#807E79] focus:border-[#221D1A] focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="help-contact"
+                        className="block text-xs font-medium text-[#221D1A]"
+                      >
+                        {t("Kontakt (telefon / WhatsApp / email)")}
+                      </label>
+                      <input
+                        id="help-contact"
+                        type="text"
+                        required
+                        value={helpContact}
+                        onChange={(e) => setHelpContact(e.target.value)}
+                        placeholder={t("Gde da vam odgovorimo")}
+                        className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#221D1A] placeholder:text-[#807E79] focus:border-[#221D1A] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="help-message"
+                      className="block text-xs font-medium text-[#221D1A]"
+                    >
+                      {t("Poruka")}
+                    </label>
+                    <textarea
+                      id="help-message"
+                      rows={3}
+                      required
+                      value={helpMessage}
+                      onChange={(e) => setHelpMessage(e.target.value)}
+                      placeholder={t("Ukratko napišite šta vam je potrebno...")}
+                      className="mt-1.5 w-full border border-[#D4D3CD] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#221D1A] placeholder:text-[#807E79] focus:border-[#221D1A] focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex flex-wrap items-center gap-8">
+                      <IslamicButton type="submit" variant="kocka" tone="brick" size="md">
+                        {t("Pošalji upit zajednici")}
+                      </IslamicButton>
+                      <IslamicButton
+                        type="button"
+                        variant="flowline"
+                        tone="brick"
+                        size="md"
+                        href={`mailto:${CONTACT_EMAIL}`}
+                      >
+                        {t("Ili pošalji mail")}
+                      </IslamicButton>
+                    </div>
+                    {helpError && (
+                      <p className="mt-4 text-sm text-[#9E2B45]">
+                        {t("Slanje nije uspelo. Pokušajte ponovo ili pišite na")}{' '}{CONTACT_EMAIL}.
+                      </p>
+                    )}
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tihi završni dio */}
+      <footer className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] text-[#2B211C]">
+        <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
+          <div className="border-s border-[#2B211C] bg-[#EDEDEA] px-10 pt-16 pb-12">
+            <figure className="m-0 max-w-3xl">
+              <p className="font-amiri-ar text-left [[dir=rtl]_&]:text-right text-[26px] leading-[1.9] text-[#0F7A53] sm:text-[30px]" dir="rtl" lang="ar">
+                وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ۖ وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ
+              </p>
+              {lang !== 'ar' && (
+              <blockquote className="font-quiet m-0 mt-4 text-[26px] leading-[1.4] text-[#2B211C]">
+                {t("„Jedni drugima pomažite u dobročinstvu i čestitosti, a ne sudelujte u grehu i neprijateljstvu.”")}
+              </blockquote>
+              )}
+              <figcaption className="font-quiet mt-4 text-[15px] text-[#8F8D88]">
+                {t("El-Maide, 2")}
+              </figcaption>
+            </figure>
+
+            <div className="mt-14 flex flex-col gap-4 border-t border-[#D4D3CD] pt-6 text-[13px] text-[#8F8D88] sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap items-center gap-6">
+                <span className="font-stone text-[16px] tracking-[0.3em] text-[#2B211C]">{t("SUMUD")}</span>
+                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="text-[#4F4A46] hover:text-[#9E2B45] transition-colors">{t("Ženski džemat · WhatsApp")}</button>
+                <button type="button" onClick={() => setCommunityModal('facebook')} className="text-[#4F4A46] hover:text-[#9E2B45] transition-colors">{t("Facebook")}</button>
+              </div>
+              <button type="button" onClick={() => scrollTo('o-muslimanima')} className="text-start text-[#4F4A46] hover:text-[#9E2B45] transition-colors">{t("Povratak na vrh")}</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* RSVP modal */}
+      {rsvpEvent && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${t('Prijava za događaj')} ${t(rsvpEvent.title)}`}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#221D1A]/80 p-4 sm:p-8"
+          onClick={() => setRsvpEvent(null)}
+        >
+          <div
+            className="w-full max-w-md border border-[#221D1A] bg-[#FFFFFF] p-7 sm:p-9"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-[#EAEAE6] pb-3">
+              <span className="font-mono-tabular text-[11px] text-[#0F7A53] uppercase">
+                {rsvpEvent.day} {t(rsvpEvent.month)} · {rsvpEvent.time}
+              </span>
+              <button
+                type="button"
+                onClick={() => setRsvpEvent(null)}
+                aria-label={t("Zatvori prozor")}
+                className="inline-flex h-8 w-8 items-center justify-center border border-[#D4D3CD] text-[#221D1A] hover:border-[#221D1A]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#221D1A]">{t(rsvpEvent.title)}</h3>
+            <div className="font-quiet mt-1 text-[17px] text-[#9E2B45]">{t(rsvpEvent.place)}</div>
+
+            {rsvpStatus === 'done' ? (
+              <div className="mt-6">
+                <div className="inline-flex h-9 w-9 items-center justify-center bg-[#0F7A53] text-[#FFFFFF]">
+                  <Check className="h-4 w-4" />
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-[#4F4A46]">
+                  {rsvpName ? fill(t('Zabeleženo, vidimo se, {name}! Ako se planovi promene, javite nam na'), {name: rsvpName}) : t('Zabeleženo, vidimo se! Ako se planovi promene, javite nam na')}{' '}{CONTACT_EMAIL}.
+                </p>
+                <div className="mt-6">
+                  <IslamicButton variant="kocka" tone="charcoal" size="sm" onClick={() => setRsvpEvent(null)}>
+                    {t("Zatvori")}
+                  </IslamicButton>
+                </div>
+              </div>
+            ) : rsvpStatus === 'sending' ? (
+              <div className="flex min-h-[160px] items-center justify-center">
+                <TespihLoader size={52} label={t("Šaljemo prijavu...")} />
+              </div>
+            ) : (
+              <form onSubmit={handleRsvpSubmit} className="mt-6 space-y-4">
+                <div>
+                  <label htmlFor="rsvp-name" className="block text-xs font-medium text-[#221D1A]">{t("Ime")}</label>
+                  <input id="rsvp-name" type="text" required value={rsvpName} onChange={(e) => setRsvpName(e.target.value)} placeholder={t("Kako da vas zabeležimo")} className={INPUT_CLS} />
+                </div>
+                <div className="grid grid-cols-[1fr_110px] gap-4">
+                  <div>
+                    <label htmlFor="rsvp-contact" className="block text-xs font-medium text-[#221D1A]">{t("Kontakt (opcionalno)")}</label>
+                    <input id="rsvp-contact" type="text" value={rsvpContact} onChange={(e) => setRsvpContact(e.target.value)} placeholder={t("Telefon ili email")} className={INPUT_CLS} />
+                  </div>
+                  <div>
+                    <label htmlFor="rsvp-count" className="block text-xs font-medium text-[#221D1A]">{t("Broj osoba")}</label>
+                    <select id="rsvp-count" value={rsvpCount} onChange={(e) => setRsvpCount(e.target.value)} className={INPUT_CLS}>
+                      {['1', '2', '3', '4', '5', '6+'].map((n) => (
+                        <option key={n} value={n}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex items-center gap-6 pt-2">
+                  <IslamicButton type="submit" variant="kocka" tone="emerald" size="sm">
+                    {t("Potvrdi dolazak")}
+                  </IslamicButton>
+                  <button type="button" onClick={() => setRsvpEvent(null)} className="text-xs text-[#807E79] hover:text-[#221D1A]">
+                    {t("Otkaži")}
+                  </button>
+                </div>
+                {rsvpStatus === 'error' && (
+                  <p className="text-sm text-[#9E2B45]">{t("Slanje nije uspelo. Pokušajte ponovo.")}</p>
+                )}
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Modal za puni tekst o istoriji */}
+      {storyOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t(HISTORY_STORY.title)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#221D1A]/80 p-4 sm:p-8"
+          onClick={() => setStoryOpen(false)}
+        >
+          <div
+            className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-[#221D1A] bg-[#FFFFFF] p-6 sm:p-10"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 border-b border-[#EAEAE6] pb-4">
+              <div className="font-mono-tabular text-[11px] text-[#807E79]">
+                {t(HISTORY_STORY.label)}
+              </div>
+              <button
+                type="button"
+                onClick={() => setStoryOpen(false)}
+                aria-label={t("Zatvori priču")}
+                className="inline-flex h-8 w-8 items-center justify-center border border-[#D4D3CD] text-[#221D1A] hover:border-[#221D1A]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-12 sm:items-center">
+              <div className="border border-[#D4D3CD] bg-[#EAEAE6] p-1 sm:col-span-5">
+                <img
+                  src={HISTORY_STORY.photoSrc}
+                  alt={t(HISTORY_STORY.photoAlt)}
+                  className="aspect-[4/5] w-full object-cover"
+                />
+              </div>
+              <div className="sm:col-span-7">
+                <h3 className="font-brutal text-2xl font-semibold tracking-[-0.02em] text-[#221D1A] sm:text-3xl">
+                  {t(HISTORY_STORY.title)}
+                </h3>
+              </div>
+            </div>
+
+            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
+              {HISTORY_STORY.paragraphs.map((p, idx) => (
+                <p key={idx}>{t(p)}</p>
+              ))}
+            </div>
+
+            <div className="mt-8 flex justify-end border-t border-[#EAEAE6] pt-5">
+              <IslamicButton
+                variant="kocka"
+                tone="charcoal"
+                size="sm"
+                onClick={() => setStoryOpen(false)}
+              >
+                {t("Zatvori")}
+              </IslamicButton>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
