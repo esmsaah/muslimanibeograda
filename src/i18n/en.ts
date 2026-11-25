@@ -141,7 +141,7 @@ export const EN: Record<string, string> = {
  "Kineska kuhinja, ručno rađene nudle i knedle.": "Chinese food, hand-made noodles and dumplings.",
  "Kod svakog mesta piše odakle je podatak o halal statusu. Oznaka Halal znači da je halal potvrđen ili da ga restoran sam navodi. Certifikat uvek proverite na licu mesta.": "Each place shows where its halal information comes from. The Halal label means halal is confirmed or the restaurant states it itself. Always check the certificate on site.",
  "Koga": "Who",
- "Kolektiv muslimana Beograda": "A collective of Belgrade Muslims",
+ "Kolektiv muslimana Beograda": "Belgrade Muslim Collective",
  "Komšijska ekonomija": "Neighbourhood economy",
  "Kontakt (opcionalno)": "Contact (optional)",
  "Kontakt (telefon / IG / email)": "Contact (phone / IG / email)",
