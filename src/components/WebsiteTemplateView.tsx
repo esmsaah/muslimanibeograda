@@ -623,13 +623,13 @@ export function WebsiteTemplateView({
               </div>
             </div>
 
-            {/* Desno: priča */}
-            <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
+            {/* Desno: priča. Jedan font za tekst, dve veličine, a oba dela poravnata sa fotografijom. */}
+            <div className="flex flex-col bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-10 lg:pt-12 lg:pb-12">
               <SignTitle caps={t("Priča")} rest={t("o nama")} />
-              <p className="font-stone mt-7 text-[25px] leading-[1.4] text-[#2B211C]">
+              <p className="font-stone mt-7 text-[24px] leading-[1.45] text-[#2B211C]">
                 {t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}
               </p>
-              <p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-[#4F4A46]">
+              <p className="font-stone mt-4 text-[20px] leading-[1.55] text-[#4F4A46]">
                 {t(ABOUT_STORY.paragraphs[0])}
               </p>
               <div className="mt-7">
@@ -638,12 +638,12 @@ export function WebsiteTemplateView({
                 </IslamicButton>
               </div>
 
-              <div className="mt-14 border-t border-[#D4D3CD] pt-8">
+              <div className="mt-12 border-t border-[#D4D3CD] pt-8 lg:mt-auto">
                 <SignTitle small caps={t("Muslimani")} rest={t("Beograda")} />
-                <p className="mt-5 max-w-[520px] line-clamp-3 text-[15px] leading-relaxed text-[#4F4A46]">
+                <p className="font-stone mt-5 line-clamp-3 text-[20px] leading-[1.55] text-[#4F4A46]">
                   {t(HISTORY_STORY.paragraphs[0])}
                 </p>
-                <div className="mt-6">
+                <div className="mt-7">
                   <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
                     {t("Pročitaj više")}
                   </IslamicButton>
