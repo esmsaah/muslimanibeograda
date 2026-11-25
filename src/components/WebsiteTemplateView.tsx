@@ -239,9 +239,7 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     summary:
       'Od 2011. godine svakog ponedeljka u KC Gradu kuva neko drugi, a publika jede za bon od 600 dinara. Na stolu je svaki put druga kuhinja sveta, uvek uz vegetarijansku i vegansku opciju.',
     note: 'Hrana nije automatski halal jer se kuvari menjaju. Proverite šta se sprema te večeri.',
-    posterTitle: 'Deli Monday',
-    posterLabel: 'KC Grad',
-    posterBg: '#0F7A53',
+    instagramEmbed: 'https://www.instagram.com/p/DgFQM6DjHl-/embed/',
     instagramUrl: 'https://www.instagram.com/p/DgFQM6DjHl-/',
     applyEmail: 'deli@gradbeograd.eu',
   },
@@ -1014,7 +1012,7 @@ export function WebsiteTemplateView({
                     {ev.photos && ev.photos.length > 0 ? (
                       <EventPhotos photos={ev.photos} alt={t(ev.title)} />
                     ) : ev.instagramEmbed ? (
-                      <div className="pointer-events-none absolute top-0 start-[-14%] w-[128%]" style={{marginTop: 'calc(-58px - 74%)'}}>
+                      <div className="pointer-events-none absolute top-0 start-[-14%] w-[128%]" style={{marginTop: 'calc(-58px - 68%)'}}>
                         <iframe
                           src={ev.instagramEmbed}
                           title={`${t(ev.title)} · Instagram`}
