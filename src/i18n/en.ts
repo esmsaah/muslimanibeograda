@@ -446,5 +446,6 @@ export const EN: Record<string, string> = {
  "XX vek": "20th century",
  "Danas": "Today",
  "O nama": "About us",
- "Sumud": "Sumud"
+ "Sumud": "Sumud",
+ "Jedni drugima pomažite u dobročinstvu i čestitosti, a ne sudelujte u grehu i neprijateljstvu.": "And cooperate in righteousness and piety, but do not cooperate in sin and aggression."
 };

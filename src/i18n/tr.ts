@@ -446,5 +446,6 @@ export const TR: Record<string, string> = {
  "XX vek": "20. yüzyıl",
  "Danas": "Bugün",
  "O nama": "Hakkımızda",
- "Sumud": "Sumud"
+ "Sumud": "Sumud",
+ "Jedni drugima pomažite u dobročinstvu i čestitosti, a ne sudelujte u grehu i neprijateljstvu.": "İyilik ve takva üzerinde yardımlaşın, günah ve düşmanlık üzerinde yardımlaşmayın."
 };

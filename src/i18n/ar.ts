@@ -446,5 +446,6 @@ export const AR: Record<string, string> = {
  "XX vek": "القرن العشرون",
  "Danas": "اليوم",
  "O nama": "من نحن",
- "Sumud": "صمود"
+ "Sumud": "صمود",
+ "Jedni drugima pomažite u dobročinstvu i čestitosti, a ne sudelujte u grehu i neprijateljstvu.": "﴿وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ۖ وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ﴾"
 };
