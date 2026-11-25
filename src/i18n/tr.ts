@@ -394,5 +394,6 @@ export const TR: Record<string, string> = {
  "Voždovac": "Voždovac",
  "Pošalji upit": "Talebi gönder",
  "Kopiraj link": "Bağlantıyı kopyala",
- "Link kopiran": "Bağlantı kopyalandı"
+ "Link kopiran": "Bağlantı kopyalandı",
+ "Muslimani koji rade u Beogradu.": "Belgrad'da çalışan Müslümanlar."
 };

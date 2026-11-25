@@ -394,5 +394,6 @@ export const EN: Record<string, string> = {
  "Voždovac": "Voždovac",
  "Pošalji upit": "Send request",
  "Kopiraj link": "Copy link",
- "Link kopiran": "Link copied"
+ "Link kopiran": "Link copied",
+ "Muslimani koji rade u Beogradu.": "Muslims who work in Belgrade."
 };

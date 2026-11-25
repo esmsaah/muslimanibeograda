@@ -394,5 +394,6 @@ export const AR: Record<string, string> = {
  "Voždovac": "فوجدوفاتس",
  "Pošalji upit": "أرسل الطلب",
  "Kopiraj link": "نسخ الرابط",
- "Link kopiran": "تم نسخ الرابط"
+ "Link kopiran": "تم نسخ الرابط",
+ "Muslimani koji rade u Beogradu.": "مسلمون يعملون في بلغراد."
 };

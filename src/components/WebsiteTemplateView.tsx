@@ -12,6 +12,7 @@ import {CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, SITE_GOALS, U
 import {currentRoute, pathFor, setRoute} from '../route';
 import type {Route} from '../route';
 import {PrayerTimesCard} from './PrayerTimesCard';
+import {IMENIK_LAYOUT, PREVIEW_NEIGHBORS} from '../layoutVariant';
 import type {CulturalEvent, HalalSpot} from '../data/content';
 import {useLang, fill} from '../i18n';
 import SumudMark from './SumudMark';
@@ -69,6 +70,22 @@ type HalalCategory = 'sve' | 'restorani' | 'kafici' | 'prodavnice';
 type SkillCategory = 'sve' | 'zdravlje' | 'zanat' | 'biznis' | 'hrana' | 'lepota';
 
 
+
+const COMMUNITY_CHANNELS = [
+  {id: 'whatsapp' as const, src: '/assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski džemat', sub: 'WhatsApp grupa'},
+  {id: 'facebook' as const, src: '/assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Javni kanal'},
+];
+
+/** Kontakt iz imenika kao link: telefon, Instagram, mejl ili sajt. */
+function ContactLink({value}: {value: string}) {
+  const v = value.trim();
+  if (!v) return null;
+  const cls = 'font-quiet mt-2 inline-flex items-center gap-1.5 text-[18px] text-[#0F7A53] hover:underline';
+  if (v.startsWith('@')) return <a href={`https://www.instagram.com/${v.slice(1)}/`} target="_blank" rel="noopener noreferrer" className={cls}><Instagram className="h-3.5 w-3.5" /> {v}</a>;
+  if (v.includes('@')) return <a href={`mailto:${v}`} className={cls}><Mail className="h-3.5 w-3.5" /> {v}</a>;
+  if (/^https?:\/\//.test(v) || /\.[a-z]{2,}/i.test(v)) return <a href={v.startsWith('http') ? v : `https://${v}`} target="_blank" rel="noopener noreferrer" className={cls}><Globe className="h-3.5 w-3.5" /> {prettyUrl(v)}</a>;
+  return <a href={telHref(v)} className={cls}><Phone className="h-3.5 w-3.5" /> {v}</a>;
+}
 
 interface NeighborListing {
   id: string;
@@ -292,7 +309,7 @@ export function WebsiteTemplateView({
   const [helpError, setHelpError] = useState(false);
 
   // Neighbor directory
-  const [neighbors, setNeighbors] = useState<NeighborListing[]>([]);
+  const [neighbors, setNeighbors] = useState<NeighborListing[]>(PREVIEW_NEIGHBORS);
   const [skillFilter, setSkillFilter] = useState<SkillCategory>('sve');
   const [showAddNeighbor, setShowAddNeighbor] = useState(false);
   const [nbrMode, setNbrMode] = useState<'self' | 'rec'>('self');
@@ -1028,87 +1045,129 @@ export function WebsiteTemplateView({
       </section>
       </div>
 
-      {/* 4. UMREŽAVANJA — Ženski džemat + Facebook + Komšijski imenik */}
+      {/* 4. UMREŽAVANJA — zajednica gore, pa Koga zvati i imenik rame uz rame */}
       <div className="bg-[#FFFFFF]">
-      <section
-        id="umrezavanja"
-        className="mx-auto max-w-[1440px] lg:ps-[130px]"
-      >
+      <section id="umrezavanja" className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark label={t("Umrežavanje muslimana")} />
-        <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr]">
-          {/* Levo: dva kanala kao dve ploče */}
-          <div className="flex flex-col gap-12 bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-12 lg:pt-12">
-            {[
-              {id: 'whatsapp' as const, src: '/assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski džemat', sub: 'WhatsApp grupa'},
-              {id: 'facebook' as const, src: '/assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Javni kanal'},
-            ].map((ch) => (
-              <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group block w-full text-start">
-                <span className="relative block aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
-                  <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover ${ch.pos}`} />
-                </span>
-                <span className="mt-4 flex items-baseline justify-between border-t border-[#2B211C] pt-3">
-                  <span className="font-stone text-[26px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
-                  <span className="font-quiet text-[15px] text-[#8F8D88]">{t(ch.sub)}</span>
-                </span>
-              </button>
-            ))}
-          </div>
 
-          {/* Desno: važni kontakti pa imenik */}
-          <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
-            <SignTitle caps={t("Koga")} rest={t("zvati")} accent="#9E2B45" />
-            <p className="font-quiet mt-5 max-w-xl text-[19px] leading-[1.5] text-[#2B211C]">
-              {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
-            </p>
-
-            <div role="group" aria-label={t("Vrsta kontakta")} className="mt-10 flex flex-wrap gap-x-7 gap-y-2 text-[15px]">
-              {USEFUL_CONTACTS.map((g) => (
-                <button
-                  key={g.title}
-                  type="button"
-                  onClick={() => setContactGroup(g.title)}
-                  className={`pb-1 transition-colors ${contactGroup === g.title ? 'border-b border-[#2B211C] text-[#2B211C]' : 'text-[#8F8D88] hover:text-[#2B211C]'}`}
-                >
-                  {t(g.title)}
+          {/* Zajednica: Ženski džemat i Facebook */}
+          {IMENIK_LAYOUT === 'd1' ? (
+            <div className="grid grid-cols-1 gap-5 bg-[#EDEDEA] px-6 py-8 sm:grid-cols-2 sm:px-10">
+              {COMMUNITY_CHANNELS.map((ch) => (
+                <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group relative block h-[170px] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD] text-start">
+                  <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${ch.pos}`} />
+                  <span className="absolute bottom-4 start-4 flex items-baseline gap-3 bg-[#FFFFFF] px-4 py-2">
+                    <span className="font-stone text-[22px] leading-none text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
+                    <span className="font-quiet text-[14px] text-[#8F8D88]">{t(ch.sub)}</span>
+                  </span>
                 </button>
               ))}
             </div>
-
-            <ol className="mt-8 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
-              {(USEFUL_CONTACTS.find((g) => g.title === contactGroup) ?? USEFUL_CONTACTS[0]).items.map((c) => (
-                <li key={c.name} className="border-b border-[#D4D3CD] py-4">
-                  <div className="font-stone text-[20px] leading-tight text-[#2B211C]">{t(c.name)}</div>
-                  <div className="mt-1 text-[13px] text-[#8F8D88]">{t(c.note)}</div>
-                  {c.phone ? (
-                    <a href={telHref(c.phone)} className="font-quiet mt-2 inline-flex items-center gap-1.5 text-[19px] text-[#0F7A53] hover:underline">
-                      <Phone className="h-3.5 w-3.5" /> {c.phone}
-                    </a>
-                  ) : c.link ? (
-                    <a href={c.link} target="_blank" rel="noopener noreferrer" className="font-quiet mt-2 inline-flex items-center gap-1.5 text-[19px] text-[#0F7A53] hover:underline">
-                      <Globe className="h-3.5 w-3.5" /> {c.linkLabel}
-                    </a>
-                  ) : null}
-                </li>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 bg-[#EDEDEA] px-6 py-6 sm:grid-cols-2 sm:px-10">
+              {COMMUNITY_CHANNELS.map((ch) => (
+                <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group flex items-center gap-4 text-start">
+                  <span className="relative block h-[72px] w-[72px] shrink-0 overflow-hidden rounded-se-[24px] bg-[#D4D3CD]">
+                    <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover ${ch.pos}`} />
+                  </span>
+                  <span>
+                    <span className="font-stone block text-[22px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
+                    <span className="font-quiet block text-[15px] text-[#8F8D88]">{t(ch.sub)}</span>
+                  </span>
+                </button>
               ))}
-            </ol>
-            <p className="mt-5 text-[12px] leading-relaxed text-[#8F8D88]">
-              {t("Za stvari iz zajednice, smeštaj ili snalaženje u gradu piši nam preko forme Javi nam se.")}
-            </p>
+            </div>
+          )}
 
-            {/* Imenik muslimanskih privrednika */}
-            <div id="imenik" className="mt-16 scroll-mt-24">
+          <div className="grid grid-cols-1 gap-x-16 gap-y-16 px-6 pt-10 pb-14 sm:px-10 lg:grid-cols-2 lg:pt-12">
+            {/* Koga zvati */}
+            <div>
+              <SignTitle caps={t("Koga")} rest={t("zvati")} accent="#9E2B45" />
+              <p className="font-quiet mt-4 max-w-xl text-[18px] leading-[1.5] text-[#2B211C]">
+                {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
+              </p>
+              <div role="group" aria-label={t("Vrsta kontakta")} className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
+                {USEFUL_CONTACTS.map((g) => (
+                  <button
+                    key={g.title}
+                    type="button"
+                    onClick={() => setContactGroup(g.title)}
+                    className={`pb-1 transition-colors ${contactGroup === g.title ? 'border-b border-[#2B211C] text-[#2B211C]' : 'text-[#8F8D88] hover:text-[#2B211C]'}`}
+                  >
+                    {t(g.title)}
+                  </button>
+                ))}
+              </div>
+              <ol className="mt-6 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+                {(USEFUL_CONTACTS.find((g) => g.title === contactGroup) ?? USEFUL_CONTACTS[0]).items.map((c) => (
+                  <li key={c.name} className="border-b border-[#D4D3CD] py-4">
+                    <div className="font-stone text-[19px] leading-tight text-[#2B211C]">{t(c.name)}</div>
+                    <div className="mt-1 text-[13px] text-[#8F8D88]">{t(c.note)}</div>
+                    {c.phone ? (
+                      <a href={telHref(c.phone)} className="font-quiet mt-2 inline-flex items-center gap-1.5 text-[18px] text-[#0F7A53] hover:underline">
+                        <Phone className="h-3.5 w-3.5" /> {c.phone}
+                      </a>
+                    ) : c.link ? (
+                      <a href={c.link} target="_blank" rel="noopener noreferrer" className="font-quiet mt-2 inline-flex items-center gap-1.5 text-[18px] text-[#0F7A53] hover:underline">
+                        <Globe className="h-3.5 w-3.5" /> {c.linkLabel}
+                      </a>
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-4 text-[12px] leading-relaxed text-[#8F8D88]">
+                {t("Za stvari iz zajednice, smeštaj ili snalaženje u gradu piši nam preko forme Javi nam se.")}
+              </p>
+            </div>
+
+            {/* Imenik: Osloni se na svoje */}
+            <div id="imenik" className="scroll-mt-24">
               <SignTitle caps={t("Osloni se")} rest={t("na svoje")} />
-              <div className="mt-6 rounded-se-[64px] bg-[#EDEDEA] p-7 sm:p-9">
-                <h3 className="font-stone text-[26px] leading-tight text-[#2B211C] sm:text-[30px]">{t("Imaš radnju, zanat ili uslugu?")}</h3>
-                <p className="font-quiet mt-3 max-w-xl text-[19px] leading-[1.5] text-[#2B211C]">
-                  {t("Pravimo imenik muslimana koji rade u Beogradu. Doktori i stomatolozi, majstori i zanatlije, preduzetnici i frilenseri, hrana, lepota i sve između. Upis je besplatan. Znaš nekog ko bi trebalo da bude ovde? Preporuči ga.")}
-                </p>
-                <div className="mt-7 flex flex-wrap items-center gap-6">
+              <p className="font-quiet mt-4 max-w-xl text-[18px] leading-[1.5] text-[#2B211C]">
+                {t("Muslimani koji rade u Beogradu.")}
+              </p>
+
+              {neighbors.length === 0 ? (
+                <p className="font-quiet mt-7 border-t border-[#2B211C] pt-4 text-[17px] text-[#8F8D88]">{t("Imenik tek počinje. Prvi upisi pojaviće se ovde čim ih pregledamo.")}</p>
+              ) : (<>
+                {neighbors.length > 6 && (
+                  <div role="group" aria-label={t("Filtriraj delatnosti")} className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
+                    {(
+                      [
+                        ['sve', 'Sve'],
+                        ['zdravlje', 'Doktori i zdravlje'],
+                        ['zanat', 'Zanati i majstori'],
+                        ['biznis', 'Preduzetnici i frilenseri'],
+                        ['hrana', 'Hrana i ketering'],
+                        ['lepota', 'Lepota i njega'],
+                      ] as const
+                    ).map(([key, label]) => (
+                      <button key={key} type="button" onClick={() => setSkillFilter(key)} className={`shrink-0 whitespace-nowrap pb-1 transition-colors ${skillFilter === key ? 'border-b border-[#2B211C] text-[#2B211C]' : 'text-[#8F8D88] hover:text-[#2B211C]'}`}>
+                        {t(label)}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <ol className="mt-7 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+                  {filteredNeighbors.map((item) => (
+                    <li key={item.id} className="border-b border-[#D4D3CD] py-4">
+                      <div className="font-stone text-[19px] leading-tight text-[#2B211C]">{item.name}</div>
+                      <div className="mt-1 text-[13px] text-[#8F8D88]">{item.profession} · {item.district}</div>
+                      {item.note && <p className="mt-1 text-[13px] leading-relaxed text-[#4F4A46]">{item.note}</p>}
+                      <ContactLink value={item.contact} />
+                    </li>
+                  ))}
+                </ol>
+              </>)}
+
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 rounded-se-[40px] bg-[#EDEDEA] px-6 py-5">
+                <span className="font-stone text-[20px] leading-tight text-[#2B211C]">{t("Imaš radnju, zanat ili uslugu?")}</span>
+                <div className="flex flex-wrap items-center gap-5">
                   <IslamicButton
                     variant="kocka"
                     tone="brick"
-                    size="md"
+                    size="sm"
                     iconLeft={<Plus className="h-3.5 w-3.5" />}
                     onClick={() => { setNbrMode('self'); setNbrDone(false); setShowAddNeighbor(true); }}
                   >
@@ -1123,9 +1182,7 @@ export function WebsiteTemplateView({
                   </IslamicButton>
                 </div>
               </div>
-            </div>
-            <div className="mt-6">
-
+              <div className="mt-6">
         {/* Formular za dodavanje komšije / sebe */}
         {showAddNeighbor && (
           <div className="mb-10 border border-[#D4D3CD] bg-[#EAEAE6]/55 p-7 sm:p-9">
@@ -1309,61 +1366,9 @@ export function WebsiteTemplateView({
           </div>
         )}
 
-        {neighbors.length === 0 ? (
-          <p className="font-quiet text-[18px] text-[#8F8D88]">{t("Imenik tek počinje. Prvi upisi pojaviće se ovde čim ih pregledamo.")}</p>
-        ) : (<>
-        {/* Filteri delatnosti */}
-        <div
-          role="group"
-          aria-label={t("Filtriraj delatnosti")}
-          className="flex flex-wrap items-center gap-x-6 gap-y-2 pb-4 text-[13px]"
-        >
-          {(
-            [
-              ['sve', 'Sve'],
-              ['zdravlje', 'Doktori i zdravlje'],
-              ['zanat', 'Zanati i majstori'],
-              ['biznis', 'Preduzetnici i frilenseri'],
-              ['hrana', 'Hrana i ketering'],
-              ['lepota', 'Lepota i njega'],
-            ] as const
-          ).map(([key, label]) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setSkillFilter(key)}
-              className={`pb-1 transition-colors whitespace-nowrap shrink-0 ${
-                skillFilter === key
-                  ? 'border-b border-[#2B211C] text-[#2B211C]'
-                  : 'text-[#8F8D88] hover:text-[#2B211C]'
-              }`}
-            >
-              {t(label)}
-            </button>
-          ))}
-        </div>
-
-        {/* Čist dvoslojni imenik bez suvišnih kartica */}
-        <div className="grid grid-cols-1 gap-x-12 border-t border-[#2B211C] md:grid-cols-2">
-          {filteredNeighbors.map((item) => (
-            <div key={item.id} className="border-b border-[#D4D3CD] py-6">
-              <h3 className="font-stone text-[22px] leading-tight text-[#2B211C]">
-                {item.profession}
-              </h3>
-              <div className="font-quiet mt-1 text-[18px] text-[#9E2B45]">
-                {item.name} <span className="text-[#8F8D88]">· {item.district}</span>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-[#4F4A46]">
-                {item.note}
-              </p>
-              <div className="mt-3 text-[13px] text-[#4F4A46]">{item.contact}</div>
-            </div>
-          ))}
-        </div>
-        </>)}
             </div>
           </div>
-        </div>
         </div>
       </section>
       </div>
