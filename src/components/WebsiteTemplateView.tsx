@@ -8,7 +8,9 @@ import {
   renderBelgradeGouachePainting,
 } from '../utils/belgradePainting';
 import {IslamicButton} from './IslamicButton';
-import {CULTURAL_EVENTS, DZEMATI, HALAL_SPOTS, HISTORY_STORY, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
+import {CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
+import {currentRoute, pathFor, setRoute} from '../route';
+import type {Route} from '../route';
 import type {CulturalEvent, HalalSpot} from '../data/content';
 import {useLang, fill} from '../i18n';
 import SumudMark from './SumudMark';
@@ -182,6 +184,19 @@ export function WebsiteTemplateView({
   gifPercent = null,
 }: WebsiteTemplateViewProps) {
   const {t, lang} = useLang();
+  // Svako mesto ima svoju adresu (npr. /halal/hanan/). Ako je neko došao
+  // direktno na nju, otvori to mesto, ali ostani na istoj stranici.
+  const [route0] = useState<Route>(currentRoute);
+  const route0Spot = route0.kind === 'halal' && HALAL_SPOTS.some((x) => x.id === route0.id) ? route0.id : null;
+  const route0Dzemat = route0.kind === 'dzamija' && DZEMATI.some((x) => x.id === route0.id) ? route0.id : null;
+  const [faqOpen, setFaqOpen] = useState(route0.kind === 'pitanja');
+  const openFaq = (open: boolean) => { setFaqOpen(open); setRoute(lang, open ? {kind: 'pitanja'} : {kind: 'home'}); };
+  useEffect(() => {
+    if (!faqOpen) return;
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') { setFaqOpen(false); setRoute(lang, {kind: 'home'}); } };
+    document.addEventListener('keydown', esc);
+    return () => document.removeEventListener('keydown', esc);
+  }, [faqOpen, lang]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const staticCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const progressRef = useRef(0.16);
@@ -200,24 +215,31 @@ export function WebsiteTemplateView({
     document.addEventListener('keydown', esc);
     return () => { document.removeEventListener('mousedown', close); document.removeEventListener('keydown', esc); };
   }, [areaMenuOpen]);
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [visibleCount, setVisibleCount] = useState(() => {
+    if (!route0Spot) return 8;
+    const order: Record<string, number> = {halal: 0, 'bez-svinjetine': 1, kafici: 2, prodavnice: 3};
+    const i = [...HALAL_SPOTS].sort((x, y) => order[x.category] - order[y.category]).findIndex((x) => x.id === route0Spot);
+    return i < 8 ? 8 : 8 + Math.ceil((i + 1 - 8) / 10) * 10;
+  });
   const halalListRef = useRef<HTMLOListElement | null>(null);
   const halalDetailRef = useRef<HTMLDivElement | null>(null);
   const isMobile = () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
   const pickSpot = (id: string) => {
     setSelectedSpotId(id);
+    setRoute(lang, {kind: 'halal', id});
     if (isMobile()) requestAnimationFrame(() => halalDetailRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'}));
   };
   const backToHalalList = () => halalListRef.current?.scrollIntoView({behavior: 'smooth', block: 'center'});
 
-  const [selectedSpotId, setSelectedSpotId] = useState<string>(HALAL_SPOTS[0].id);
+  const [selectedSpotId, setSelectedSpotId] = useState<string>(route0Spot ?? HALAL_SPOTS[0].id);
   const [rsvpIds, setRsvpIds] = useState<Record<string, boolean>>({});
   const [storyOpen, setStoryOpen] = useState(false);
   const setCommunityModal = (which: 'whatsapp' | 'facebook' | null) => {
     if (which) openCommunity(which);
   };
   const [pricaIdx, setPricaIdx] = useState(0);
-  const [openDzemat, setOpenDzemat] = useState<string | null>(null);
+  const [openDzemat, setOpenDzemat] = useState<string | null>(route0Dzemat);
+  const toggleDzemat = (id: string | null) => { setOpenDzemat(id); setRoute(lang, id ? {kind: 'dzamija', id} : {kind: 'home'}); };
 
   // RSVP
   const [rsvpEvent, setRsvpEvent] = useState<CulturalEvent | null>(null);
@@ -367,9 +389,12 @@ export function WebsiteTemplateView({
     [halalByCategory, areaFilter],
   );
 
+  const filterFirstRun = useRef(true);
   useEffect(() => {
+    if (filterFirstRun.current) { filterFirstRun.current = false; return; }
     setVisibleCount(8);
     if (filteredHalal[0]) setSelectedSpotId(filteredHalal[0].id);
+    if (currentRoute().kind === 'halal') setRoute(lang, {kind: 'home'});
     if (halalListRef.current) halalListRef.current.scrollTop = 0;
   }, [filteredHalal]);
 
@@ -390,6 +415,12 @@ export function WebsiteTemplateView({
 
   const selectedSpot =
     filteredHalal.find((s) => s.id === selectedSpotId) ?? filteredHalal[0];
+
+  useEffect(() => {
+    const target = route0Spot ? (isMobile() ? halalDetailRef.current : document.getElementById('halal-beograd')) : route0Dzemat ? document.getElementById('dzemati') : null;
+    if (target) window.setTimeout(() => target.scrollIntoView({block: 'start'}), 150);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -637,9 +668,9 @@ export function WebsiteTemplateView({
                 const isSelected = selectedSpot?.id === spot.id;
                 return (
                   <li key={spot.id} className="border-b border-[#D4D3CD]">
-                    <button
-                      type="button"
-                      onClick={() => pickSpot(spot.id)}
+                    <a
+                      href={pathFor(lang, {kind: 'halal', id: spot.id})}
+                      onClick={(e) => { e.preventDefault(); pickSpot(spot.id); }}
                       className="block w-full py-3 text-start"
                     >
                       <span>
@@ -653,7 +684,7 @@ export function WebsiteTemplateView({
                           {t(spot.street)} · {t(spot.district)}
                         </span>
                       </span>
-                    </button>
+                    </a>
                   </li>
                 );
               })}
@@ -765,10 +796,10 @@ export function WebsiteTemplateView({
                   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dz.mapQuery)}`;
                   return (
                     <li key={dz.id} className="border-b border-[#D4D3CD]">
-                      <button
-                        type="button"
+                      <a
+                        href={pathFor(lang, {kind: 'dzamija', id: dz.id})}
                         aria-expanded={open}
-                        onClick={() => setOpenDzemat(open ? null : dz.id)}
+                        onClick={(e) => { e.preventDefault(); toggleDzemat(open ? null : dz.id); }}
                         className="group flex w-full items-baseline justify-between gap-6 py-4 text-start"
                       >
                         <span>
@@ -776,7 +807,7 @@ export function WebsiteTemplateView({
                           <span className="mt-1 block text-[13px] text-[#4F4A46]">{t(dz.address)} · {t(dz.district)}</span>
                         </span>
                         <span className={`font-stone shrink-0 text-[24px] leading-none text-[#8F8D88] transition-transform duration-300 ${open ? 'rotate-45' : ''}`}>+</span>
-                      </button>
+                      </a>
                       {open && (
                         <div className="animate-fade-in grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
                           {dz.photo ? (
@@ -1465,6 +1496,7 @@ export function WebsiteTemplateView({
               <nav className="mt-3 flex flex-col sm:mt-0 sm:flex-row sm:items-baseline sm:gap-8">
                 <button type="button" onClick={() => setCommunityModal('whatsapp')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Ženski džemat · WhatsApp")}</button>
                 <button type="button" onClick={() => setCommunityModal('facebook')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Facebook")}</button>
+                <a href={pathFor(lang, {kind: 'pitanja'})} onClick={(e) => { e.preventDefault(); openFaq(true); }} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Česta pitanja")}</a>
                 <button type="button" onClick={() => scrollTo('o-muslimanima')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px] border-b-0 text-[#8F8D88]">{t("Povratak na vrh")}</button>
               </nav>
             </div>
@@ -1556,6 +1588,41 @@ export function WebsiteTemplateView({
           </div>
         </div>
       )}
+
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="faq-title"
+        hidden={!faqOpen}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-[#221D1A]/80 p-4 sm:p-8"
+        onClick={() => openFaq(false)}
+      >
+        <div
+          className="max-h-[92vh] w-full max-w-2xl overflow-y-auto border border-[#221D1A] bg-[#FFFFFF] p-7 sm:p-10"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center justify-between border-b border-[#EAEAE6] pb-3">
+            <span className="font-mono-tabular text-[11px] text-[#0F7A53] uppercase">{t("Muslimani Beograda")}</span>
+            <button
+              type="button"
+              onClick={() => openFaq(false)}
+              aria-label={t("Zatvori prozor")}
+              className="inline-flex h-8 w-8 items-center justify-center border border-[#D4D3CD] text-[#221D1A] hover:border-[#221D1A]"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <h2 id="faq-title" className="font-stone mt-5 text-[30px] leading-tight text-[#221D1A]">{t("Česta pitanja")}</h2>
+          <dl className="mt-4">
+            {FAQ.map((f) => (
+              <div key={f.q} className="border-b border-[#EAEAE6] py-5 last:border-b-0">
+                <dt className="font-stone text-[20px] leading-snug text-[#221D1A]">{t(f.q)}</dt>
+                <dd className="mt-2 text-[15px] leading-relaxed text-[#4F4A46]">{t(f.a)}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
 
       {suggestOpen && (
         <div

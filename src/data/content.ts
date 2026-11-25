@@ -231,3 +231,16 @@ export const USEFUL_CONTACTS: ContactGroup[] = [
     {name: 'Naxis Taxi', note: 'Taksi, radi 24h', phone: '19804'},
   ]},
 ];
+
+export type FaqItem = {q: string; a: string};
+
+export const FAQ: FaqItem[] = [
+  {q: 'Gde jesti halal u Beogradu?', a: 'Na sajtu je spisak halal restorana, kafića i prodavnica po opštinama. U centru su Restoran Hanan, Restoran Kultura, Meze, Pazarski specijaliteti i Gallo\'s, a u Zemunu i na Novom Beogradu Mama Sara. Kod svakog mesta piše odakle je podatak o halal statusu, a certifikat uvek proverite na licu mesta.'},
+  {q: 'Gde je džamija u Beogradu?', a: 'Bajrakli džamija u Gospodar Jevremovoj 11 na Dorćolu je jedina sačuvana istorijska džamija u Beogradu. Pored nje, džemati i mesdžidi postoje na Zvezdari, Karaburmi, u Borči, Krnjači, Zemunu, Zemun Polju, Batajnici, na Ledinama, u Surčinu i Sremčici. Adrese i mape su u delu Džemati Beograda.'},
+  {q: 'Gde se klanja džuma u Beogradu?', a: 'Džuma namaz se klanja u Bajrakli džamiji i u drugim džematima po gradu. Tačno vreme proverite u džematu koji vam je najbliži.'},
+  {q: 'Gde kupiti halal meso u Beogradu?', a: 'Halal mesnica Meandri je u Jelisavete Načić 4 i Porečkoj 1. Suho meso i sir prodaje Jusuf na Kalenić pijaci, a arapske i turske namirnice imaju Arapski dućan u Zemunu i Belgrad Türk Marketi na Paliluli.'},
+  {q: 'Kako da upoznam druge muslimane u Beogradu?', a: 'Sumud je neformalna mreža muslimana Beograda, bez institucije i kancelarije. Postoji ženski džemat na WhatsAppu i javna Facebook stranica, a na sajtu možete preporučiti majstore, lekare i preduzetnike iz zajednice.'},
+  {q: 'Koje brojeve treba da znam kad tek dođem u Beograd?', a: 'Hitna pomoć je 194, policija 192, vatrogasci 193, a opšti broj za hitne slučajeve 112. Uprava za strance je u Omladinskih brigada 1 na Novom Beogradu, a Urgentni centar u Pasterovoj 2 radi 24 časa. Svi brojevi su u delu Koga zvati.'},
+  {q: 'Kako da predložim mesto ili događaj?', a: 'Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Za događaje postoji dugme Predloži događaj.'},
+  {q: 'Ko stoji iza sajta?', a: 'Sajt pravi Sumud, neformalna grupa muslimana Beograda. Nismo deo nijedne verske ili državne institucije.'},
+];

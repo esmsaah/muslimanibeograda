@@ -1,8 +1,9 @@
-import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 import type {ReactNode} from 'react';
 import {EN} from './i18n/en';
 import {AR} from './i18n/ar';
 import {TR} from './i18n/tr';
+import {parseRoute, pathFor} from './route';
 
 export type Lang = 'sr' | 'en' | 'ar' | 'tr';
 
@@ -59,20 +60,26 @@ export function LangProvider({children, initial}: {children: ReactNode; initial?
     }
   }, []);
 
+  const firstRun = useRef(true);
   useEffect(() => {
+    // On first load the prerendered HTML already carries the right title and
+    // description for this address (a place page has its own), so keep them.
+    const first = firstRun.current;
+    firstRun.current = false;
     document.documentElement.lang = lang === 'sr' ? 'sr-Latn' : lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     const tr = (x: string) => (lang === 'sr' ? x : DICTS[lang][x] ?? x);
-    document.title = tr('Muslimani Beograda · halal restorani, džamije i događaji | Sumud');
-    const desc = tr('Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.');
-    document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+    if (!first) {
+      document.title = tr('Muslimani Beograda · halal restorani, džamije i događaji | Sumud');
+      const desc = tr('Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.');
+      document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+    }
     const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) canonical.setAttribute('href', SITE_URL + LANG_PATH[lang]);
     // Keep the address in step with the language, so a shared link opens in it.
     const {pathname, hash} = window.location;
-    if (pathname !== LANG_PATH[lang] && (pathname === '/' || langFromPath(pathname) || pathname === '/index.html')) {
-      window.history.replaceState(null, '', LANG_PATH[lang] + hash);
-    }
+    const next = pathFor(lang, parseRoute(pathname));
+    if (pathname !== next) window.history.replaceState(null, '', next + hash);
+    if (canonical) canonical.setAttribute('href', SITE_URL + next);
   }, [lang]);
 
   const t = useCallback(

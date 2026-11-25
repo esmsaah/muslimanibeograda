@@ -8,7 +8,7 @@ const ROOT = process.cwd();
 const DIST = path.join(ROOT, 'dist');
 const SITE = 'https://muslimanibeograda.com';
 const ssr = await import(pathToFileURL(path.join(ROOT, 'dist-ssr/entry-server.js')).href);
-const {render, DICTS, CULTURAL_EVENTS, DZEMATI, HALAL_SPOTS, USEFUL_CONTACTS, HISTORY_STORY} = ssr;
+const {render, pathFor, DICTS, FAQ, CULTURAL_EVENTS, DZEMATI, HALAL_SPOTS, USEFUL_CONTACTS, HISTORY_STORY} = ssr;
 
 const LANGS = [
   {code: 'sr', path: '/', html: 'sr-Latn', og: 'sr_RS'},
@@ -34,7 +34,7 @@ const address = (street, district) => ({
   addressCountry: 'RS',
 });
 
-function jsonLd(lang, url) {
+function homeGraph(lang, url) {
   const graph = [
     {
       '@type': 'WebSite',
@@ -107,50 +107,120 @@ function jsonLd(lang, url) {
       });
     }
   }
-  return JSON.stringify({'@context': 'https://schema.org', '@graph': graph}).replace(/</g, '\\u003c');
+  return graph;
+}
+
+const ld = (graph) => JSON.stringify({'@context': 'https://schema.org', '@graph': graph}).replace(/</g, '\\u003c');
+const SITE_NAME = (lang) => T(lang, 'Muslimani Beograda');
+const CAT_TITLE = {halal: 'Halal restoran u Beogradu', 'bez-svinjetine': 'Restoran bez svinjetine u Beogradu', kafici: 'Kafić u Beogradu', prodavnice: 'Halal prodavnica u Beogradu'};
+const clip = (s, n = 300) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s);
+const crumbs = (lang, items) => ({
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map(([name, item], i) => ({'@type': 'ListItem', position: i + 1, name, item})),
+});
+
+function routes() {
+  return [
+    {kind: 'home'},
+    {kind: 'pitanja'},
+    ...HALAL_SPOTS.map((x) => ({kind: 'halal', id: x.id})),
+    ...DZEMATI.map((x) => ({kind: 'dzamija', id: x.id})),
+  ];
+}
+
+function page(lang, route) {
+  const url = SITE + pathFor(lang, route);
+  const home = SITE + pathFor(lang, {kind: 'home'});
+  const website = {'@type': 'WebSite', '@id': `${SITE}/#website`, name: 'Sumud · Muslimani Beograda', url: `${SITE}/`};
+  if (route.kind === 'halal') {
+    const s = HALAL_SPOTS.find((x) => x.id === route.id);
+    const title = `${s.name}, ${T(lang, s.street).split(' (')[0]} · ${T(lang, CAT_TITLE[s.category])} | ${SITE_NAME(lang)}`;
+    const desc = clip([`${s.name}, ${T(lang, s.street)}, ${s.district}.`, T(lang, s.note), T(lang, s.communityTip), T(lang, 'Adresa, telefon i halal status, uz sva halal mesta u Beogradu.')].filter(Boolean).join(' '));
+    const entity = {
+      '@type': spotType(s.category),
+      '@id': `${url}#place`,
+      name: s.name,
+      url,
+      description: [T(lang, s.note), T(lang, s.communityTip)].filter(Boolean).join(' '),
+      address: address(T(lang, s.street), s.district),
+      ...(s.category !== 'prodavnice' ? {servesCuisine: T(lang, s.note)} : {}),
+      ...(s.phones?.length ? {telephone: telIntl(s.phones[0])} : {}),
+      ...(s.website || s.instagram ? {sameAs: [s.website, s.instagram && `https://www.instagram.com/${s.instagram}/`].filter(Boolean)} : {}),
+      image: `${SITE}/assets/halal/${s.id}.jpg`,
+    };
+    return {url, title, desc, graph: [website, entity, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Halal Beograd'), `${home}#halal-beograd`], [s.name, url]])]};
+  }
+  if (route.kind === 'dzamija') {
+    const d = DZEMATI.find((x) => x.id === route.id);
+    const name = T(lang, d.name);
+    const title = `${name}, ${d.address} · ${T(lang, 'Džamija u Beogradu')} | ${SITE_NAME(lang)}`;
+    const desc = `${name}, ${d.address}, ${d.district}. ${T(lang, 'Adresa, mapa i svi džemati Beograda na jednom mestu.')}`;
+    const entity = {'@type': 'Mosque', '@id': `${url}#place`, name, url, address: address(d.address, d.district), hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.mapQuery)}`};
+    return {url, title, desc, graph: [website, entity, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Džemati Beograda'), `${home}#dzemati`], [name, url]])]};
+  }
+  if (route.kind === 'pitanja') {
+    const faq = {
+      '@type': 'FAQPage',
+      '@id': `${url}#faq`,
+      url,
+      mainEntity: FAQ.map((f) => ({'@type': 'Question', name: T(lang, f.q), acceptedAnswer: {'@type': 'Answer', text: T(lang, f.a)}})),
+    };
+    return {url, title: T(lang, 'Česta pitanja · muslimani u Beogradu | Sumud'), desc: T(lang, 'Gde jesti halal, gde je džamija, gde se klanja džuma i koje brojeve treba znati u Beogradu.'), graph: [website, faq]};
+  }
+  return {url, title: T(lang, TITLE), desc: T(lang, DESC), graph: homeGraph(lang, url)};
 }
 
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
+const allUrls = [];
+let count = 0;
 
-for (const l of LANGS) {
-  const url = SITE + l.path;
-  const title = T(l.code, TITLE);
-  const desc = T(l.code, DESC);
-  const share = T(l.code, SHARE);
-  const head = [
-    ...LANGS.map((a) => `<link rel="alternate" hreflang="${a.html}" href="${SITE}${a.path}" />`),
-    `<link rel="alternate" hreflang="x-default" href="${SITE}/" />`,
-    `<script type="application/ld+json">${jsonLd(l.code, url)}</script>`,
-  ].join('\n    ');
-  let html = template
-    .replace(/<html lang="[^"]*"/, `<html lang="${l.html}" dir="${l.code === 'ar' ? 'rtl' : 'ltr'}"`)
-    .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
-    .replace(/(<meta name="description" content=")[^"]*"/, `$1${esc(desc)}"`)
-    .replace(/(<link rel="canonical" href=")[^"]*"/, `$1${url}"`)
-    .replace(/(<meta property="og:title" content=")[^"]*"/, `$1${esc(T(l.code, 'Sumud · Muslimani Beograda'))}"`)
-    .replace(/(<meta name="twitter:title" content=")[^"]*"/, `$1${esc(T(l.code, 'Sumud · Muslimani Beograda'))}"`)
-    .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${esc(share)}"`)
-    .replace(/(<meta name="twitter:description" content=")[^"]*"/, `$1${esc(share)}"`)
-    .replace(/(<meta property="og:url" content=")[^"]*"/, `$1${url}"`)
-    .replace(/(<meta property="og:locale" content=")[^"]*"/, `$1${l.og}"`)
-    .replace('<!--seo-->', head);
-  const body = render(l.code);
-  html = html.replace(/<div id="root">[\s\S]*?<\/div>(\s*<script|\s*<\/body>)/, `<div id="root" data-prerendered="${l.code}">${body}</div>$1`);
-  if (!html.includes(`data-prerendered="${l.code}"`)) throw new Error('root not found in template');
-  const out = path.join(DIST, l.path, 'index.html');
-  fs.mkdirSync(path.dirname(out), {recursive: true});
-  fs.writeFileSync(out, html);
-  console.log('prerender', l.path, Math.round(html.length / 1024) + ' kB');
+for (const route of routes()) {
+  const alts = LANGS.map((a) => [a.html, SITE + pathFor(a.code, route)]);
+  allUrls.push(alts);
+  for (const l of LANGS) {
+    const {url, title, desc, graph} = page(l.code, route);
+    const share = route.kind === 'home' ? T(l.code, SHARE) : desc;
+    const ogTitle = route.kind === 'home' ? T(l.code, 'Sumud · Muslimani Beograda') : title;
+    const head = [
+      ...alts.map(([hl, href]) => `<link rel="alternate" hreflang="${hl}" href="${href}" />`),
+      `<link rel="alternate" hreflang="x-default" href="${alts[0][1]}" />`,
+      `<script type="application/ld+json">${ld(graph)}</script>`,
+    ].join('\n    ');
+    let html = template
+      .replace(/<html lang="[^"]*"/, `<html lang="${l.html}" dir="${l.code === 'ar' ? 'rtl' : 'ltr'}"`)
+      .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
+      .replace(/(<meta name="description" content=")[^"]*"/, `$1${esc(desc)}"`)
+      .replace(/(<link rel="canonical" href=")[^"]*"/, `$1${url}"`)
+      .replace(/(<meta property="og:title" content=")[^"]*"/, `$1${esc(ogTitle)}"`)
+      .replace(/(<meta name="twitter:title" content=")[^"]*"/, `$1${esc(ogTitle)}"`)
+      .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${esc(share)}"`)
+      .replace(/(<meta name="twitter:description" content=")[^"]*"/, `$1${esc(share)}"`)
+      .replace(/(<meta property="og:url" content=")[^"]*"/, `$1${url}"`)
+      .replace(/(<meta property="og:locale" content=")[^"]*"/, `$1${l.og}"`)
+      .replace('<!--seo-->', head);
+    const body = render(l.code, route);
+    html = html.replace(/<div id="root">[\s\S]*?<\/div>(\s*<script|\s*<\/body>)/, `<div id="root" data-prerendered="${l.code}">${body}</div>$1`);
+    if (!html.includes(`data-prerendered="${l.code}"`)) throw new Error('root not found in template');
+    const out = path.join(DIST, decodeURI(new URL(url).pathname), 'index.html');
+    fs.mkdirSync(path.dirname(out), {recursive: true});
+    fs.writeFileSync(out, html);
+    count++;
+  }
 }
+console.log(`prerender ${count} stranica`);
 
 // Sitemap
 const today = new Date().toISOString().slice(0, 10);
-const alts = LANGS.map((a) => `    <xhtml:link rel="alternate" hreflang="${a.html}" href="${SITE}${a.path}"/>`).join('\n');
 fs.writeFileSync(
   path.join(DIST, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${LANGS.map((l) => `  <url>\n    <loc>${SITE}${l.path}</loc>\n${alts}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n  </url>`).join('\n')}
+${allUrls
+  .flatMap((alts) => {
+    const links = alts.map(([hl, href]) => `    <xhtml:link rel="alternate" hreflang="${hl}" href="${href}"/>`).join('\n');
+    return alts.map(([, href]) => `  <url>\n    <loc>${href}</loc>\n${links}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${alts[0][1]}"/>\n    <lastmod>${today}</lastmod>\n  </url>`);
+  })
+  .join('\n')}
 </urlset>
 `,
 );
@@ -165,10 +235,10 @@ function fullText(lang) {
     if (s.phones?.length) bits.push(s.phones.join(', '));
     if (s.website) bits.push(s.website);
     if (s.instagram) bits.push(s.instagram);
-    L.push(`- **${s.name}** · ${bits.filter(Boolean).join(' · ')}`);
+    L.push(`- **[${s.name}](${SITE}${pathFor(lang, {kind: 'halal', id: s.id})})** · ${bits.filter(Boolean).join(' · ')}`);
   }
   L.push('', `## ${t('Džemati Beograda')}`, '');
-  for (const d of DZEMATI) L.push(`- **${t(d.name)}** · ${d.address}, ${d.district}`);
+  for (const d of DZEMATI) L.push(`- **[${t(d.name)}](${SITE}${pathFor(lang, {kind: 'dzamija', id: d.id})})** · ${d.address}, ${d.district}`);
   L.push('', `## ${t('Kulturni događaji')}`, '');
   for (const e of CULTURAL_EVENTS) {
     const bits = [t(e.when ?? `${e.day} ${e.month}`), t(e.place), t(e.summary)];
@@ -176,7 +246,9 @@ function fullText(lang) {
     if (e.instagramUrl) bits.push(e.instagramUrl);
     L.push(`- **${t(e.title)}** · ${bits.filter(Boolean).join(' · ')}`);
   }
-  L.push('', `## ${t('Koga zvati')}`, '');
+  L.push('', `## ${t('Česta pitanja')}`, '');
+  for (const f of FAQ) L.push(`### ${t(f.q)}`, t(f.a), '');
+  L.push(`## ${t('Koga zvati')}`, '');
   for (const g of USEFUL_CONTACTS) {
     L.push(`### ${t(g.title)}`);
     for (const c of g.items) L.push(`- **${t(c.name)}** · ${[t(c.note), c.phone, c.link].filter(Boolean).join(' · ')}`);
