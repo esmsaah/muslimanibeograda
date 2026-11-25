@@ -431,5 +431,6 @@ export const TR: Record<string, string> = {
  "Danas muslimansko prisustvo u Beogradu ponovo dobija na vitalnosti. Novi džemati i sve raznovrsniji društveni i kulturni život svedoče o snazi zajednice i njenom potencijalu.": "Bugün Belgrad'daki Müslüman varlığı yeniden canlanıyor. Yeni cemaatler ve giderek çeşitlenen sosyal ve kültürel hayat, topluluğun gücüne ve potansiyeline tanıklık ediyor.",
  "Upravo u toj dubokoj ukorenjenosti i postojanosti prepoznajemo duh istrajnosti koji je vekovima oblikovao muslimansko prisustvo u Beogradu i koji danas predstavlja temelj za izgradnju budućnosti zajednice u našem gradu.": "Yüzyıllardır Belgrad'daki Müslüman varlığını şekillendiren ve bugün şehrimizde topluluğun geleceğini inşa etmenin temelini oluşturan sebat ruhunu, tam da bu derin köklülükte ve kararlılıkta görüyoruz.",
  "Pročitaj više": "Devamını oku",
- "Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Svaki predlog pogledamo pre nego što ga dodamo.": "Sitenin altındaki Bize yazın formundan ya da muslimanibeograda@proton.me adresinden yazın. Her öneriyi eklemeden önce inceliyoruz."
+ "Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Svaki predlog pogledamo pre nego što ga dodamo.": "Sitenin altındaki Bize yazın formundan ya da muslimanibeograda@proton.me adresinden yazın. Her öneriyi eklemeden önce inceliyoruz.",
+ "Čika Ljubina 7 i TC Galerija": "Čika Ljubina 7 ve Galerija AVM"
 };

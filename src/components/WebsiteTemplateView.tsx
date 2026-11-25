@@ -625,22 +625,13 @@ export function WebsiteTemplateView({
             <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
               <SignTitle caps={t("Priča")} rest={t("o nama")} />
               <p className="font-quiet mt-8 text-[21px] leading-[1.5] text-[#2B211C]">
-                <span className="font-stone not-italic">{t(ABOUT_STORY.name)}</span> {t(ABOUT_STORY.lead)}
+                {t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}
               </p>
-              <p className="mt-4 text-[15px] leading-relaxed text-[#4F4A46]">
+              <p className="font-quiet mt-4 text-[21px] leading-[1.5] text-[#2B211C]">
                 {t(ABOUT_STORY.paragraphs[0])}
               </p>
 
-              <ul className="mt-6 grid grid-cols-1 gap-y-3 border-y border-[#D4D3CD] py-4 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-0">
-                {ABOUT_STORY.highlights.map((h) => (
-                  <li key={h.title} className="sm:border-s sm:border-[#D4D3CD] sm:ps-4 sm:first:border-s-0 sm:first:ps-0">
-                    <div className="font-stone text-[16px] leading-tight text-[#2B211C]">{t(h.title)}</div>
-                    <div className="mt-1 text-[12px] leading-snug text-[#8F8D88]">{t(h.short)}</div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
                   {t("Pročitaj celu priču")}
                 </IslamicButton>
@@ -838,14 +829,14 @@ export function WebsiteTemplateView({
               <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
                 {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
               </p>
-              <PrayerTimesCard />
               <div className="relative mt-10 hidden aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
             </div>
 
             <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
-              <ol className="grid grid-flow-row-dense grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+              <PrayerTimesCard wide />
+              <ol className="mt-10 grid grid-flow-row-dense grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
                 {DZEMATI.map((dz) => {
                   const open = openDzemat === dz.id;
                   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(dz.mapQuery)}&z=15&output=embed`;

@@ -15,7 +15,7 @@ const NAMES: Record<PrayerKey, string> = {
 const LOCALE = {sr: 'sr-Latn', en: 'en-GB', ar: 'ar', tr: 'tr'} as const;
 
 /** Vreme namaza za Beograd, za današnji dan; menja se sam svakog dana. */
-export function PrayerTimesCard() {
+export function PrayerTimesCard({wide = false}: {wide?: boolean}) {
   const {t, lang} = useLang();
   // Prvo vremena iz builda (isti HTML kao prerender), pa odmah današnja.
   const [now, setNow] = useState<Date | null>(null);
@@ -32,12 +32,12 @@ export function PrayerTimesCard() {
   const dateLabel = new Intl.DateTimeFormat(LOCALE[lang], {timeZone: 'Europe/Belgrade', weekday: 'long', day: 'numeric', month: 'long'}).format(ref);
 
   return (
-    <div id="vaktija" className="mt-10 max-w-md scroll-mt-28 border-t border-[#2B211C] pt-5">
+    <div id="vaktija" className={wide ? 'scroll-mt-28 border-t border-[#2B211C] pt-5' : 'mt-10 max-w-md scroll-mt-28 border-t border-[#2B211C] pt-5'}>
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="font-mono-tabular text-[11px] tracking-[0.12em] text-[#0F7A53] uppercase">{t('Vreme namaza · Beograd')}</h3>
         <span className="text-[12px] text-[#8F8D88]" suppressHydrationWarning>{dateLabel}</span>
       </div>
-      <dl className="mt-4 grid grid-cols-3 gap-x-6 gap-y-4">
+      <dl className={`mt-4 grid grid-cols-3 gap-x-6 gap-y-4 ${wide ? 'sm:grid-cols-6' : ''}`}>
         {PRAYER_KEYS.map((k) => {
           const isNext = k === next;
           return (

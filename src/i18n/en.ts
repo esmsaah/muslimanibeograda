@@ -431,5 +431,6 @@ export const EN: Record<string, string> = {
  "Danas muslimansko prisustvo u Beogradu ponovo dobija na vitalnosti. Novi džemati i sve raznovrsniji društveni i kulturni život svedoče o snazi zajednice i njenom potencijalu.": "Today the Muslim presence in Belgrade is gaining vitality again. New communities and an increasingly diverse social and cultural life bear witness to the community's strength and its potential.",
  "Upravo u toj dubokoj ukorenjenosti i postojanosti prepoznajemo duh istrajnosti koji je vekovima oblikovao muslimansko prisustvo u Beogradu i koji danas predstavlja temelj za izgradnju budućnosti zajednice u našem gradu.": "It is precisely in this deep rootedness and steadfastness that we recognise the spirit of perseverance that has shaped the Muslim presence in Belgrade for centuries, and which today is the foundation for building the community's future in our city.",
  "Pročitaj više": "Read more",
- "Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Svaki predlog pogledamo pre nego što ga dodamo.": "Write to us through the Contact us form at the bottom of the site or at muslimanibeograda@proton.me. We look at every suggestion before adding it."
+ "Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Svaki predlog pogledamo pre nego što ga dodamo.": "Write to us through the Contact us form at the bottom of the site or at muslimanibeograda@proton.me. We look at every suggestion before adding it.",
+ "Čika Ljubina 7 i TC Galerija": "Čika Ljubina 7 and Galerija mall"
 };
