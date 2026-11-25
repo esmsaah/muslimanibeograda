@@ -1800,15 +1800,6 @@ export function WebsiteTemplateView({
                 <p key={p}>{t(p)}</p>
               ))}
             </div>
-            <h3 className="font-mono-tabular mt-10 text-[11px] tracking-[0.12em] text-[#0F7A53] uppercase">{t("Šta radimo")}</h3>
-            <dl className="mt-3 border-t border-[#2B211C]">
-              {ABOUT_STORY.highlights.map((h) => (
-                <div key={h.title} className="border-b border-[#D4D3CD] py-4">
-                  <dt className="font-stone text-[20px] text-[#2B211C]">{t(h.title)}</dt>
-                  <dd className="m-0 mt-1 text-[14px] leading-relaxed text-[#4F4A46]">{t(h.text)}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </div>
       )}
@@ -1826,9 +1817,7 @@ export function WebsiteTemplateView({
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-4 border-b border-[#EAEAE6] pb-4">
-              <div className="font-mono-tabular text-[11px] text-[#807E79]">
-                {t(HISTORY_STORY.label)}
-              </div>
+              <span className="font-mono-tabular text-[11px] text-[#0F7A53] uppercase">{t(HISTORY_STORY.label)}</span>
               <button
                 type="button"
                 onClick={() => setStoryOpen(false)}
@@ -1839,22 +1828,18 @@ export function WebsiteTemplateView({
               </button>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-12 sm:items-center">
-              <div className="border border-[#D4D3CD] bg-[#EAEAE6] p-1 sm:col-span-5">
-                <img loading="lazy" decoding="async"
-                  src={HISTORY_STORY.photoSrc}
-                  alt={t(HISTORY_STORY.photoAlt)}
-                  className="aspect-[4/5] w-full object-cover"
-                />
-              </div>
-              <div className="sm:col-span-7">
-                <h3 className="font-stone text-[30px] leading-tight text-[#221D1A]">
-                  {t(HISTORY_STORY.title)}
-                </h3>
-              </div>
+            <div className="relative mt-6 aspect-[16/11] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
+              <img loading="lazy" decoding="async"
+                src="/assets/community/muslimani-beograda-bajram.jpg"
+                alt={t("Okupljanje u dvorištu Bajrakli džamije")}
+                className="absolute inset-0 h-full w-full object-cover object-[center_42%]"
+              />
             </div>
+            <h3 className="font-stone mt-7 text-[30px] leading-tight text-[#221D1A]">
+              {t(HISTORY_STORY.title)}
+            </h3>
 
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
+            <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
               {HISTORY_STORY.paragraphs.map((p, idx) => (
                 <p key={idx}>{t(p)}</p>
               ))}
