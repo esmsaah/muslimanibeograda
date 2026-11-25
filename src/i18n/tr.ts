@@ -1,4 +1,6 @@
 export const TR: Record<string, string> = {
+ "Kafe poslastičarnica u Zmaj Jovinoj, nadomak Knez Mihailove, za kafu i kolače.": "Knez Mihailova'ya birkaç adım mesafede, Zmaj Jovina caddesinde kahve ve tatlı için kafe pastane.",
+ "Halal nije potvrđen. Od mesa se koristi samo ono koje muslimani jedu, a šunka je pureća. U ponudi su i alkoholna pića.": "Helal olduğu doğrulanmadı. Yalnızca Müslümanların yediği etler kullanılıyor, jambon hindiden. Alkollü içecekler de servis ediliyor.",
  "Pohovana piletina i sendvič u KFC kutiji": "KFC kutusunda kızarmış tavuk ve sandviç",
  "Banjalučki ćevapi u lepinji": "Lepinja ekmeğinde Banja Luka çevapisi",
  "Šavarma i kebab tanjiri u Shawarma Baru": "Shawarma Bar'da şavurma ve kebap tabakları",

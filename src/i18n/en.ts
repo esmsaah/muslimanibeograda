@@ -1,4 +1,6 @@
 export const EN: Record<string, string> = {
+ "Kafe poslastičarnica u Zmaj Jovinoj, nadomak Knez Mihailove, za kafu i kolače.": "Café and patisserie on Zmaj Jovina street, a step from Knez Mihailova, for coffee and cakes.",
+ "Halal nije potvrđen. Od mesa se koristi samo ono koje muslimani jedu, a šunka je pureća. U ponudi su i alkoholna pića.": "Halal is not confirmed. Only meats Muslims eat are used, and the ham is turkey. Alcoholic drinks are also served.",
  "Pohovana piletina i sendvič u KFC kutiji": "Fried chicken and a sandwich in a KFC box",
  "Banjalučki ćevapi u lepinji": "Banja Luka ćevapi in flatbread",
  "Šavarma i kebab tanjiri u Shawarma Baru": "Shawarma and kebab plates at Shawarma Bar",

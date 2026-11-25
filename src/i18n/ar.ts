@@ -1,4 +1,6 @@
 export const AR: Record<string, string> = {
+ "Kafe poslastičarnica u Zmaj Jovinoj, nadomak Knez Mihailove, za kafu i kolače.": "مقهى وحلويات في شارع زماي يوفينا، على بعد خطوات من كنيز ميهايلوفا، للقهوة والحلويات.",
+ "Halal nije potvrđen. Od mesa se koristi samo ono koje muslimani jedu, a šunka je pureća. U ponudi su i alkoholna pića.": "الحلال غير مؤكد. لا تُستخدم إلا اللحوم التي يأكلها المسلمون، واللحم المقدد من الديك الرومي. تُقدَّم أيضًا مشروبات كحولية.",
  "Pohovana piletina i sendvič u KFC kutiji": "دجاج مقلي وساندويتش في علبة KFC",
  "Banjalučki ćevapi u lepinji": "كباب بانيا لوكا في خبز اللبينيا",
  "Šavarma i kebab tanjiri u Shawarma Baru": "أطباق شاورما وكباب في شاورما بار",
