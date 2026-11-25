@@ -350,5 +350,7 @@ export const TR: Record<string, string> = {
  "Džamija u Beogradu": "Belgrad'da cami",
  "Adresa, mapa i svi džemati Beograda na jednom mestu.": "Adres, harita ve Belgrad'ın tüm camileri tek yerde.",
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "Adres, telefon ve helal durumu, Belgrad'daki tüm helal mekânlarla birlikte.",
- "Muslimani Beograda": "Belgradlı Müslümanlar"
+ "Muslimani Beograda": "Belgradlı Müslümanlar",
+ "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "Bayraklı Camii'nin karşısında döner, falafel, humus ve şiş tavuk.",
+ "U nazivu i opisu ističe da je halal.": "Adında ve tanıtımında helal olduğunu belirtiyor."
 };

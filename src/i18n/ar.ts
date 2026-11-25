@@ -350,5 +350,7 @@ export const AR: Record<string, string> = {
  "Džamija u Beogradu": "مسجد في بلغراد",
  "Adresa, mapa i svi džemati Beograda na jednom mestu.": "العنوان والخريطة وكل مساجد بلغراد في مكان واحد.",
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "العنوان والهاتف وحالة الحلال، مع كل الأماكن الحلال في بلغراد.",
- "Muslimani Beograda": "مسلمو بلغراد"
+ "Muslimani Beograda": "مسلمو بلغراد",
+ "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "شاورما وفلافل وحمص وشيش طاووق، مقابل جامع بيرقلي.",
+ "U nazivu i opisu ističe da je halal.": "يذكر في اسمه ووصفه أنه حلال."
 };

@@ -350,5 +350,7 @@ export const EN: Record<string, string> = {
  "Džamija u Beogradu": "Mosque in Belgrade",
  "Adresa, mapa i svi džemati Beograda na jednom mestu.": "Address, map and all mosques of Belgrade in one place.",
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "Address, phone and halal status, with every halal place in Belgrade.",
- "Muslimani Beograda": "Muslims of Belgrade"
+ "Muslimani Beograda": "Muslims of Belgrade",
+ "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "Shawarma, falafel, hummus and shish tawook, across from the Bajrakli Mosque.",
+ "U nazivu i opisu ističe da je halal.": "States in its name and description that it is halal."
 };
