@@ -295,5 +295,6 @@ export const EN: Record<string, string> = {
  "Kratak opis (opcionalno)": "Short description (optional)",
  "O čemu je i za koga je": "What it's about and who it's for",
  "Tvoj kontakt (opcionalno)": "Your contact (optional)",
- "Pošalji predlog": "Send suggestion"
+ "Pošalji predlog": "Send suggestion",
+ "Žene sede za stolom pored automata sa žvakama": "Women sitting at a table next to gumball machines"
 };

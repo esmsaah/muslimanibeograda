@@ -295,5 +295,6 @@ export const AR: Record<string, string> = {
  "Kratak opis (opcionalno)": "وصف قصير (اختياري)",
  "O čemu je i za koga je": "عمّ تدور ولمن هي",
  "Tvoj kontakt (opcionalno)": "وسيلة تواصلك (اختياري)",
- "Pošalji predlog": "أرسل الاقتراح"
+ "Pošalji predlog": "أرسل الاقتراح",
+ "Žene sede za stolom pored automata sa žvakama": "نساء يجلسن إلى طاولة بجانب آلات العلكة"
 };

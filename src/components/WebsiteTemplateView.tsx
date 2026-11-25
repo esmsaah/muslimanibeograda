@@ -1108,15 +1108,18 @@ export function WebsiteTemplateView({
               );
             })}
             <li className="flex flex-col py-8">
-              <span aria-hidden="true" className="font-stone hidden text-[56px] leading-none text-[#D4D3CD] lg:block">+</span>
-              <div className="flex w-full flex-col justify-end rounded-se-[48px] bg-[#EDEDEA] px-6 pt-10 pb-6 lg:mt-5 lg:min-h-[260px] lg:flex-1 lg:rounded-se-[96px] lg:p-6">
-                <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
-                <div className="mt-6">
-                  <IslamicButton variant="flowline" tone="charcoal" size="sm" onClick={openSuggest}>
-                    {t("Predloži događaj")}
-                  </IslamicButton>
-                </div>
+              <div className="flex items-baseline justify-between">
+                <span aria-hidden="true" className="font-stone text-[56px] leading-none text-[#D4D3CD]">+</span>
+              </div>
+              <button type="button" onClick={openSuggest} className="relative mt-5 block aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
+                <img src="assets/events/predlozi-dogadjaj.jpg" alt={t("Žene sede za stolom pored automata sa žvakama")} className="absolute inset-0 h-full w-full object-cover object-[60%_center]" />
+              </button>
+              <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
+              <div className="mt-auto pt-6">
+                <IslamicButton variant="flowline" tone="charcoal" size="sm" onClick={openSuggest}>
+                  {t("Predloži događaj")}
+                </IslamicButton>
               </div>
             </li>
           </ol>

@@ -295,5 +295,6 @@ export const TR: Record<string, string> = {
  "Kratak opis (opcionalno)": "Kısa açıklama (isteğe bağlı)",
  "O čemu je i za koga je": "Ne hakkında ve kimin için",
  "Tvoj kontakt (opcionalno)": "İletişim bilgin (isteğe bağlı)",
- "Pošalji predlog": "Öneriyi gönder"
+ "Pošalji predlog": "Öneriyi gönder",
+ "Žene sede za stolom pored automata sa žvakama": "Sakız makinelerinin yanında masada oturan kadınlar"
 };
