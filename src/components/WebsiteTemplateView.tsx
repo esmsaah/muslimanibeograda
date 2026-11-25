@@ -568,7 +568,7 @@ export function WebsiteTemplateView({
                 {t("Kolektiv muslimana Beograda")}
               </p>
               <div className="mt-8 max-w-[440px] space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
-                <p className="text-[#2B211C]">{t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}</p>
+                <p className="text-[#2B211C]">{t("Sumud")} {t(ABOUT_STORY.lead)}</p>
                 <p>{t(ABOUT_STORY.paragraphs[0])}</p>
               </div>
               <div className="mt-7">

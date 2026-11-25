@@ -445,5 +445,6 @@ export const AR: Record<string, string> = {
  "Novi džemati i sve bogatiji društveni i kulturni život.": "جماعات جديدة وحياة اجتماعية وثقافية أغنى.",
  "XX vek": "القرن العشرون",
  "Danas": "اليوم",
- "O nama": "من نحن"
+ "O nama": "من نحن",
+ "Sumud": "صمود"
 };

@@ -445,5 +445,6 @@ export const TR: Record<string, string> = {
  "Novi džemati i sve bogatiji društveni i kulturni život.": "Yeni cemaatler ve giderek zenginleşen sosyal ve kültürel hayat.",
  "XX vek": "20. yüzyıl",
  "Danas": "Bugün",
- "O nama": "Hakkımızda"
+ "O nama": "Hakkımızda",
+ "Sumud": "Sumud"
 };

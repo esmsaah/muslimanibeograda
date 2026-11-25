@@ -445,5 +445,6 @@ export const EN: Record<string, string> = {
  "Novi džemati i sve bogatiji društveni i kulturni život.": "New communities and an ever richer social and cultural life.",
  "XX vek": "20th century",
  "Danas": "Today",
- "O nama": "About us"
+ "O nama": "About us",
+ "Sumud": "Sumud"
 };
