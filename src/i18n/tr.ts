@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Piletina ima halal sertifikat, potvrđeno u zajednici.": "Tavuk helal sertifikalı, topluluk tarafından doğrulandı.",
  "Restorani širom grada": "Şehrin dört bir yanında restoranlar",
  "Mesare širom grada": "Şehrin dört bir yanında kasaplar",
  "Lanzhou goveđe nudle u supi, sa rezancima koji se vuku ručno.": "Elle çekilmiş eriştelerle Lanzhou sığır etli erişte çorbası.",
