@@ -321,5 +321,7 @@ export const EN: Record<string, string> = {
  "Bazar za Palestinu, muzika Jelena Martinović i P.Amir": "Bazaar for Palestine, music by Jelena Martinović and P.Amir",
  "Ceo program": "Full programme",
  "Sumud · Muslimani Beograda": "Sumud · Muslims of Belgrade",
- "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "Halal restaurants and shops, mosques and masjids, cultural events and useful contacts for Muslims in Belgrade."
+ "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "Halal restaurants and shops, mosques and masjids, cultural events and useful contacts for Muslims in Belgrade.",
+ "Muslimani Beograda · halal restorani, džamije i događaji | Sumud": "Muslims of Belgrade · halal restaurants, mosques and events | Sumud",
+ "Halal mesta, džamije, događaji i umrežavanje muslimana u Beogradu.": "Halal places, mosques, events and a network of Muslims in Belgrade."
 };

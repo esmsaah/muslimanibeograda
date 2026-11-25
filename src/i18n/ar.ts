@@ -321,5 +321,7 @@ export const AR: Record<string, string> = {
  "Bazar za Palestinu, muzika Jelena Martinović i P.Amir": "بازار من أجل فلسطين، موسيقى يلينا مارتينوفيتش وP.Amir",
  "Ceo program": "البرنامج كاملًا",
  "Sumud · Muslimani Beograda": "صمود · مسلمو بلغراد",
- "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "مطاعم ومتاجر حلال، جوامع ومساجد، فعاليات ثقافية وأرقام مهمة للمسلمين في بلغراد."
+ "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "مطاعم ومتاجر حلال، جوامع ومساجد، فعاليات ثقافية وأرقام مهمة للمسلمين في بلغراد.",
+ "Muslimani Beograda · halal restorani, džamije i događaji | Sumud": "مسلمو بلغراد · مطاعم حلال وجوامع وفعاليات | صمود",
+ "Halal mesta, džamije, događaji i umrežavanje muslimana u Beogradu.": "أماكن حلال، جوامع، فعاليات وشبكة للمسلمين في بلغراد."
 };

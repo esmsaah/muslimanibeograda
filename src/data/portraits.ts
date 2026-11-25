@@ -286,4 +286,4 @@ export const PHOTO_PLATES: PortraitPlate[] = [
   },
 ];
 
-export const REFERENCE_IMAGE = 'assets/aistudio/image_61a36245.png';
+export const REFERENCE_IMAGE = '/assets/aistudio/image_61a36245.png';

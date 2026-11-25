@@ -1,0 +1,207 @@
+// Posle builda pravi gotov HTML za svaki jezik (/, /en/, /ar/, /tr/),
+// strukturirane podatke za Google, sitemap i llms.txt za AI asistente.
+import fs from 'node:fs';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+
+const ROOT = process.cwd();
+const DIST = path.join(ROOT, 'dist');
+const SITE = 'https://muslimanibeograda.com';
+const ssr = await import(pathToFileURL(path.join(ROOT, 'dist-ssr/entry-server.js')).href);
+const {render, DICTS, CULTURAL_EVENTS, DZEMATI, HALAL_SPOTS, USEFUL_CONTACTS, HISTORY_STORY} = ssr;
+
+const LANGS = [
+  {code: 'sr', path: '/', html: 'sr-Latn', og: 'sr_RS'},
+  {code: 'en', path: '/en/', html: 'en', og: 'en_US'},
+  {code: 'ar', path: '/ar/', html: 'ar', og: 'ar_AR'},
+  {code: 'tr', path: '/tr/', html: 'tr', og: 'tr_TR'},
+];
+
+const T = (lang, s) => (!s || lang === 'sr' ? s : DICTS[lang]?.[s] ?? s);
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const telIntl = (p) => '+381' + p.replace(/\D/g, '').replace(/^0/, '');
+
+const TITLE = 'Muslimani Beograda · halal restorani, džamije i događaji | Sumud';
+const DESC = 'Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.';
+const SHARE = 'Halal mesta, džamije, događaji i umrežavanje muslimana u Beogradu.';
+
+const spotType = (c) => (c === 'prodavnice' ? 'Store' : c === 'kafici' ? 'CafeOrCoffeeShop' : 'Restaurant');
+const address = (street, district) => ({
+  '@type': 'PostalAddress',
+  streetAddress: street,
+  addressLocality: district ? `Beograd, ${district}` : 'Beograd',
+  addressRegion: 'Beograd',
+  addressCountry: 'RS',
+});
+
+function jsonLd(lang, url) {
+  const graph = [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      name: 'Sumud · Muslimani Beograda',
+      alternateName: ['Muslimani Beograda', 'Sumud', 'Muslims of Belgrade'],
+      url: `${SITE}/`,
+      inLanguage: LANGS.map((l) => l.html),
+      description: T(lang, DESC),
+      publisher: {'@id': `${SITE}/#org`},
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${SITE}/#org`,
+      name: 'Sumud · Muslimani Beograda',
+      url: `${SITE}/`,
+      logo: `${SITE}/assets/sumud-znak.svg`,
+      email: 'muslimanibeograda@proton.me',
+      areaServed: {'@type': 'City', name: 'Beograd'},
+      description: T(lang, HISTORY_STORY.paragraphs[2]),
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${url}#page`,
+      url,
+      name: T(lang, TITLE),
+      inLanguage: LANGS.find((l) => l.code === lang).html,
+      isPartOf: {'@id': `${SITE}/#website`},
+      about: {'@type': 'Thing', name: T(lang, 'Muslimani Beograda')},
+    },
+    {
+      '@type': 'ItemList',
+      name: T(lang, 'Halal Beograd'),
+      itemListElement: HALAL_SPOTS.map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': spotType(s.category),
+          name: s.name,
+          address: address(T(lang, s.street), s.district),
+          ...(s.category !== 'prodavnice' ? {servesCuisine: T(lang, s.note)} : {description: T(lang, s.note)}),
+          ...(s.phones?.length ? {telephone: telIntl(s.phones[0])} : {}),
+          ...(s.website || s.instagram ? {sameAs: [s.website, s.instagram].filter(Boolean)} : {}),
+        },
+      })),
+    },
+    {
+      '@type': 'ItemList',
+      name: T(lang, 'Džemati Beograda'),
+      itemListElement: DZEMATI.map((d, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {'@type': 'Mosque', name: T(lang, d.name), address: address(d.address, d.district)},
+      })),
+    },
+  ];
+  for (const e of CULTURAL_EVENTS) {
+    for (const start of e.isoDates ?? []) {
+      graph.push({
+        '@type': 'Event',
+        name: T(lang, e.title),
+        description: T(lang, e.summary),
+        startDate: start,
+        ...(e.isoEnd ? {endDate: e.isoEnd} : {}),
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
+        location: {'@type': 'Place', name: T(lang, e.place), address: address(T(lang, e.place), '')},
+        image: `${SITE}${(e.photos?.[0] ?? e.photoSrc).replace(/^\/?/, '/')}`,
+        ...(e.ticketUrl ? {url: e.ticketUrl} : {}),
+      });
+    }
+  }
+  return JSON.stringify({'@context': 'https://schema.org', '@graph': graph}).replace(/</g, '\\u003c');
+}
+
+const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
+
+for (const l of LANGS) {
+  const url = SITE + l.path;
+  const title = T(l.code, TITLE);
+  const desc = T(l.code, DESC);
+  const share = T(l.code, SHARE);
+  const head = [
+    ...LANGS.map((a) => `<link rel="alternate" hreflang="${a.html}" href="${SITE}${a.path}" />`),
+    `<link rel="alternate" hreflang="x-default" href="${SITE}/" />`,
+    `<script type="application/ld+json">${jsonLd(l.code, url)}</script>`,
+  ].join('\n    ');
+  let html = template
+    .replace(/<html lang="[^"]*"/, `<html lang="${l.html}" dir="${l.code === 'ar' ? 'rtl' : 'ltr'}"`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
+    .replace(/(<meta name="description" content=")[^"]*"/, `$1${esc(desc)}"`)
+    .replace(/(<link rel="canonical" href=")[^"]*"/, `$1${url}"`)
+    .replace(/(<meta property="og:title" content=")[^"]*"/, `$1${esc(T(l.code, 'Sumud · Muslimani Beograda'))}"`)
+    .replace(/(<meta name="twitter:title" content=")[^"]*"/, `$1${esc(T(l.code, 'Sumud · Muslimani Beograda'))}"`)
+    .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${esc(share)}"`)
+    .replace(/(<meta name="twitter:description" content=")[^"]*"/, `$1${esc(share)}"`)
+    .replace(/(<meta property="og:url" content=")[^"]*"/, `$1${url}"`)
+    .replace(/(<meta property="og:locale" content=")[^"]*"/, `$1${l.og}"`)
+    .replace('<!--seo-->', head);
+  const body = render(l.code);
+  html = html.replace(/<div id="root">[\s\S]*?<\/div>(\s*<script|\s*<\/body>)/, `<div id="root" data-prerendered="${l.code}">${body}</div>$1`);
+  if (!html.includes(`data-prerendered="${l.code}"`)) throw new Error('root not found in template');
+  const out = path.join(DIST, l.path, 'index.html');
+  fs.mkdirSync(path.dirname(out), {recursive: true});
+  fs.writeFileSync(out, html);
+  console.log('prerender', l.path, Math.round(html.length / 1024) + ' kB');
+}
+
+// Sitemap
+const today = new Date().toISOString().slice(0, 10);
+const alts = LANGS.map((a) => `    <xhtml:link rel="alternate" hreflang="${a.html}" href="${SITE}${a.path}"/>`).join('\n');
+fs.writeFileSync(
+  path.join(DIST, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${LANGS.map((l) => `  <url>\n    <loc>${SITE}${l.path}</loc>\n${alts}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n  </url>`).join('\n')}
+</urlset>
+`,
+);
+
+// llms.txt (kratko) i llms-full.txt (sve), na engleskom i srpskom
+function fullText(lang) {
+  const t = (s) => T(lang, s);
+  const L = [];
+  L.push(`## ${t('Halal Beograd')}`, '');
+  for (const s of HALAL_SPOTS) {
+    const bits = [t(s.categoryLabel), `${t(s.street)}, ${s.district}`, t(s.note), t(s.communityTip)];
+    if (s.phones?.length) bits.push(s.phones.join(', '));
+    if (s.website) bits.push(s.website);
+    if (s.instagram) bits.push(s.instagram);
+    L.push(`- **${s.name}** · ${bits.filter(Boolean).join(' · ')}`);
+  }
+  L.push('', `## ${t('Džemati Beograda')}`, '');
+  for (const d of DZEMATI) L.push(`- **${t(d.name)}** · ${d.address}, ${d.district}`);
+  L.push('', `## ${t('Kulturni događaji')}`, '');
+  for (const e of CULTURAL_EVENTS) {
+    const bits = [t(e.when ?? `${e.day} ${e.month}`), t(e.place), t(e.summary)];
+    if (e.ticketUrl) bits.push(e.ticketUrl);
+    if (e.instagramUrl) bits.push(e.instagramUrl);
+    L.push(`- **${t(e.title)}** · ${bits.filter(Boolean).join(' · ')}`);
+  }
+  L.push('', `## ${t('Koga zvati')}`, '');
+  for (const g of USEFUL_CONTACTS) {
+    L.push(`### ${t(g.title)}`);
+    for (const c of g.items) L.push(`- **${t(c.name)}** · ${[t(c.note), c.phone, c.link].filter(Boolean).join(' · ')}`);
+  }
+  return L.join('\n');
+}
+
+const intro = `# Sumud · Muslimani Beograda (Muslims of Belgrade)
+
+> Sumud is a grassroots, non-institutional network of Muslims in Belgrade, Serbia. The site muslimanibeograda.com lists halal restaurants, cafés and shops, all mosques and masjids of Belgrade by municipality, cultural events, useful phone numbers for newcomers to the city, and a directory of Muslim professionals and entrepreneurs. It is useful for any Muslim who lives in, moves to or visits Belgrade.
+
+Languages: Serbian (${SITE}/), English (${SITE}/en/), Arabic (${SITE}/ar/), Turkish (${SITE}/tr/).
+Contact: muslimanibeograda@proton.me
+
+## Pages
+- [Serbian](${SITE}/): Muslimani Beograda, halal Beograd, džamije i mesdžidi, događaji, kontakti
+- [English](${SITE}/en/): halal food in Belgrade, mosques in Belgrade, events, useful contacts
+- [Arabic](${SITE}/ar/): حلال في بلغراد، مساجد بلغراد
+- [Turkish](${SITE}/tr/): Belgrad'da helal yemek, camiler
+- [Full data](${SITE}/llms-full.txt): every listed place, mosque, event and contact
+`;
+
+fs.writeFileSync(path.join(DIST, 'llms.txt'), intro);
+fs.writeFileSync(
+  path.join(DIST, 'llms-full.txt'),
+  `${intro}\n\n# English\n\n${fullText('en')}\n\n# Srpski\n\n${fullText('sr')}\n`,
+);
+console.log('sitemap.xml, llms.txt, llms-full.txt');

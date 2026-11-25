@@ -366,7 +366,7 @@ export default function App() {
               isEditorialWhite ? 'text-[#221D1A]' : 'text-[#1e252c]'
             }`}
           >
-            <span className="flex items-center gap-4"><img src="./assets/sumud-znak.svg" alt={t('SUMUD znak')} className={`w-auto transition-all duration-300 ${scrolled ? 'h-[34px]' : 'h-[58px]'}`} /><span className={`font-stone tracking-[0.3em] text-[#2B211C] transition-all duration-300 ${scrolled ? 'text-[16px]' : 'text-[20px]'}`}>SUMUD</span></span>
+            <span className="flex items-center gap-4"><img src="/assets/sumud-znak.svg" alt={t('SUMUD znak')} className={`w-auto transition-all duration-300 ${scrolled ? 'h-[34px]' : 'h-[58px]'}`} /><span className={`font-stone tracking-[0.3em] text-[#2B211C] transition-all duration-300 ${scrolled ? 'text-[16px]' : 'text-[20px]'}`}>SUMUD</span></span>
           </a>
 
           <nav

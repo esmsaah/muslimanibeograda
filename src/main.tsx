@@ -1,6 +1,6 @@
-import {createRoot} from 'react-dom/client';
+import {createRoot, hydrateRoot} from 'react-dom/client';
 import App from './App.tsx';
-import {LangProvider} from './i18n';
+import {LangProvider, initialLang} from './i18n';
 import '@fontsource/syne/500';
 import '@fontsource/syne/600';
 import '@fontsource/syne/700';
@@ -28,8 +28,19 @@ import '@fontsource/instrument-sans/400';
 import '@fontsource/instrument-sans/500';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <LangProvider>
+const root = document.getElementById('root')!;
+const lang = initialLang();
+const app = (
+  <LangProvider initial={lang}>
     <App />
-  </LangProvider>,
+  </LangProvider>
 );
+
+// The build writes a ready HTML copy of the page for every language, so search
+// engines and AI assistants can read it. Pick that up when the language matches.
+if (root.dataset.prerendered === lang) {
+  hydrateRoot(root, app, {onRecoverableError: () => {}});
+} else {
+  root.textContent = '';
+  createRoot(root).render(app);
+}
