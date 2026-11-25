@@ -809,7 +809,7 @@ export function WebsiteTemplateView({
                   </div>
                 </div>
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD] lg:aspect-square">
-                  <img loading="lazy" decoding="async" key={selectedSpot.id} src={`/assets/halal/${selectedSpot.id}.jpg?v=6`} alt={selectedSpot.name} onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = selectedSpot.photoSrc; } }} className="animate-fade-in absolute inset-0 h-full w-full object-cover" />
+                  <img loading="lazy" decoding="async" key={selectedSpot.id} src={`/assets/halal/${selectedSpot.id}.jpg?v=7`} alt={selectedSpot.name} onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = selectedSpot.photoSrc; } }} className="animate-fade-in absolute inset-0 h-full w-full object-cover" />
                 </div>
               </div>
               <button type="button" onClick={backToHalalList} className="font-quiet mt-8 text-[18px] text-[#0F7A53] hover:underline lg:hidden">{t("Nazad na spisak")}</button>
