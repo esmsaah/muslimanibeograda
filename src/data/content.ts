@@ -207,6 +207,11 @@ export type UsefulContact = {name: string; note: string; phone?: string; link?: 
 export type ContactGroup = {title: string; items: UsefulContact[]};
 
 export const USEFUL_CONTACTS: ContactGroup[] = [
+  {title: 'Papiri i posao', items: [
+    {name: 'Uprava za strance', note: 'Omladinskih brigada 1, Novi Beograd', phone: '011 361 8956'},
+    {name: 'Portal za strance', note: 'Vize, boravak i rad, zahtevi online', link: 'https://welcometoserbia.gov.rs', linkLabel: 'welcometoserbia.gov.rs'},
+    {name: 'Nacionalna služba za zapošljavanje', note: 'Oglasi za posao i savetnici', link: 'https://www.nsz.gov.rs', linkLabel: 'nsz.gov.rs'},
+  ]},
   {title: 'Hitno', items: [
     {name: 'Hitna pomoć', note: 'Medicinski hitni slučajevi', phone: '194'},
     {name: 'Policija', note: 'Napad, krađa, nesreća', phone: '192'},
@@ -217,11 +222,6 @@ export const USEFUL_CONTACTS: ContactGroup[] = [
     {name: 'Urgentni centar', note: 'Pasterova 2, radi 24h', phone: '011 361 8444'},
     {name: 'Ambulanta Hitne pomoći za odrasle', note: 'Franše d\'Eperea 5, radi 24h', phone: '011 361 5013'},
     {name: 'Dežurna apoteka Prvi maj', note: 'Kralja Milana 9, radi 24h', phone: '011 324 1349'},
-  ]},
-  {title: 'Papiri i posao', items: [
-    {name: 'Uprava za strance', note: 'Omladinskih brigada 1, Novi Beograd', phone: '011 361 8956'},
-    {name: 'Portal za strance', note: 'Vize, boravak i rad, zahtevi online', link: 'https://welcometoserbia.gov.rs', linkLabel: 'welcometoserbia.gov.rs'},
-    {name: 'Nacionalna služba za zapošljavanje', note: 'Oglasi za posao i savetnici', link: 'https://www.nsz.gov.rs', linkLabel: 'nsz.gov.rs'},
   ]},
   {title: 'Stan i grad', items: [
     {name: 'Servisni centar Grada', note: 'Voda, grejanje, čistoća, parking', phone: '11011'},

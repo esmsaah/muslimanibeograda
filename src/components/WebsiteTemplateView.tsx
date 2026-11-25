@@ -285,7 +285,7 @@ export function WebsiteTemplateView({
   const [skillFilter, setSkillFilter] = useState<SkillCategory>('sve');
   const [showAddNeighbor, setShowAddNeighbor] = useState(false);
   const [nbrMode, setNbrMode] = useState<'self' | 'rec'>('self');
-  const [contactGroup, setContactGroup] = useState('Hitno');
+  const [contactGroup, setContactGroup] = useState('Papiri i posao');
   const [nbrName, setNbrName] = useState('');
   const [nbrProfession, setNbrProfession] = useState('');
   const [nbrCategory, setNbrCategory] = useState<Exclude<SkillCategory, 'sve'>>('zanat');
@@ -1465,7 +1465,7 @@ export function WebsiteTemplateView({
                   <div>
                     <div className="flex flex-wrap items-center gap-8">
                       <IslamicButton type="submit" variant="kocka" tone="brick" size="md">
-                        {t("Pošalji upit zajednici")}
+                        {t("Pošalji upit")}
                       </IslamicButton>
                       <IslamicButton
                         type="button"

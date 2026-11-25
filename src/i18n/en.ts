@@ -320,9 +320,9 @@ export const EN: Record<string, string> = {
  "Acid Amazigh uživo, ulaz uz dobrovoljni prilog za kolektiv": "Acid Amazigh live, entry by donation to the collective",
  "Bazar za Palestinu, muzika Jelena Martinović i P.Amir": "Bazaar for Palestine, music by Jelena Martinović and P.Amir",
  "Ceo program": "Full programme",
- "Sumud · Muslimani Beograda": "Sumud · Muslims of Belgrade",
+ "Sumud · Muslimani Beograda": "Sumud · Belgrade Muslim Collective",
  "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "Halal restaurants and shops, mosques and masjids, cultural events and useful contacts for Muslims in Belgrade.",
- "Muslimani Beograda · halal restorani, džamije i događaji | Sumud": "Muslims of Belgrade · halal restaurants, mosques and events | Sumud",
+ "Muslimani Beograda · halal restorani, džamije i događaji | Sumud": "Belgrade Muslim Collective · halal restaurants, mosques and events | Sumud",
  "Halal mesta, džamije, događaji i umrežavanje muslimana u Beogradu.": "Halal places, mosques, events and a network of Muslims in Belgrade.",
  "Česta pitanja": "Frequently asked questions",
  "Česta pitanja · muslimani u Beogradu | Sumud": "FAQ · Muslims in Belgrade | Sumud",
@@ -350,7 +350,7 @@ export const EN: Record<string, string> = {
  "Džamija u Beogradu": "Mosque in Belgrade",
  "Adresa, mapa i svi džemati Beograda na jednom mestu.": "Address, map and all mosques of Belgrade in one place.",
  "Adresa, telefon i halal status, uz sva halal mesta u Beogradu.": "Address, phone and halal status, with every halal place in Belgrade.",
- "Muslimani Beograda": "Muslims of Belgrade",
+ "Muslimani Beograda": "Belgrade Muslim Collective",
  "Šavarma, falafel, humus i šiš tavuk, preko puta Bajrakli džamije.": "Shawarma, falafel, hummus and shish tawook, across from the Bajrakli Mosque.",
  "U nazivu i opisu ističe da je halal.": "States in its name and description that it is halal.",
  "Vreme namaza · Beograd": "Prayer times · Belgrade",
@@ -361,7 +361,7 @@ export const EN: Record<string, string> = {
  "Akšam": "Maghrib",
  "Jacija": "Isha",
  "sledeći": "next",
- "Vaktija Beograd · vreme namaza danas | Muslimani Beograda": "Belgrade prayer times today · Fajr, Dhuhr, Asr, Maghrib, Isha | Muslims of Belgrade",
+ "Vaktija Beograd · vreme namaza danas | Muslimani Beograda": "Belgrade prayer times today · Fajr, Dhuhr, Asr, Maghrib, Isha | Belgrade Muslim Collective",
  "Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.": "Today's prayer times for Belgrade. Fajr, Dhuhr, Asr, Maghrib and Isha, with every mosque and masjid in the city.",
  "Kada je namaz u Beogradu danas?": "What are the prayer times in Belgrade today?",
  "Današnja vaktija za Beograd je na sajtu, u delu Džemati Beograda. Vremena se menjaju svaki dan, a sledeći namaz je posebno označen.": "Today's prayer times for Belgrade are on the site, in the Mosques of Belgrade section. They change every day, and the next prayer is highlighted.",
@@ -391,5 +391,6 @@ export const EN: Record<string, string> = {
  "U Beogradu ima dvanaest džamija i mesdžida, na Dorćolu, Zvezdari, Voždovcu i Karaburmi, u Borči i Krnjači, u Zemunu, Zemun Polju i Batajnici, na Ledinama, u Surčinu i Sremčici. Na sajtu su adresa i mapa za svaki, pa lako nađete onaj koji vam je najbliži.": "Belgrade has twelve mosques and masjids, in Dorćol, Zvezdara, Voždovac and Karaburma, Borča and Krnjača, Zemun, Zemun Polje and Batajnica, Ledine, Surčin and Sremčica. The site has an address and a map for each, so you can easily find the one closest to you.",
  "Mesdžid na Voždovcu": "Voždovac Masjid",
  "Adresu dodajemo uskoro": "Address coming soon",
- "Voždovac": "Voždovac"
+ "Voždovac": "Voždovac",
+ "Pošalji upit": "Send request"
 };

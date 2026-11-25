@@ -391,5 +391,6 @@ export const TR: Record<string, string> = {
  "U Beogradu ima dvanaest džamija i mesdžida, na Dorćolu, Zvezdari, Voždovcu i Karaburmi, u Borči i Krnjači, u Zemunu, Zemun Polju i Batajnici, na Ledinama, u Surčinu i Sremčici. Na sajtu su adresa i mapa za svaki, pa lako nađete onaj koji vam je najbliži.": "Belgrad'da on iki cami ve mescit var: Dorćol, Zvezdara, Voždovac ve Karaburma, Borča ve Krnjača, Zemun, Zemun Polje ve Batajnica, Ledine, Surčin ve Sremčica. Sitede her biri için adres ve harita var, size en yakın olanı kolayca bulursunuz.",
  "Mesdžid na Voždovcu": "Voždovac Mescidi",
  "Adresu dodajemo uskoro": "Adres yakında eklenecek",
- "Voždovac": "Voždovac"
+ "Voždovac": "Voždovac",
+ "Pošalji upit": "Talebi gönder"
 };

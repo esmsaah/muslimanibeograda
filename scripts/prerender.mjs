@@ -41,7 +41,7 @@ function homeGraph(lang, url) {
       '@type': 'WebSite',
       '@id': `${SITE}/#website`,
       name: 'Sumud · Muslimani Beograda',
-      alternateName: ['Muslimani Beograda', 'Sumud', 'Muslims of Belgrade'],
+      alternateName: ['Muslimani Beograda', 'Sumud', 'Belgrade Muslim Collective', 'Muslims of Belgrade'],
       url: `${SITE}/`,
       inLanguage: LANGS.map((l) => l.html),
       description: T(lang, DESC),
@@ -284,7 +284,7 @@ function fullText(lang) {
   return L.join('\n');
 }
 
-const intro = `# Sumud · Muslimani Beograda (Muslims of Belgrade)
+const intro = `# Sumud · Muslimani Beograda (Belgrade Muslim Collective)
 
 > Sumud is a grassroots, non-institutional network of Muslims in Belgrade, Serbia. The site muslimanibeograda.com lists halal restaurants, cafés and shops, all mosques and masjids of Belgrade by municipality, cultural events, useful phone numbers for newcomers to the city, and a directory of Muslim professionals and entrepreneurs. It is useful for any Muslim who lives in, moves to or visits Belgrade.
 

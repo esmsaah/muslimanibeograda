@@ -391,5 +391,6 @@ export const AR: Record<string, string> = {
  "U Beogradu ima dvanaest džamija i mesdžida, na Dorćolu, Zvezdari, Voždovcu i Karaburmi, u Borči i Krnjači, u Zemunu, Zemun Polju i Batajnici, na Ledinama, u Surčinu i Sremčici. Na sajtu su adresa i mapa za svaki, pa lako nađete onaj koji vam je najbliži.": "في بلغراد اثنا عشر جامعًا ومسجدًا، في دورتشول وزفيزدارا وفوجدوفاتس وكارابورما، وبورتشا وكرنياتشا، وزيمون وزيمون بوليه وباتاينيتسا، وليدينه وسورتشين وسريمتشيتسا. في الموقع عنوان وخريطة لكل منها، فتجد بسهولة الأقرب إليك.",
  "Mesdžid na Voždovcu": "مسجد فوجدوفاتس",
  "Adresu dodajemo uskoro": "العنوان قريبًا",
- "Voždovac": "فوجدوفاتس"
+ "Voždovac": "فوجدوفاتس",
+ "Pošalji upit": "أرسل الطلب"
 };
