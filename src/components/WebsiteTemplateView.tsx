@@ -1041,15 +1041,6 @@ export function WebsiteTemplateView({
               );
             })}
           </ol>
-          <div className="mt-8 flex flex-col gap-4 border-t border-[#D4D3CD] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <div className="font-stone text-[22px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</div>
-              <p className="mt-1 text-[14px] text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
-            </div>
-            <IslamicButton variant="kocka" tone="charcoal" size="sm" iconLeft={<Plus className="h-3.5 w-3.5" />} onClick={openSuggest}>
-              {t("Predloži događaj")}
-            </IslamicButton>
-          </div>
         </div>
           </div>
       </section>
@@ -1063,10 +1054,10 @@ export function WebsiteTemplateView({
 
           {/* Zajednica: Ženski online džemat i Facebook grupa Sumud */}
           {IMENIK_LAYOUT === 'd1' ? (
-            <div className="grid grid-cols-1 gap-x-10 gap-y-5 bg-[#EDEDEA] px-6 py-6 sm:px-10 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-6 bg-[#EDEDEA] px-6 py-7 sm:px-10 md:grid-cols-2">
               {COMMUNITY_CHANNELS.map((ch) => (
                 <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group flex w-full items-stretch gap-5 text-start">
-                  <span className="relative block h-[112px] w-[44%] max-w-[240px] shrink-0 overflow-hidden rounded-se-[40px] bg-[#D4D3CD]">
+                  <span className="relative block h-[150px] w-[52%] max-w-[340px] shrink-0 overflow-hidden rounded-se-[48px] bg-[#D4D3CD]">
                     <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] ${ch.pos}`} />
                   </span>
                   <span className="flex min-w-0 flex-1 flex-col justify-center border-t border-[#2B211C] pt-2">

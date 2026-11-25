@@ -262,7 +262,7 @@ export const FAQ: FaqItem[] = [
   {q: 'Tek sam se doselio u Beograd. Šta prvo da sredim?', a: 'Ako niste državljanin Srbije, boravak i rad se sređuju u Upravi za strance u Omladinskih brigada 1 na Novom Beogradu, a većina zahteva može da se preda i preko portala welcometoserbia.gov.rs. Posao možete tražiti preko Nacionalne službe za zapošljavanje. Sve važne brojeve za grad, zdravlje i prevoz smo skupili u delu Koga zvati.'},
   {q: 'Koje brojeve treba da znam?', a: 'Hitna pomoć je 194, policija 192, vatrogasci 193, a sa mobilnog možete zvati i 112. Urgentni centar u Pasterovoj 2 radi 24 časa, kao i dežurna apoteka Prvi maj u Kralja Milana 9.'},
   {q: 'Kako da upoznam druge muslimane u Beogradu?', a: 'Dođite na džumu ili na neki od događaja sa sajta, tako se ljudi najlakše upoznaju. Pridružite se i Facebook grupi Sumud, a ako vam treba neko za posao ili savet, u delu Umrežavanje možete preporučiti ili naći majstore, lekare i preduzetnike iz zajednice.'},
-  {q: 'Znam dobro mesto ili događaj. Kako da vam javim?', a: 'Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Za događaje postoji i dugme Predloži događaj. Svaki predlog pogledamo pre nego što ga dodamo.'},
+  {q: 'Znam dobro mesto ili događaj. Kako da vam javim?', a: 'Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Svaki predlog pogledamo pre nego što ga dodamo.'},
   {q: 'Ko pravi ovaj sajt?', a: 'Mi smo Sumud, grupa muslimana koji žive u Beogradu. Nismo deo nijedne verske ni državne institucije, sajt pravimo za sebe i za sve koji ovde žive ili dolaze. Ako vidite grešku, javite nam.'},
 ];
 
