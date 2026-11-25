@@ -781,9 +781,6 @@ export function WebsiteTemplateView({
               <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
                 {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
               </p>
-              <p className="mt-6 max-w-md text-[13px] leading-relaxed text-[#8F8D88]">
-                {t("Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.")}
-              </p>
               <PrayerTimesCard />
               <div className="relative mt-10 hidden aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
