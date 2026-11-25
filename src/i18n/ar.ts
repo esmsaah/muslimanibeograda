@@ -319,5 +319,7 @@ export const AR: Record<string, string> = {
  "Razgovor „Solidarnost sa narodom Palestine: regionalna borba i otpor\" sa grupama Nepokorena Palestina i Nepokolebljiva": "حوار «التضامن مع الشعب الفلسطيني: نضال ومقاومة إقليمية» مع مجموعتي «فلسطين غير المهزومة» و«الثابتة»",
  "Acid Amazigh uživo, ulaz uz dobrovoljni prilog za kolektiv": "Acid Amazigh مباشرة، الدخول بتبرّع طوعي للمجموعة",
  "Bazar za Palestinu, muzika Jelena Martinović i P.Amir": "بازار من أجل فلسطين، موسيقى يلينا مارتينوفيتش وP.Amir",
- "Ceo program": "البرنامج كاملًا"
+ "Ceo program": "البرنامج كاملًا",
+ "Sumud · Muslimani Beograda": "صمود · مسلمو بلغراد",
+ "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "مطاعم ومتاجر حلال، جوامع ومساجد، فعاليات ثقافية وأرقام مهمة للمسلمين في بلغراد."
 };

@@ -319,5 +319,7 @@ export const TR: Record<string, string> = {
  "Razgovor „Solidarnost sa narodom Palestine: regionalna borba i otpor\" sa grupama Nepokorena Palestina i Nepokolebljiva": "Nepokorena Palestina ve Nepokolebljiva gruplarıyla “Filistin Halkıyla Dayanışma: Bölgesel Mücadele ve Direniş” söyleşisi",
  "Acid Amazigh uživo, ulaz uz dobrovoljni prilog za kolektiv": "Acid Amazigh canlı, giriş kolektife gönüllü bağışla",
  "Bazar za Palestinu, muzika Jelena Martinović i P.Amir": "Filistin için kermes, müzik Jelena Martinović ve P.Amir",
- "Ceo program": "Tüm program"
+ "Ceo program": "Tüm program",
+ "Sumud · Muslimani Beograda": "Sumud · Belgradlı Müslümanlar",
+ "Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.": "Belgrad'daki Müslümanlar için helal restoranlar ve dükkânlar, camiler ve mescitler, kültürel etkinlikler ve önemli iletişim bilgileri."
 };

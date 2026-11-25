@@ -48,6 +48,12 @@ export function LangProvider({children}: {children: ReactNode}) {
   useEffect(() => {
     document.documentElement.lang = lang === 'sr' ? 'sr-Latn' : lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    const tr = (x: string) => (lang === 'sr' ? x : DICTS[lang][x] ?? x);
+    document.title = tr('Sumud · Muslimani Beograda');
+    const desc = tr('Halal restorani i prodavnice, džamije i mesdžidi, kulturni događaji i važni kontakti za muslimane u Beogradu.');
+    document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://muslimanibeograda.com/${lang === 'sr' ? '' : `?lang=${lang}`}`);
   }, [lang]);
 
   const t = useCallback(
