@@ -438,5 +438,11 @@ export const EN: Record<string, string> = {
  "Beograda": "of Belgrade",
  "Izlazak": "Sunrise",
  "O kolektivu": "About the collective",
- "Istorija · od 1521. do danas": "History · from 1521 to today"
+ "Istorija · od 1521. do danas": "History · from 1521 to today",
+ "Osmanski Beograd, grad džamija, medresa i čaršija.": "Ottoman Belgrade, a city of mosques, madrasas and bazaars.",
+ "Obnova Bajrakli džamije i priznanje islama u Srbiji.": "Restoration of the Bajrakli Mosque and recognition of Islam in Serbia.",
+ "Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.": "The community renews itself and grows, in the Kingdom and in Yugoslavia.",
+ "Novi džemati i sve bogatiji društveni i kulturni život.": "New communities and an ever richer social and cultural life.",
+ "XX vek": "20th century",
+ "Danas": "Today"
 };

@@ -8,7 +8,7 @@ import {
   renderBelgradeGouachePainting,
 } from '../utils/belgradePainting';
 import {IslamicButton} from './IslamicButton';
-import {ABOUT_STORY, CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, NEIGHBORS, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
+import {ABOUT_STORY, CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, HISTORY_TIMELINE, NEIGHBORS, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
 import {currentRoute, pathFor, setRoute} from '../route';
 import type {Route} from '../route';
 import {PrayerTimesCard} from './PrayerTimesCard';
@@ -608,10 +608,11 @@ export function WebsiteTemplateView({
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark label={t("Priča o nama")} />
+
+          {/* Gore: fotografija i izjava o Kolektivu. Fotografija prati visinu teksta. */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_560px]">
-            {/* Levo: jedna fotografija kao ploča */}
-            <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-10 lg:pt-12">
-              <div className="relative aspect-[4/3] w-full max-w-[560px] overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-[4/5]">
+            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 sm:px-10 lg:py-12">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[360px] lg:flex-1">
                 {PRICA_PHOTOS.map((p, i) => (
                   <img loading="lazy" decoding="async"
                     key={p.src}
@@ -623,33 +624,40 @@ export function WebsiteTemplateView({
               </div>
             </div>
 
-            {/* Desno: priča. Jedan font za tekst, dve veličine, a oba dela poravnata sa fotografijom. */}
-            <div className="flex flex-col bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-10 lg:pt-12 lg:pb-12">
+            <div className="bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-12 lg:pb-14">
               <SignTitle caps={t("Priča")} rest={t("o nama")} />
-              <p className="font-stone mt-7 text-[24px] leading-[1.45] text-[#2B211C]">
+              <p className="font-stone mt-8 text-[27px] leading-[1.35] text-[#2B211C] sm:text-[30px]">
                 {t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}
               </p>
-              <p className="font-stone mt-4 text-[20px] leading-[1.55] text-[#4F4A46]">
+              <p className="mt-6 text-[16px] leading-[1.7] text-[#4F4A46]">
                 {t(ABOUT_STORY.paragraphs[0])}
               </p>
-              <div className="mt-7">
+              <div className="mt-8">
                 <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
                   {t("Pročitaj celu priču")}
                 </IslamicButton>
               </div>
-
-              <div className="mt-12 border-t border-[#D4D3CD] pt-8 lg:mt-auto">
-                <SignTitle small caps={t("Muslimani")} rest={t("Beograda")} />
-                <p className="font-stone mt-5 line-clamp-3 text-[20px] leading-[1.55] text-[#4F4A46]">
-                  {t(HISTORY_STORY.paragraphs[0])}
-                </p>
-                <div className="mt-7">
-                  <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
-                    {t("Pročitaj više")}
-                  </IslamicButton>
-                </div>
-              </div>
             </div>
+          </div>
+
+          {/* Dole, preko cele širine: istorija kao vremenska linija */}
+          <div className="border-t border-[#2B211C] bg-[#FFFFFF] px-6 pt-9 pb-14 sm:px-10 lg:pt-10">
+            <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+              <SignTitle small caps={t("Muslimani")} rest={t("Beograda")} />
+              <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                {t("Pročitaj više")}
+              </IslamicButton>
+            </div>
+            <ol className="mt-8 grid grid-cols-2 gap-x-8 gap-y-8 lg:grid-cols-4">
+              {HISTORY_TIMELINE.map((m) => (
+                <li key={m.year} className="border-t border-[#2B211C] pt-4">
+                  <button type="button" onClick={() => setStoryOpen(true)} className="group block w-full text-start">
+                    <span className="font-stone block text-[30px] leading-none text-[#2B211C] lining-nums transition-colors group-hover:text-[#0F7A53]">{t(m.year)}</span>
+                    <span className="mt-3 block max-w-[260px] text-[14px] leading-relaxed text-[#4F4A46]">{t(m.text)}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>

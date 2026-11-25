@@ -438,5 +438,11 @@ export const TR: Record<string, string> = {
  "Beograda": "Müslümanlar",
  "Izlazak": "Güneş",
  "O kolektivu": "Kolektif hakkında",
- "Istorija · od 1521. do danas": "Tarih · 1521'den bugüne"
+ "Istorija · od 1521. do danas": "Tarih · 1521'den bugüne",
+ "Osmanski Beograd, grad džamija, medresa i čaršija.": "Osmanlı Belgrad'ı, camiler, medreseler ve çarşılar şehri.",
+ "Obnova Bajrakli džamije i priznanje islama u Srbiji.": "Bayraklı Camii'nin onarımı ve İslam'ın Sırbistan'da tanınması.",
+ "Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.": "Topluluk Krallık'ta ve Yugoslavya'da yenilenir ve büyür.",
+ "Novi džemati i sve bogatiji društveni i kulturni život.": "Yeni cemaatler ve giderek zenginleşen sosyal ve kültürel hayat.",
+ "XX vek": "20. yüzyıl",
+ "Danas": "Bugün"
 };

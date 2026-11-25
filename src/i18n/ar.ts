@@ -438,5 +438,11 @@ export const AR: Record<string, string> = {
  "Beograda": "بلغراد",
  "Izlazak": "الشروق",
  "O kolektivu": "عن التجمّع",
- "Istorija · od 1521. do danas": "التاريخ · من 1521 حتى اليوم"
+ "Istorija · od 1521. do danas": "التاريخ · من 1521 حتى اليوم",
+ "Osmanski Beograd, grad džamija, medresa i čaršija.": "بلغراد العثمانية، مدينة المساجد والمدارس والأسواق.",
+ "Obnova Bajrakli džamije i priznanje islama u Srbiji.": "ترميم جامع بيرقلي والاعتراف بالإسلام في صربيا.",
+ "Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.": "يتجدد المجتمع وينمو، في المملكة وفي يوغوسلافيا.",
+ "Novi džemati i sve bogatiji društveni i kulturni život.": "جماعات جديدة وحياة اجتماعية وثقافية أغنى.",
+ "XX vek": "القرن العشرون",
+ "Danas": "اليوم"
 };

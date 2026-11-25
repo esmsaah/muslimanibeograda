@@ -283,3 +283,11 @@ export const NEIGHBORS: Neighbor[] = [
   {id: 'alibaba', category: 'biznis', categoryLabel: 'Preduzetnici i frilenseri', name: 'Ali Baba Hanabal', profession: 'Arapska radnja', district: 'Vračar, Golsvortijeva 21', note: 'Ručno rađene kožne torbe, sandale, papuče i kaiševi, tunižanska keramika i tadžini, ćilimi, nakit i nargile. Maloprodaja i veleprodaja.', contacts: ['011 244 30 89', '065 57 59 385', 'map:Ali Baba Hanabal Golsvortijeva 21 Beograd']},
   {id: 'vintage-shea', category: 'lepota', categoryLabel: 'Lepota i njega', name: 'Vintage Shea Essentials', profession: 'Jamila, prirodna nega sa shea puterom', district: 'Online', note: 'Radi i afričke ručne lepeze.', contacts: ['@vintage_shea_essentials']},
 ];
+
+/** Kratka vremenska linija istorije, za blok Muslimani Beograda. */
+export const HISTORY_TIMELINE = [
+  {year: '1521', text: 'Osmanski Beograd, grad džamija, medresa i čaršija.'},
+  {year: '1868', text: 'Obnova Bajrakli džamije i priznanje islama u Srbiji.'},
+  {year: 'XX vek', text: 'Zajednica se obnavlja i raste, u Kraljevini i u Jugoslaviji.'},
+  {year: 'Danas', text: 'Novi džemati i sve bogatiji društveni i kulturni život.'},
+];
