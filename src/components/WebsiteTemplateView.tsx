@@ -321,9 +321,9 @@ function EventPhotos({photos, alt}: {photos: string[]; alt: string}) {
   );
 }
 
-function ChapterMark({num, label}: {num: string; label: string}) {
+function ChapterMark({label}: {label: string}) {
   return (
-    <div className="flex items-baseline gap-5 border-b border-[#2B211C] px-6 sm:px-10 py-4" data-num={num}>
+    <div className="flex items-baseline gap-5 border-b border-[#2B211C] px-6 sm:px-10 py-4">
       <span className="font-quiet text-[17px] leading-none text-[#8F8D88]">{label}</span>
     </div>
   );
@@ -678,7 +678,7 @@ export function WebsiteTemplateView({
       <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <ChapterMark num="I" label={t("Priča o nama")} />
+          <ChapterMark label={t("Priča o nama")} />
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_560px]">
             {/* Levo: jedna fotografija kao ploča */}
             <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-10 lg:pt-12">
@@ -730,7 +730,7 @@ export function WebsiteTemplateView({
       <div className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)]">
       <section id="halal-beograd" className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#EDEDEA]">
-          <ChapterMark num="III" label={t("Halal Beograd")} />
+          <ChapterMark label={t("Halal Beograd")} />
         <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
           {/* Levo: indeks adresa */}
           <div className="px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
@@ -896,7 +896,7 @@ export function WebsiteTemplateView({
       <section id="dzemati" className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)]">
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <ChapterMark num="III" label={t("Džemati Beograda")} />
+          <ChapterMark label={t("Džemati Beograda")} />
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
             <div className="px-6 sm:px-10 pt-10 pb-8 lg:pb-14 lg:pt-12">
               <SignTitle caps={t("Gde")} rest={t("klanjati")} />
@@ -967,7 +967,7 @@ export function WebsiteTemplateView({
       <div className="bg-[#FFFFFF]">
       <section id="kulturni-dogadjaji" className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF] pb-16">
-          <ChapterMark num="IV" label={t("Kulturni događaji")} />
+          <ChapterMark label={t("Kulturni događaji")} />
           <div className="px-6 sm:px-10 pt-10 lg:pt-12">
           <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
 
@@ -1081,8 +1081,8 @@ export function WebsiteTemplateView({
               );
             })}
             <li className="flex flex-col py-8">
-              <span className="font-stone text-[56px] leading-none text-[#D4D3CD]">+</span>
-              <div className="mt-5 flex aspect-[4/3] w-full flex-col justify-end rounded-se-[96px] bg-[#EDEDEA] p-6">
+              <span aria-hidden="true" className="font-stone hidden text-[56px] leading-none text-[#D4D3CD] lg:block">+</span>
+              <div className="flex w-full flex-col justify-end rounded-se-[48px] bg-[#EDEDEA] px-6 pt-10 pb-6 lg:mt-5 lg:aspect-[4/3] lg:rounded-se-[96px] lg:p-6">
                 <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
               </div>
@@ -1105,7 +1105,7 @@ export function WebsiteTemplateView({
         className="mx-auto max-w-[1440px] lg:ps-[130px]"
       >
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <ChapterMark num="V" label={t("Umrežavanje muslimana")} />
+          <ChapterMark label={t("Umrežavanje muslimana")} />
         <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr]">
           {/* Levo: dva kanala kao dve ploče */}
           <div className="flex flex-col gap-12 bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-12 lg:pt-12">
@@ -1442,7 +1442,7 @@ export function WebsiteTemplateView({
       <section id="potrazi-pomoc" className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)]">
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
           <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <ChapterMark num="VI" label={t("Javi nam se")} />
+          <ChapterMark label={t("Javi nam se")} />
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
             <div className="flex flex-col justify-between bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
               <div>
@@ -1606,13 +1606,13 @@ export function WebsiteTemplateView({
               </figcaption>
             </figure>
 
-            <div className="mt-14 flex flex-col gap-4 border-t border-[#D4D3CD] pt-6 text-[13px] text-[#8F8D88] sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap items-center gap-6">
-                <span className="font-stone text-[16px] tracking-[0.3em] text-[#2B211C]">{t("SUMUD")}</span>
-                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="text-[#4F4A46] hover:text-[#9E2B45] transition-colors">{t("Ženski džemat · WhatsApp")}</button>
-                <button type="button" onClick={() => setCommunityModal('facebook')} className="text-[#4F4A46] hover:text-[#9E2B45] transition-colors">{t("Facebook")}</button>
-              </div>
-              <button type="button" onClick={() => scrollTo('o-muslimanima')} className="text-start text-[#4F4A46] hover:text-[#9E2B45] transition-colors">{t("Povratak na vrh")}</button>
+            <div className="mt-14 border-t border-[#2B211C] pt-6 sm:flex sm:items-baseline sm:justify-between">
+              <span className="font-stone block text-[16px] tracking-[0.3em] text-[#2B211C]">{t("SUMUD")}</span>
+              <nav className="mt-3 flex flex-col sm:mt-0 sm:flex-row sm:items-baseline sm:gap-8">
+                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Ženski džemat · WhatsApp")}</button>
+                <button type="button" onClick={() => setCommunityModal('facebook')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Facebook")}</button>
+                <button type="button" onClick={() => scrollTo('o-muslimanima')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px] border-b-0 text-[#8F8D88]">{t("Povratak na vrh")}</button>
+              </nav>
             </div>
           </div>
         </div>
