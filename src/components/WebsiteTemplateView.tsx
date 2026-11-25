@@ -615,21 +615,9 @@ export function WebsiteTemplateView({
       {/* Istorija, ciljevi i tihi foto-fade u jednom kadru (bez galerije) */}
       <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
-        <div className="border-s border-t border-s-[#2B211C] border-t-[#2B211C] bg-[#FFFFFF]">
-          <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
-            <div className="flex flex-col bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-12 lg:pb-14">
-              <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
-              <div className="mt-7 max-w-[420px] space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
-                <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
-                <p>{t(HISTORY_STORY.paragraphs[1])}</p>
-              </div>
-              <div className="mt-auto pt-8">
-                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
-                  {t("Pročitaj više")}
-                </IslamicButton>
-              </div>
-            </div>
-            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:px-8 lg:pt-12 lg:pb-12">
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF] pt-10 lg:pt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
+            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:py-12">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
                 {PRICA_PHOTOS.map((p, i) => (
                   <img loading="lazy" decoding="async"
@@ -639,6 +627,18 @@ export function WebsiteTemplateView({
                     className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
                   />
                 ))}
+              </div>
+            </div>
+            <div className="flex flex-col bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-12 lg:pb-14">
+              <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
+              <div className="mt-7 space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
+                <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
+                <p>{t(HISTORY_STORY.paragraphs[1])}</p>
+              </div>
+              <div className="mt-auto pt-8">
+                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                  {t("Pročitaj više")}
+                </IslamicButton>
               </div>
             </div>
           </div>
