@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Poseduje halal sertifikat.": "Helal sertifikasına sahip.",
  "Preporuka zajednice.": "Topluluğun tavsiyesi.",
  "Turska baklava sa pistaćima i orasima, kadaif, tulumbe i urmašice, kod Zelenog venca.": "Zeleni venac yakınında fıstıklı ve cevizli Türk baklavası, kadayıf, tulumba ve hurmalı kurabiye.",
  "Najstarija poslastičarnica u gradu, otvorena 1851. i od tada u rukama iste porodice. Boza, baklava, tulumbe, krempita i domaći sladoled.": "1851'de açılan ve o günden beri aynı ailenin işlettiği şehrin en eski pastanesi. Boza, baklava, tulumba, kremalı pasta ve ev yapımı dondurma.",

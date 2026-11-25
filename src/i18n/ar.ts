@@ -1,4 +1,5 @@
 export const AR: Record<string, string> = {
+ "Poseduje halal sertifikat.": "حاصل على شهادة حلال.",
  "Preporuka zajednice.": "توصية من المجتمع.",
  "Turska baklava sa pistaćima i orasima, kadaif, tulumbe i urmašice, kod Zelenog venca.": "بقلاوة تركية بالفستق والجوز، وكنافة وتولومبا وحلوى التمر، قرب زيليني فيناتس.",
  "Najstarija poslastičarnica u gradu, otvorena 1851. i od tada u rukama iste porodice. Boza, baklava, tulumbe, krempita i domaći sladoled.": "أقدم محل حلويات في المدينة، افتُتح عام 1851 وما زال بيد العائلة نفسها. بوزا وبقلاوة وتولومبا وكريمبيتا وآيس كريم منزلي.",
