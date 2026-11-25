@@ -1,4 +1,9 @@
 export const AR: Record<string, string> = {
+ "Preporuka zajednice.": "توصية من المجتمع.",
+ "Turska baklava sa pistaćima i orasima, kadaif, tulumbe i urmašice, kod Zelenog venca.": "بقلاوة تركية بالفستق والجوز، وكنافة وتولومبا وحلوى التمر، قرب زيليني فيناتس.",
+ "Najstarija poslastičarnica u gradu, otvorena 1851. i od tada u rukama iste porodice. Boza, baklava, tulumbe, krempita i domaći sladoled.": "أقدم محل حلويات في المدينة، افتُتح عام 1851 وما زال بيد العائلة نفسها. بوزا وبقلاوة وتولومبا وكريمبيتا وآيس كريم منزلي.",
+ "Stara beogradska poslastičarnica kod Đerma, poznata po bozi, tulumbama, baklavi i sladoledu.": "محل حلويات بلغرادي عريق قرب ديرم، مشهور بالبوزا والتولومبا والبقلاوة والآيس كريم.",
+ "Poslastičarnica na Lionu, sa tradicionalnim kolačima i sladoledom.": "محل حلويات في ليون، بحلويات تقليدية وآيس كريم.",
  "Kafe poslastičarnica u Zmaj Jovinoj, nadomak Knez Mihailove, za kafu i kolače.": "مقهى وحلويات في شارع زماي يوفينا، على بعد خطوات من كنيز ميهايلوفا، للقهوة والحلويات.",
  "Halal nije potvrđen. Od mesa se koristi samo ono koje muslimani jedu, a šunka je pureća. U ponudi su i alkoholna pića.": "الحلال غير مؤكد. لا تُستخدم إلا اللحوم التي يأكلها المسلمون، واللحم المقدد من الديك الرومي. تُقدَّم أيضًا مشروبات كحولية.",
  "Pohovana piletina i sendvič u KFC kutiji": "دجاج مقلي وساندويتش في علبة KFC",

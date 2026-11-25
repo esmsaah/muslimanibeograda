@@ -1,4 +1,9 @@
 export const EN: Record<string, string> = {
+ "Preporuka zajednice.": "Recommended by the community.",
+ "Turska baklava sa pistaćima i orasima, kadaif, tulumbe i urmašice, kod Zelenog venca.": "Turkish baklava with pistachios and walnuts, kadaif, tulumba and date cookies, near Zeleni venac.",
+ "Najstarija poslastičarnica u gradu, otvorena 1851. i od tada u rukama iste porodice. Boza, baklava, tulumbe, krempita i domaći sladoled.": "The oldest pastry shop in the city, opened in 1851 and run by the same family ever since. Boza, baklava, tulumba, cream slice and homemade ice cream.",
+ "Stara beogradska poslastičarnica kod Đerma, poznata po bozi, tulumbama, baklavi i sladoledu.": "A classic Belgrade pastry shop near Đeram, known for boza, tulumba, baklava and ice cream.",
+ "Poslastičarnica na Lionu, sa tradicionalnim kolačima i sladoledom.": "Pastry shop at Lion, with traditional sweets and ice cream.",
  "Kafe poslastičarnica u Zmaj Jovinoj, nadomak Knez Mihailove, za kafu i kolače.": "Café and patisserie on Zmaj Jovina street, a step from Knez Mihailova, for coffee and cakes.",
  "Halal nije potvrđen. Od mesa se koristi samo ono koje muslimani jedu, a šunka je pureća. U ponudi su i alkoholna pića.": "Halal is not confirmed. Only meats Muslims eat are used, and the ham is turkey. Alcoholic drinks are also served.",
  "Pohovana piletina i sendvič u KFC kutiji": "Fried chicken and a sandwich in a KFC box",
