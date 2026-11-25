@@ -827,20 +827,23 @@ export function WebsiteTemplateView({
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark label={t("Džemati Beograda")} />
-          <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
-            <div className="flex flex-col px-6 sm:px-10 pt-10 pb-8 lg:pb-14 lg:pt-12">
-              <SignTitle caps={t("Gde")} rest={t("klanjati")} />
-              <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
-                {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
-              </p>
-              <div className="relative mt-10 hidden min-h-[320px] w-full flex-1 overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
+          <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr] lg:grid-rows-[auto_1fr]">
+            {/* Levo i desno dele redove, pa su fotografija i spisak poravnati */}
+            <div className="grid grid-cols-1 px-6 sm:px-10 pt-10 pb-8 lg:row-span-2 lg:grid-rows-subgrid lg:pb-14 lg:pt-12">
+              <div>
+                <SignTitle caps={t("Gde")} rest={t("klanjati")} />
+                <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
+                  {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
+                </p>
+              </div>
+              <div className="relative mt-10 hidden min-h-[320px] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
             </div>
 
-            <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
-              <PrayerTimesCard wide />
-              <ol className="mt-10 grid grid-flow-row-dense grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+            <div className="grid grid-cols-1 bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:row-span-2 lg:grid-rows-subgrid lg:px-14 lg:pt-12">
+              <div className="self-end"><PrayerTimesCard wide /></div>
+              <ol className="mt-10 grid grid-flow-row-dense grid-cols-1 content-start gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
                 {DZEMATI.map((dz) => {
                   const open = openDzemat === dz.id;
                   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(dz.mapQuery)}&z=15&output=embed`;
