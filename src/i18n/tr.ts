@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Pohovana piletina i sendvič u KFC kutiji": "KFC kutusunda kızarmış tavuk ve sandviç",
  "Banjalučki ćevapi u lepinji": "Lepinja ekmeğinde Banja Luka çevapisi",
  "Šavarma i kebab tanjiri u Shawarma Baru": "Shawarma Bar'da şavurma ve kebap tabakları",
  "Kineski restoran specijalizovan za ručno pravljene rezance i goveđe supe. Poznat i kao 兰州牛拉 Beef Noodles.": "El yapımı erişte ve sığır eti çorbalarında uzmanlaşmış Çin restoranı. 兰州牛拉 Beef Noodles adıyla da bilinir.",
