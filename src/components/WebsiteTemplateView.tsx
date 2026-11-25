@@ -1801,8 +1801,8 @@ export function WebsiteTemplateView({
               <img loading="lazy" decoding="async" src={PRICA_PHOTOS[0].src} alt={t(PRICA_PHOTOS[0].alt)} className={`absolute inset-0 h-full w-full object-cover ${PRICA_PHOTOS[0].pos}`} />
             </div>
             <h2 id="about-title" className="font-stone mt-7 text-[30px] leading-tight text-[#221D1A]">{t(ABOUT_STORY.name)}</h2>
-            <p className="font-quiet mt-3 text-[20px] leading-[1.5] text-[#2B211C]">{t(ABOUT_STORY.lead)}</p>
             <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
+              <p className="text-[17px] leading-[1.6] text-[#2B211C]">{t("Sumud")} {t(ABOUT_STORY.lead)}</p>
               {ABOUT_STORY.paragraphs.map((p) => (
                 <p key={p}>{t(p)}</p>
               ))}
