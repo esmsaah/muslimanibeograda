@@ -616,7 +616,6 @@ export function WebsiteTemplateView({
       <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <ChapterMark label={t("Muslimani Beograda")} />
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
             <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:py-12">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
