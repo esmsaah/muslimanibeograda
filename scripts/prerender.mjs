@@ -54,6 +54,7 @@ function homeGraph(lang, url) {
       url: `${SITE}/`,
       logo: `${SITE}/assets/sumud-znak.svg`,
       email: 'muslimanibeograda@proton.me',
+      sameAs: ['https://www.facebook.com/share/g/19ucSXWVUp/'],
       areaServed: {'@type': 'City', name: 'Beograd'},
       description: T(lang, HISTORY_STORY.paragraphs[2]),
     },

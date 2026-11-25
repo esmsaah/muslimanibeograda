@@ -1,7 +1,4 @@
-// Probni raspored sekcije Umrežavanje (samo za pregled na posebnoj grani).
+// Raspored sekcije Umrežavanje: kartice zajednice gore, pa Koga zvati i imenik.
 export const IMENIK_LAYOUT: 'd' | 'd1' = 'd1';
-// Primeri upisa da bi se video izgled imenika. Na glavnom sajtu ih nema.
-export const PREVIEW_NEIGHBORS = [
-  {id: 'primer-1', category: 'zdravlje' as const, categoryLabel: 'Doktori i zdravlje', name: 'Primer Stomatološka ordinacija', profession: 'Stomatolog', district: 'Zvezdara', note: '', contact: '060 000 0000'},
-  {id: 'primer-2', category: 'hrana' as const, categoryLabel: 'Hrana i ketering', name: 'Primer Ketering i kolači', profession: 'Ketering', district: 'Novi Beograd', note: '', contact: '@primer.ketering'},
-];
+// Upisi u imenik dolaze ovde kad ih pregledamo.
+export const PREVIEW_NEIGHBORS: {id: string; category: 'zdravlje' | 'zanat' | 'biznis' | 'hrana' | 'lepota'; categoryLabel: string; name: string; profession: string; district: string; note: string; contact: string}[] = [];
