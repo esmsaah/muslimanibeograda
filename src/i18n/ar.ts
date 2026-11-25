@@ -1,4 +1,5 @@
 export const AR: Record<string, string> = {
+ "Poseduje halal sertifikat. Na Jelisavete Načić radi od 8 do 16h.": "حاصل على شهادة حلال. فرع يليسافيتي ناتشيتش مفتوح من 8 صباحًا حتى 4 عصرًا.",
  "Poseduje halal sertifikat.": "حاصل على شهادة حلال.",
  "Preporuka zajednice.": "توصية من المجتمع.",
  "Turska baklava sa pistaćima i orasima, kadaif, tulumbe i urmašice, kod Zelenog venca.": "بقلاوة تركية بالفستق والجوز، وكنافة وتولومبا وحلوى التمر، قرب زيليني فيناتس.",
