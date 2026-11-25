@@ -592,7 +592,7 @@ export function WebsiteTemplateView({
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="grid grid-cols-1 border-s border-[#2B211C] lg:grid-cols-[560px_1fr]">
           {/* Levo, uz čvrstu vertikalu */}
-          <div className="relative flex flex-col justify-between bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-10 lg:min-h-[560px] lg:pt-16 lg:pb-12">
+          <div className="relative flex flex-col justify-between bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-8 lg:min-h-[560px] lg:pt-16 lg:pb-12">
             <div>
               <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
                 {t("SUMUD")}
@@ -601,8 +601,8 @@ export function WebsiteTemplateView({
                 {t("Kolektiv muslimana Beograda")}
               </p>
             </div>
-            <div className="mt-12 lg:mt-0">
-              <div aria-hidden="true" className="h-[64px] w-[64px] rounded-full bg-[#D9A02B] lg:h-[96px] lg:w-[96px]" />
+            <div className="mt-8 hidden lg:mt-0 lg:block">
+              <div aria-hidden="true" className="hidden h-[96px] w-[96px] rounded-full bg-[#D9A02B] lg:block" />
               <blockquote className="font-quiet m-0 mt-8 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
                 {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
               </blockquote>
@@ -611,7 +611,8 @@ export function WebsiteTemplateView({
           </div>
 
           {/* Desno, betonsko polje sa crtežom */}
-          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-3 pt-8 pb-6 sm:px-10 lg:px-14 lg:pt-14 lg:pb-8">
+          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-0 pt-20 pb-4 sm:px-10 lg:px-14 lg:pt-14 lg:pb-8">
+            <div aria-hidden="true" className="absolute end-8 top-7 h-[48px] w-[48px] rounded-full bg-[#D9A02B] lg:hidden" />
             <div className="pointer-events-none relative overflow-hidden lg:mt-24" style={{aspectRatio: '2400 / 820'}}>
               <canvas
                 ref={canvasRef}
@@ -623,6 +624,13 @@ export function WebsiteTemplateView({
               />
             </div>
 
+          </div>
+          {/* Hadis ispod crteža, samo na mobitelu */}
+          <div className="bg-[#FFFFFF] px-6 pt-8 pb-10 lg:hidden">
+            <blockquote className="font-quiet m-0 max-w-[380px] text-[21px] leading-[1.4] text-[#2B211C]">
+              {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
+            </blockquote>
+            <p className="font-quiet mt-3 text-[15px] text-[#8F8D88]">{t("Hadis, beleže Buhari i Muslim")}</p>
           </div>
         </div>
         </div>
