@@ -226,7 +226,6 @@ export const TR: Record<string, string> = {
  "klanjati": "namaz kılınır",
  "zvati": "aramalı",
  "tu smo": "buradayız",
- "Nazad na spisak": "Listeye dön",
  "mesta": "mekân",
  "Ćevapi i roštilj.": "Köfte ve ızgara.",
  "Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.": "Ofisi, adresi ve yönetim organları olmayan tamamen gönüllü bir ağ.",
@@ -266,5 +265,12 @@ export const TR: Record<string, string> = {
  "Skuvajte za ceo grad": "Tüm şehir için yemek pişirin",
  "Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.": "Program yeni pazartesiler için aşçı arıyor. Restoranlar, dernekler, aktivistler ve kalabalığa yemek yapan herkes başvurabilir, herkese açık bir diaspora akşam yemeği de olabilir. 50 ile 200 arası kişi geliyor.",
  "U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.": "E-postanızda kim olduğunuzu, ne pişireceğinizi, neyi tanıtmak istediğinizi ve tercih ettiğiniz tarihi yazın.",
- "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "Haydi Sumud herkes için helal bir akşam yemeği pişirsin. Bizimle yemek yapmak isterseniz bize yazın."
+ "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "Haydi Sumud herkes için helal bir akşam yemeği pişirsin. Bizimle yemek yapmak isterseniz bize yazın.",
+ "Nazad na spisak": "Listeye dön",
+ "26. novembar i 16. decembar, u 20:30": "26 Kasım ve 16 Aralık, saat 20.30",
+ "Hasanaginica u Narodnom pozorištu": "Ulusal Tiyatro'da Hasanaginica",
+ "Narodno pozorište · Scena Raša Plaović, Francuska 3": "Ulusal Tiyatro · Raša Plaović Sahnesi, Francuska 3",
+ "Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.": "Ljubomir Simović'in ünlü Hasanaginica türküsünden uyarladığı oyun. İlk kez 2001'de sahnelendi ve yıllardır repertuvarda; Vanja Ejdus başrolüyle Sterija Ödülü'nü kazandı.",
+ "Karte i termini": "Biletler ve tarihler",
+ "Blagajna": "Gişe"
 };

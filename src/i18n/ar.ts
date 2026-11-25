@@ -226,7 +226,6 @@ export const AR: Record<string, string> = {
  "klanjati": "تصلّي",
  "zvati": "تتصل",
  "tu smo": "نحن هنا",
- "Nazad na spisak": "العودة إلى القائمة",
  "mesta": "أماكن",
  "Ćevapi i roštilj.": "تشيفابي ومشاوي.",
  "Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.": "شبكة أهلية خالصة بلا مكتب ولا عنوان ولا هيئات إدارية.",
@@ -266,5 +265,12 @@ export const AR: Record<string, string> = {
  "Skuvajte za ceo grad": "اطبخ للمدينة كلها",
  "Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.": "يبحث البرنامج عن طهاة لأيام إثنين جديدة. يمكن أن تتقدّم المطاعم والجمعيات والناشطون وكل من يطبخ لمجموعة كبيرة، بما في ذلك عشاء لجاليتك مفتوح للجميع. يحضر ما بين 50 و200 شخص.",
  "U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.": "اكتب في رسالتك من أنت، وماذا ستطبخ، وما الذي تريد الترويج له، والموعد الذي تفضّله.",
- "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "لنجعل صمود يطبخ أمسية حلال للجميع. إذا أردت أن تطبخ معنا فتواصل معنا."
+ "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "لنجعل صمود يطبخ أمسية حلال للجميع. إذا أردت أن تطبخ معنا فتواصل معنا.",
+ "Nazad na spisak": "العودة إلى القائمة",
+ "26. novembar i 16. decembar, u 20:30": "26 نوفمبر و16 ديسمبر، الساعة 8:30 مساءً",
+ "Hasanaginica u Narodnom pozorištu": "«حسن آغينيتسا» في المسرح الوطني",
+ "Narodno pozorište · Scena Raša Plaović, Francuska 3": "المسرح الوطني · مسرح راشا بلاوفيتش، شارع فرانتسوسكا 3",
+ "Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.": "مسرحية للكاتب ليوبومير سيموفيتش مستوحاة من القصيدة الشعبية الشهيرة «حسن آغينيتسا». عُرضت لأول مرة عام 2001 وما زالت تُقدَّم منذ سنوات، ونالت فانيا إيدوس جائزة ستيريا عن دور البطولة.",
+ "Karte i termini": "التذاكر والمواعيد",
+ "Blagajna": "شباك التذاكر"
 };

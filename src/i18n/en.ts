@@ -226,7 +226,6 @@ export const EN: Record<string, string> = {
  "klanjati": "to pray",
  "zvati": "to call",
  "tu smo": "we're here",
- "Nazad na spisak": "Back to the list",
  "mesta": "places",
  "Ćevapi i roštilj.": "Ćevapi and grill.",
  "Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.": "A purely grassroots network with no office, address or governing bodies.",
@@ -266,5 +265,12 @@ export const EN: Record<string, string> = {
  "Skuvajte za ceo grad": "Cook for the whole city",
  "Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.": "The programme is looking for cooks for new Mondays. Restaurants, associations, activists and anyone who cooks for a big crowd can apply, including a dinner for your own diaspora open to everyone. Between 50 and 200 people come.",
  "U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.": "In your email, say who you are, what you would cook, what you want to promote and your preferred date.",
- "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "Let's have Sumud cook a halal evening for everyone. If you'd like to cook with us, get in touch."
+ "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "Let's have Sumud cook a halal evening for everyone. If you'd like to cook with us, get in touch.",
+ "Nazad na spisak": "Back to the list",
+ "26. novembar i 16. decembar, u 20:30": "26 November and 16 December, at 8:30pm",
+ "Hasanaginica u Narodnom pozorištu": "Hasanaginica at the National Theatre",
+ "Narodno pozorište · Scena Raša Plaović, Francuska 3": "National Theatre · Raša Plaović Stage, Francuska 3",
+ "Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.": "Ljubomir Simović's play based on the famous ballad of Hasanaginica. It premiered in 2001 and has been in the repertoire for years, and Vanja Ejdus won the Sterija Award for the title role.",
+ "Karte i termini": "Tickets and dates",
+ "Blagajna": "Box office"
 };

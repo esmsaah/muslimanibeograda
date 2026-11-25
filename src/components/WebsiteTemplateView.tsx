@@ -109,6 +109,8 @@ interface CulturalEvent {
   instagramEmbed?: string;
   instagramUrl?: string;
   applyEmail?: string;
+  ticketUrl?: string;
+  phone?: string;
 }
 
 interface NeighborListing {
@@ -201,6 +203,20 @@ const HALAL_SPOTS: HalalSpot[] = [
 ];
 
 const CULTURAL_EVENTS: CulturalEvent[] = [
+  {
+    id: 'hasanaginica',
+    day: '26',
+    month: 'NOV',
+    time: '20:30',
+    when: '26. novembar i 16. decembar, u 20:30',
+    title: 'Hasanaginica u Narodnom pozorištu',
+    place: 'Narodno pozorište · Scena Raša Plaović, Francuska 3',
+    photoSrc: '',
+    summary:
+      'Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.',
+    ticketUrl: 'https://www.narodnopozoriste.rs/lat/predstave/hasanaginica',
+    phone: '011 262 0946',
+  },
   {
     id: 'deli-monday',
     day: 'PON',
@@ -905,7 +921,7 @@ export function WebsiteTemplateView({
             {CULTURAL_EVENTS.map((ev) => {
               const joined = Boolean(rsvpIds[ev.id]);
               return (
-                <li key={ev.id} className="grid grid-cols-1 gap-10 border-b border-[#D4D3CD] py-10 lg:grid-cols-[1fr_400px]">
+                <li key={ev.id} className={`grid grid-cols-1 gap-10 border-b border-[#D4D3CD] py-10 ${ev.instagramEmbed || ev.photoSrc ? 'lg:grid-cols-[1fr_400px]' : ''}`}>
                   <div className="flex flex-col">
                     <div className="flex items-baseline gap-4">
                       <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{t(ev.day)}</span>
@@ -930,6 +946,16 @@ export function WebsiteTemplateView({
                       >
                         {t(joined ? 'Zabeleženo' : 'Planiram doći')}
                       </IslamicButton>
+                      {ev.ticketUrl && (
+                        <a href={ev.ticketUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                          <Globe className="h-3.5 w-3.5" /> {t("Karte i termini")}
+                        </a>
+                      )}
+                      {ev.phone && (
+                        <a href={telHref(ev.phone)} className={ACTION_CLS}>
+                          <Phone className="h-3.5 w-3.5" /> {t("Blagajna")} {ev.phone}
+                        </a>
+                      )}
                       {ev.instagramUrl && (
                         <a href={ev.instagramUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
                           <Instagram className="h-3.5 w-3.5" /> {t("Objava na Instagramu")}
