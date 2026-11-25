@@ -114,6 +114,9 @@ interface CulturalEvent {
   short?: string;
   posterTitle?: string;
   photos?: string[];
+  program?: {when: string; what: string; where: string}[];
+  linkLabel?: string;
+  noteLabel?: string;
   posterLabel?: string;
   posterBg?: string;
 }
@@ -208,6 +211,34 @@ const HALAL_SPOTS: HalalSpot[] = [
 ];
 
 const CULTURAL_EVENTS: CulturalEvent[] = [
+  {
+    id: 'dani-solidarnosti',
+    day: '24–29',
+    month: 'NOV',
+    time: '',
+    short: 'nov',
+    when: 'Od 24. do 29. novembra',
+    title: 'Dani solidarnosti sa narodom Palestine',
+    place: 'Više lokacija u Beogradu',
+    photoSrc: '',
+    photos: ['assets/community/506A6413.jpg'],
+    summary:
+      'Treće izdanje programa kolektiva Za slobodnu Palestinu. Nedelju dana izložbi, predavanja, muzike i razgovora, a na kraju bazar za pomoć narodu Palestine.',
+    note: 'Deo programa održava se u kafićima i barovima.',
+    noteLabel: 'Dobro je znati',
+    program: [
+      {when: 'Uto 24. nov, 19h', what: 'Otvaranje izložbe „Gde sjaj prebiva", 32 politička plakata iz zbirke Muzeja Palestine', where: 'Galerija Artget, Knez Mihailova 6'},
+      {when: 'Sre 25. nov, 19h', what: 'Posteri za solidarnost i upoznavanje sa kolektivom', where: 'Leposava bar, Velike stepenice 6'},
+      {when: 'Čet 26. nov, 19h', what: 'Predavanje „Arheologija pod okupacijom", Duška Radosavljević', where: 'Kafe bar 16, Cetinjska 15a'},
+      {when: 'Pet 27. nov, 20h', what: 'Muzičko veče Global South Bangers, Acid Amazigh, SAUD i PhillieP', where: 'Ljubimac bar, Cetinjska 15'},
+      {when: 'Sub 28. nov, 18h', what: 'Razgovor „Solidarnost sa narodom Palestine: regionalna borba i otpor" sa grupama Nepokorena Palestina i Nepokolebljiva', where: 'Galerija Artget, Knez Mihailova 6'},
+      {when: 'Sub 28. nov, 21h', what: 'Acid Amazigh uživo, ulaz uz dobrovoljni prilog za kolektiv', where: 'Sutra.145, Čumićevo sokače 145'},
+      {when: 'Ned 29. nov, 13–19h', what: 'Bazar za Palestinu, muzika Jelena Martinović i P.Amir', where: 'Leposava bar, Velike stepenice 6'},
+    ],
+    ticketUrl: 'https://zaslobodnupalestinu.org/dani-solidarnosti-sa-narodom-palestine-3/',
+    linkLabel: 'Ceo program',
+    instagramUrl: 'https://www.instagram.com/zaslobodnupalestinu/',
+  },
   {
     id: 'hasanaginica',
     day: '26',
@@ -1003,7 +1034,7 @@ export function WebsiteTemplateView({
               const joined = Boolean(rsvpIds[ev.id]);
               const open = openEventId === ev.id;
               return (
-                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-8 lg:border-b-0 lg:border-e lg:pe-10">
+                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-8 lg:border-b-0 lg:border-e lg:pe-10 lg:last:border-e-0">
                   <div className="flex items-baseline justify-between">
                     <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{t(ev.day)}</span>
                     <span className="font-quiet text-[18px] text-[#8F8D88]">{ev.short ? t(ev.short) : `${t(ev.month).toLowerCase()}, ${ev.time}`}</span>
@@ -1039,16 +1070,27 @@ export function WebsiteTemplateView({
                   {open && (
                     <div className="mt-4 space-y-4">
                       {ev.when && <p className="font-quiet text-[17px] text-[#2B211C]">{t(ev.when)}</p>}
+                      {ev.program && (
+                        <ol className="border-t border-[#D4D3CD]">
+                          {ev.program.map((item) => (
+                            <li key={item.when + item.what} className="border-b border-[#EAEAE6] py-3">
+                              <div className="font-mono-tabular text-[11px] text-[#0F7A53] uppercase">{t(item.when)}</div>
+                              <div className="mt-1 text-[14px] leading-snug text-[#2B211C]">{t(item.what)}</div>
+                              <div className="mt-0.5 text-[12px] text-[#8F8D88]">{item.where}</div>
+                            </li>
+                          ))}
+                        </ol>
+                      )}
                       {ev.note && (
                         <div className="border-s-2 border-[#D9A02B] ps-4">
-                          <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Halal")}</div>
+                          <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t(ev.noteLabel ?? 'Halal')}</div>
                           <p className="mt-1 text-[14px] leading-relaxed text-[#2B211C]">{t(ev.note)}</p>
                         </div>
                       )}
                       <div className="flex flex-wrap gap-x-6 gap-y-2">
                         {ev.ticketUrl && (
                           <a href={ev.ticketUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
-                            <Globe className="h-3.5 w-3.5" /> {t("Karte i termini")}
+                            <Globe className="h-3.5 w-3.5" /> {t(ev.linkLabel ?? 'Karte i termini')}
                           </a>
                         )}
                         {ev.phone && (
@@ -1107,22 +1149,16 @@ export function WebsiteTemplateView({
                 </li>
               );
             })}
-            <li className="flex flex-col py-8 lg:pe-10">
-              <div className="flex items-baseline justify-between">
-                <span aria-hidden="true" className="font-stone text-[56px] leading-none text-[#D4D3CD]">+</span>
-              </div>
-              <button type="button" onClick={openSuggest} className="relative mt-5 block aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
-                <img src="assets/events/predlozi-dogadjaj.jpg" alt={t("Žene sede za stolom pored automata sa žvakama")} className="absolute inset-0 h-full w-full object-cover object-[60%_center]" />
-              </button>
-              <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
-              <div className="mt-auto pt-6">
-                <IslamicButton variant="flowline" tone="charcoal" size="sm" onClick={openSuggest}>
-                  {t("Predloži događaj")}
-                </IslamicButton>
-              </div>
-            </li>
           </ol>
+          <div className="mt-8 flex flex-col gap-4 border-t border-[#D4D3CD] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="font-stone text-[22px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</div>
+              <p className="mt-1 text-[14px] text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
+            </div>
+            <IslamicButton variant="kocka" tone="charcoal" size="sm" iconLeft={<Plus className="h-3.5 w-3.5" />} onClick={openSuggest}>
+              {t("Predloži događaj")}
+            </IslamicButton>
+          </div>
         </div>
           </div>
       </section>
