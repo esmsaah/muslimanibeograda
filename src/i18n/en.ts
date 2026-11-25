@@ -1,4 +1,5 @@
 export const EN: Record<string, string> = {
+ "Piletina poseduje halal sertifikat.": "The chicken holds a halal certificate.",
  "Ujgurska i srednjoazijska kuhinja, sa ručno vučenim nudlama i jelima od jagnjetine.": "Uyghur and Central Asian cuisine, with hand-pulled noodles and lamb dishes.",
  "Piletina poseduje halal sertifikat. U ponudi ima i alkohola.": "The chicken holds a halal certificate. Alcohol is also served.",
  "Poseduje halal sertifikat. Na Jelisavete Načić radi od 8 do 16h.": "Holds a halal certificate. The Jelisavete Načić shop is open from 8 am to 4 pm.",
