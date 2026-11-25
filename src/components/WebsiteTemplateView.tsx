@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Check, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
+import {ArrowUp, Check, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
 import {COMMUNITY_PHOTOS} from '../data/communityPhotos';
 import {
   drawDeliveryCyclist,
@@ -1490,14 +1490,14 @@ export function WebsiteTemplateView({
               </figcaption>
             </figure>
 
-            <div className="mt-14 border-t border-[#2B211C] pt-6 sm:flex sm:items-baseline sm:justify-between">
-              <span className="font-stone block text-[16px] tracking-[0.3em] text-[#2B211C]">{t("SUMUD")}</span>
-              <nav className="mt-3 flex flex-col sm:mt-0 sm:flex-row sm:items-baseline sm:gap-8">
-                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Ženski džemat · WhatsApp")}</button>
-                <button type="button" onClick={() => setCommunityModal('facebook')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Facebook")}</button>
-                <a href={pathFor(lang, {kind: 'vaktija'})} onClick={(e) => { e.preventDefault(); setRoute(lang, {kind: 'vaktija'}); document.getElementById('vaktija')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Vreme namaza · Beograd")}</a>
-                <a href={pathFor(lang, {kind: 'pitanja'})} onClick={(e) => { e.preventDefault(); openFaq(true); }} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px]">{t("Česta pitanja")}</a>
-                <button type="button" onClick={() => scrollTo('o-muslimanima')} className="font-quiet border-b border-[#D4D3CD] py-3.5 text-start text-[21px] leading-tight text-[#2B211C] transition-colors hover:text-[#9E2B45] sm:border-0 sm:py-0 sm:text-[17px] border-b-0 text-[#8F8D88]">{t("Povratak na vrh")}</button>
+            <div className="mt-14 border-t border-[#2B211C] pt-6 sm:flex sm:items-center sm:justify-between">
+              <button type="button" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} aria-label={t("Povratak na vrh")} className="flex items-center gap-3"><img src="/assets/sumud-znak.svg" alt="" aria-hidden="true" className="h-[30px] w-auto" /><span className="font-stone text-[16px] tracking-[0.3em] text-[#2B211C]">{t("SUMUD")}</span></button>
+              <nav className="mt-3 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2">
+                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Ženski džemat · WhatsApp")}</button>
+                <button type="button" onClick={() => setCommunityModal('facebook')} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Facebook")}</button>
+                <a href={pathFor(lang, {kind: 'vaktija'})} onClick={(e) => { e.preventDefault(); setRoute(lang, {kind: 'vaktija'}); document.getElementById('vaktija')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Vreme namaza · Beograd")}</a>
+                <a href={pathFor(lang, {kind: 'pitanja'})} onClick={(e) => { e.preventDefault(); openFaq(true); }} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Česta pitanja")}</a>
+                <button type="button" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} aria-label={t("Povratak na vrh")} title={t("Povratak na vrh")} className="mt-4 inline-flex h-9 w-9 items-center justify-center self-start border border-[#D4D3CD] text-[#4F4A46] transition-colors hover:border-[#221D1A] hover:text-[#221D1A] sm:mt-0"><ArrowUp className="h-4 w-4" /></button>
               </nav>
             </div>
           </div>
