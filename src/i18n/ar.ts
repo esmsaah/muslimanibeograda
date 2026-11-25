@@ -1,4 +1,5 @@
 export const AR: Record<string, string> = {
+ "Na meniju ističe halal sertifikat.": "يعرض شهادة الحلال في القائمة.",
  "Restoran navodi da je halal, ali sertifikat nije potvrđen.": "يذكر المطعم أنه حلال، لكن الشهادة غير مؤكدة.",
  "Piletina ima halal sertifikat, potvrđeno u zajednici.": "الدجاج حاصل على شهادة حلال، وهذا مؤكد من المجتمع.",
  "Restorani širom grada": "مطاعم في أنحاء المدينة",
