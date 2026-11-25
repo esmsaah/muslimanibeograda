@@ -1,5 +1,5 @@
 // Probni raspored sekcije Umrežavanje (samo za pregled na posebnoj grani).
-export const IMENIK_LAYOUT: 'd' | 'd1' = 'd';
+export const IMENIK_LAYOUT: 'd' | 'd1' = 'd1';
 // Primeri upisa da bi se video izgled imenika. Na glavnom sajtu ih nema.
 export const PREVIEW_NEIGHBORS = [
   {id: 'primer-1', category: 'zdravlje' as const, categoryLabel: 'Doktori i zdravlje', name: 'Primer Stomatološka ordinacija', profession: 'Stomatolog', district: 'Zvezdara', note: '', contact: '060 000 0000'},
