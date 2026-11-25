@@ -890,10 +890,12 @@ export function WebsiteTemplateView({
       <section id="kulturni-dogadjaji" className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF] pb-16">
           <ChapterMark label={t("Kulturni događaji")} />
-          <div className="px-6 sm:px-10 pt-10 lg:pt-12">
-          <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
+          <div className="bg-[#EDEDEA] px-6 pt-10 pb-9 sm:px-10 lg:pt-12">
+            <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
+          </div>
+          <div className="px-6 sm:px-10">
 
-          <ol className="mt-10 grid grid-cols-1 gap-x-10 border-t border-[#D4D3CD] lg:grid-cols-3">
+          <ol className="grid grid-cols-1 gap-x-10 lg:grid-cols-3">
             {CULTURAL_EVENTS.map((ev) => {
               const joined = Boolean(rsvpIds[ev.id]);
               const open = openEventId === ev.id;
@@ -1043,7 +1045,7 @@ export function WebsiteTemplateView({
 
           {/* Zajednica: Ženski online džemat i Facebook grupa Sumud */}
           {IMENIK_LAYOUT === 'd1' ? (
-            <div className="grid grid-cols-1 gap-x-10 gap-y-6 bg-[#EDEDEA] px-6 py-7 sm:px-10 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-6 border-b border-[#D4D3CD] bg-[#FFFFFF] px-6 pt-8 pb-8 sm:px-10 md:grid-cols-2">
               {COMMUNITY_CHANNELS.map((ch) => (
                 <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group flex w-full items-stretch gap-5 text-start">
                   <span className="relative block h-[150px] w-[52%] max-w-[340px] shrink-0 overflow-hidden rounded-se-[48px] bg-[#D4D3CD]">
