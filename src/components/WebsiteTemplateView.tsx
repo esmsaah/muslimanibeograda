@@ -745,9 +745,6 @@ export function WebsiteTemplateView({
                 + {Math.min(10, filteredHalal.length - visibleCount)}{' '}{t("mesta")}
               </button>
             )}
-            <p className="mt-6 text-[12px] leading-relaxed text-[#8F8D88]">
-              {t("Kod svakog mesta piše odakle je podatak o halal statusu. Oznaka Halal znači da je halal potvrđen ili da ga restoran sam navodi. Certifikat uvek proverite na licu mesta.")}
-            </p>
           </div>
 
           {/* Desno: velika ploča, pa ispod tekst i mala slika izabranog mesta */}
@@ -764,7 +761,17 @@ export function WebsiteTemplateView({
                   <p className="mt-4 max-w-md text-[14px] leading-relaxed text-[#4F4A46]">{t(selectedSpot.note)}</p>
                   {selectedSpot.communityTip && (
                     <div className="mt-4 max-w-md border-s-2 border-[#0F7A53] ps-3">
-                      <div className="font-mono-tabular text-[10px] tracking-[0.12em] text-[#8F8D88] uppercase">{t(selectedSpot.category === 'prodavnice' ? 'Kontakt i info' : 'Halal status')}</div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-mono-tabular text-[10px] tracking-[0.12em] text-[#8F8D88] uppercase">{t(selectedSpot.category === 'prodavnice' ? 'Kontakt i info' : 'Halal status')}</span>
+                        {selectedSpot.category !== 'prodavnice' && (
+                          <span className="group relative inline-flex">
+                            <button type="button" aria-label={t("Kako proveravamo halal status")} aria-describedby="halal-info-tip" className="inline-flex h-[15px] w-[15px] items-center justify-center rounded-full border border-[#8F8D88] font-stone text-[10px] leading-none text-[#8F8D88] transition-colors hover:border-[#2B211C] hover:text-[#2B211C] focus-visible:border-[#2B211C] focus-visible:text-[#2B211C] focus-visible:outline-none">i</button>
+                            <span id="halal-info-tip" role="tooltip" className="pointer-events-none invisible absolute start-0 top-full z-20 mt-2 w-[260px] bg-[#2B211C] px-3.5 py-3 text-[12px] leading-relaxed text-[#FFFFFF] opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                              {t("Kod svakog mesta piše odakle je podatak o halal statusu. Oznaka Halal znači da je halal potvrđen ili da ga restoran sam navodi. Certifikat uvek proverite na licu mesta.")}
+                            </span>
+                          </span>
+                        )}
+                      </div>
                       <p className="mt-1 text-[13px] leading-relaxed text-[#2B211C]">{t(selectedSpot.communityTip)}</p>
                     </div>
                   )}

@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Kako proveravamo halal status": "Helal durumunu nasıl kontrol ediyoruz",
  "Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.": "Adresler Belgrad Müftülüğü listesine göredir. Yanlış bir şey varsa bize bildirin.",
  "Aerodrom Nikola Tesla": "Nikola Tesla Havalimanı",
  "Ambulanta Hitne pomoći za odrasle": "Yetişkinler için acil poliklinik",

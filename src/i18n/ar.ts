@@ -1,4 +1,5 @@
 export const AR: Record<string, string> = {
+ "Kako proveravamo halal status": "كيف نتحقق من الحلال",
  "Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.": "العناوين وفق قائمة مشيخة بلغراد. إذا وجدت خطأً فأخبرنا.",
  "Aerodrom Nikola Tesla": "مطار نيكولا تسلا",
  "Ambulanta Hitne pomoći za odrasle": "عيادة الطوارئ للبالغين",
