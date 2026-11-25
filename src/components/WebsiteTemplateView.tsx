@@ -1095,7 +1095,7 @@ export function WebsiteTemplateView({
                   {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
                 </p>
               </div>
-              <div role="group" aria-label={t("Vrsta kontakta")} className="mt-5 flex flex-wrap content-start gap-x-6 gap-y-2 text-[15px]">
+              <div role="group" aria-label={t("Vrsta kontakta")} className="mt-5 flex flex-wrap content-center items-center gap-x-6 gap-y-2 text-[15px]">
                 {USEFUL_CONTACTS.map((g) => (
                   <button
                     key={g.title}
@@ -1134,13 +1134,23 @@ export function WebsiteTemplateView({
                   {t("Muslimani koji rade u Beogradu.")}
                 </p>
               </div>
-              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px]">
-                <button type="button" onClick={() => { setNbrMode('self'); setNbrDone(false); setShowAddNeighbor(true); }} className="inline-flex items-center gap-1.5 pb-1 text-[#9E2B45] transition-colors hover:text-[#221D1A]">
-                  <Plus className="h-3.5 w-3.5" /> {t("Upiši svoj biznis")}
-                </button>
-                <button type="button" onClick={() => { setNbrMode('rec'); setNbrDone(false); setShowAddNeighbor(true); }} className="pb-1 text-[#8F8D88] transition-colors hover:text-[#2B211C]">
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <IslamicButton
+                  variant="kocka"
+                  tone="brick"
+                  size="sm"
+                  iconLeft={<Plus className="h-3.5 w-3.5" />}
+                  onClick={() => { setNbrMode('self'); setNbrDone(false); setShowAddNeighbor(true); }}
+                >
+                  {t("Upiši svoj biznis")}
+                </IslamicButton>
+                <IslamicButton
+                  variant="flowline"
+                  size="sm"
+                  onClick={() => { setNbrMode('rec'); setNbrDone(false); setShowAddNeighbor(true); }}
+                >
                   {t("Preporuči nekoga")}
-                </button>
+                </IslamicButton>
               </div>
               <div>
                 {neighbors.length > 6 && (
