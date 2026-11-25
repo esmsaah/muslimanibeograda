@@ -395,5 +395,12 @@ export const AR: Record<string, string> = {
  "Pošalji upit": "أرسل الطلب",
  "Kopiraj link": "نسخ الرابط",
  "Link kopiran": "تم نسخ الرابط",
- "Muslimani koji rade u Beogradu.": "مسلمون يعملون في بلغراد."
+ "Muslimani koji rade u Beogradu.": "مسلمون يعملون في بلغراد.",
+ "Ženski online džemat": "الجماعة النسائية الإلكترونية",
+ "Ženski online džemat · WhatsApp": "الجماعة النسائية الإلكترونية · واتساب",
+ "WhatsApp grupa za sestre": "مجموعة واتساب للأخوات",
+ "Vesti, događaji i objave zajednice": "أخبار المجتمع وفعالياته ومنشوراته",
+ "Pridruži se": "انضمي",
+ "Prati nas": "تابعنا",
+ "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "نعم، توجد جماعة نسائية إلكترونية، وهي مجموعة واتساب للأخوات. رابط الانضمام في قسم التواصل وفي أسفل الموقع."
 };

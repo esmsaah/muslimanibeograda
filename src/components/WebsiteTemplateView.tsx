@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {ArrowUp, Check, Link2, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
+import {ArrowUp, ArrowUpRight, Check, Link2, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
 import {COMMUNITY_PHOTOS} from '../data/communityPhotos';
 import {
   drawDeliveryCyclist,
@@ -72,8 +72,8 @@ type SkillCategory = 'sve' | 'zdravlje' | 'zanat' | 'biznis' | 'hrana' | 'lepota
 
 
 const COMMUNITY_CHANNELS = [
-  {id: 'whatsapp' as const, src: '/assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski džemat', sub: 'WhatsApp grupa'},
-  {id: 'facebook' as const, src: '/assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Javni kanal'},
+  {id: 'whatsapp' as const, src: '/assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski online džemat', sub: 'WhatsApp grupa za sestre', action: 'Pridruži se'},
+  {id: 'facebook' as const, src: '/assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Vesti, događaji i objave zajednice', action: 'Prati nas'},
 ];
 
 /** Kontakt iz imenika kao link: telefon, Instagram, mejl ili sajt. */
@@ -1053,14 +1053,20 @@ export function WebsiteTemplateView({
 
           {/* Zajednica: Ženski džemat i Facebook */}
           {IMENIK_LAYOUT === 'd1' ? (
-            <div className="grid grid-cols-1 gap-5 bg-[#EDEDEA] px-6 py-8 sm:grid-cols-2 sm:px-10">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 bg-[#EDEDEA] px-6 pt-8 pb-9 sm:grid-cols-2 sm:px-10">
               {COMMUNITY_CHANNELS.map((ch) => (
-                <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group relative block h-[170px] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD] text-start">
-                  <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${ch.pos}`} />
-                  <span className="absolute bottom-4 start-4 flex items-baseline gap-3 bg-[#FFFFFF] px-4 py-2">
-                    <span className="font-stone text-[22px] leading-none text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
-                    <span className="font-quiet text-[14px] text-[#8F8D88]">{t(ch.sub)}</span>
+                <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group block w-full text-start">
+                  <span className="relative block h-[180px] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
+                    <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${ch.pos}`} />
                   </span>
+                  <span className="mt-4 flex items-baseline justify-between gap-4 border-t border-[#2B211C] pt-3">
+                    <span className="font-stone text-[24px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
+                    <span className="inline-flex shrink-0 items-center gap-2 text-[13px] text-[#0F7A53]">
+                      {t(ch.action)}
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:-scale-x-100" />
+                    </span>
+                  </span>
+                  <span className="font-quiet mt-1 block text-[15px] text-[#8F8D88]">{t(ch.sub)}</span>
                 </button>
               ))}
             </div>
@@ -1393,7 +1399,7 @@ export function WebsiteTemplateView({
                   onClick={() => setCommunityModal('whatsapp')}
                   className="font-medium text-[#0F7A53] hover:text-[#221D1A] transition-colors"
                 >
-                  {t("Ženski džemat · WhatsApp")}
+                  {t("Ženski online džemat · WhatsApp")}
                 </button>
                 <span aria-hidden="true" className="text-[#D4D3CD]">
                   /
@@ -1544,7 +1550,7 @@ export function WebsiteTemplateView({
             <div className="mt-14 border-t border-[#2B211C] pt-6 sm:flex sm:items-center sm:justify-between">
               <button type="button" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} aria-label={t("Povratak na vrh")} className="flex items-center gap-3"><img src="/assets/sumud-znak.svg" alt="" aria-hidden="true" className="h-[30px] w-auto" /><span className="font-stone text-[16px] tracking-[0.3em] text-[#2B211C]">{t("SUMUD")}</span></button>
               <nav className="mt-3 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2">
-                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Ženski džemat · WhatsApp")}</button>
+                <button type="button" onClick={() => setCommunityModal('whatsapp')} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Ženski online džemat · WhatsApp")}</button>
                 <button type="button" onClick={() => setCommunityModal('facebook')} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Facebook")}</button>
                 <a href={pathFor(lang, {kind: 'vaktija'})} onClick={(e) => { e.preventDefault(); setRoute(lang, {kind: 'vaktija'}); document.getElementById('vaktija')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Vreme namaza · Beograd")}</a>
                 <a href={pathFor(lang, {kind: 'pitanja'})} onClick={(e) => { e.preventDefault(); openFaq(true); }} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Česta pitanja")}</a>

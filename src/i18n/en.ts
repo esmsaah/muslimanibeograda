@@ -395,5 +395,12 @@ export const EN: Record<string, string> = {
  "Pošalji upit": "Send request",
  "Kopiraj link": "Copy link",
  "Link kopiran": "Link copied",
- "Muslimani koji rade u Beogradu.": "Muslims who work in Belgrade."
+ "Muslimani koji rade u Beogradu.": "Muslims who work in Belgrade.",
+ "Ženski online džemat": "Women's online jamaat",
+ "Ženski online džemat · WhatsApp": "Women's online jamaat · WhatsApp",
+ "WhatsApp grupa za sestre": "WhatsApp group for sisters",
+ "Vesti, događaji i objave zajednice": "Community news, events and posts",
+ "Pridruži se": "Join",
+ "Prati nas": "Follow us",
+ "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "Yes, there is a women's online jamaat, a WhatsApp group for sisters. The link to join is in the Network section and at the bottom of the site."
 };

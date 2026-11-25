@@ -395,5 +395,12 @@ export const TR: Record<string, string> = {
  "Pošalji upit": "Talebi gönder",
  "Kopiraj link": "Bağlantıyı kopyala",
  "Link kopiran": "Bağlantı kopyalandı",
- "Muslimani koji rade u Beogradu.": "Belgrad'da çalışan Müslümanlar."
+ "Muslimani koji rade u Beogradu.": "Belgrad'da çalışan Müslümanlar.",
+ "Ženski online džemat": "Kadınlar online cemaati",
+ "Ženski online džemat · WhatsApp": "Kadınlar online cemaati · WhatsApp",
+ "WhatsApp grupa za sestre": "Kız kardeşler için WhatsApp grubu",
+ "Vesti, događaji i objave zajednice": "Topluluk haberleri, etkinlikleri ve paylaşımları",
+ "Pridruži se": "Katıl",
+ "Prati nas": "Bizi takip et",
+ "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "Evet, kız kardeşler için WhatsApp'ta bir kadınlar online cemaati var. Katılma bağlantısı Dayanışma ağı bölümünde ve sitenin altında."
 };
