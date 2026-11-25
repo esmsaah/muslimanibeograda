@@ -1107,7 +1107,7 @@ export function WebsiteTemplateView({
                 </li>
               );
             })}
-            <li className="flex flex-col py-8">
+            <li className="flex flex-col py-8 lg:pe-10">
               <div className="flex items-baseline justify-between">
                 <span aria-hidden="true" className="font-stone text-[56px] leading-none text-[#D4D3CD]">+</span>
               </div>
