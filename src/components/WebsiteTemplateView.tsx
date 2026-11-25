@@ -564,7 +564,7 @@ export function WebsiteTemplateView({
               <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
                 {t("SUMUD")}
               </h1>
-              <p className="font-quiet mt-4 text-[22px] leading-snug text-[#2B211C]">
+              <p className="font-stone mt-5 text-[28px] leading-tight text-[#0F7A53] sm:text-[32px]">
                 {t("Kolektiv muslimana Beograda")}
               </p>
               <div className="mt-8 max-w-[440px] space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
