@@ -116,7 +116,7 @@ function EventPhotos({photos, alt, contain}: {photos: string[]; alt: string; con
   return (
     <>
       {photos.map((src, i) => (
-        <img
+        <img loading="lazy" decoding="async"
           key={src}
           src={src}
           alt={i === idx ? alt : ''}
@@ -561,7 +561,7 @@ export function WebsiteTemplateView({
             <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-10 lg:pt-12">
               <div className="relative aspect-[4/3] w-full max-w-[560px] overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-[4/5]">
                 {PRICA_PHOTOS.map((p, i) => (
-                  <img
+                  <img loading="lazy" decoding="async"
                     key={p.src}
                     src={p.src}
                     alt={t(p.alt)}
@@ -710,7 +710,7 @@ export function WebsiteTemplateView({
           {selectedSpot && (
             <div className="px-6 sm:px-10 pt-10 pb-12 lg:sticky lg:top-24 lg:self-start lg:px-14 lg:pt-12">
               <div className="relative hidden aspect-[16/7] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
-                <img src="/assets/community/IMG_7777.jpg" alt={t("Kuskus, tadžin i čorba na stolu")} className="absolute inset-0 h-full w-full object-cover object-[50%_55%]" />
+                <img loading="lazy" decoding="async" src="/assets/community/IMG_7777.jpg" alt={t("Kuskus, tadžin i čorba na stolu")} className="absolute inset-0 h-full w-full object-cover object-[50%_55%]" />
               </div>
               <div ref={halalDetailRef} className="grid scroll-mt-28 grid-cols-1 gap-8 border-t border-[#2B211C] pt-6 lg:mt-8 lg:grid-cols-[1fr_200px]">
                 <div>
@@ -758,7 +758,7 @@ export function WebsiteTemplateView({
                   </div>
                 </div>
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD] lg:aspect-square">
-                  <img key={selectedSpot.id} src={`/assets/halal/${selectedSpot.id}.jpg`} alt={selectedSpot.name} onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = selectedSpot.photoSrc; } }} className="animate-fade-in absolute inset-0 h-full w-full object-cover" />
+                  <img loading="lazy" decoding="async" key={selectedSpot.id} src={`/assets/halal/${selectedSpot.id}.jpg`} alt={selectedSpot.name} onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = selectedSpot.photoSrc; } }} className="animate-fade-in absolute inset-0 h-full w-full object-cover" />
                 </div>
               </div>
               <button type="button" onClick={backToHalalList} className="font-quiet mt-8 text-[18px] text-[#0F7A53] hover:underline lg:hidden">{t("Nazad na spisak")}</button>
@@ -784,7 +784,7 @@ export function WebsiteTemplateView({
                 {t("Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.")}
               </p>
               <div className="relative mt-10 hidden aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
-                <img src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
+                <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
             </div>
 
@@ -812,7 +812,7 @@ export function WebsiteTemplateView({
                         <div className="animate-fade-in grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
                           {dz.photo ? (
                             <div className="relative aspect-square w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD]">
-                              <img src={dz.photo} alt={dz.photoAlt ?? dz.name} className="absolute inset-0 h-full w-full object-cover" />
+                              <img loading="lazy" decoding="async" src={dz.photo} alt={dz.photoAlt ?? dz.name} className="absolute inset-0 h-full w-full object-cover" />
                             </div>
                           ) : null}
                           <div className={`relative w-full overflow-hidden bg-[#D4D3CD] ${dz.photo ? 'aspect-square' : 'aspect-[16/10] sm:col-span-2 rounded-se-[48px]'}`}>
@@ -873,7 +873,7 @@ export function WebsiteTemplateView({
                         />
                       </div>
                     ) : ev.photoSrc ? (
-                      <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
+                      <img loading="lazy" decoding="async" src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
                     ) : (
                       <div className="flex h-full w-full flex-col justify-end p-6" style={{background: ev.posterBg ?? '#2B211C'}}>
                         <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#D9A02B] uppercase">{t(ev.posterLabel ?? '')}</div>
@@ -1000,7 +1000,7 @@ export function WebsiteTemplateView({
             ].map((ch) => (
               <button key={ch.id} type="button" onClick={() => setCommunityModal(ch.id)} className="group block w-full text-start">
                 <span className="relative block aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
-                  <img src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover ${ch.pos}`} />
+                  <img loading="lazy" decoding="async" src={ch.src} alt={t(ch.alt)} className={`absolute inset-0 h-full w-full object-cover ${ch.pos}`} />
                 </span>
                 <span className="mt-4 flex items-baseline justify-between border-t border-[#2B211C] pt-3">
                   <span className="font-stone text-[26px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(ch.title)}</span>
@@ -1744,7 +1744,7 @@ export function WebsiteTemplateView({
 
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-12 sm:items-center">
               <div className="border border-[#D4D3CD] bg-[#EAEAE6] p-1 sm:col-span-5">
-                <img
+                <img loading="lazy" decoding="async"
                   src={HISTORY_STORY.photoSrc}
                   alt={t(HISTORY_STORY.photoAlt)}
                   className="aspect-[4/5] w-full object-cover"
