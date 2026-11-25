@@ -404,5 +404,19 @@ export const AR: Record<string, string> = {
  "Prati nas": "تابعنا",
  "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "نعم، توجد جماعة نسائية إلكترونية، وهي مجموعة واتساب للأخوات. رابط الانضمام في قسم التواصل وفي أسفل الموقع.",
  "Dođite na džumu ili na neki od događaja sa sajta, tako se ljudi najlakše upoznaju. Pridružite se i Facebook grupi Sumud, a ako vam treba neko za posao ili savet, u delu Umrežavanje možete preporučiti ili naći majstore, lekare i preduzetnike iz zajednice.": "تعال إلى صلاة الجمعة أو إلى إحدى الفعاليات في الموقع، فهذه أسهل طريقة للتعارف. انضم أيضًا إلى مجموعة صمود على فيسبوك، وإن احتجت إلى أحد لعمل أو نصيحة، ففي قسم التواصل يمكنك أن تجد أو توصي بحرفيين وأطباء ورواد أعمال من المجتمع.",
- "Facebook grupa Sumud": "مجموعة صمود على فيسبوك"
+ "Facebook grupa Sumud": "مجموعة صمود على فيسبوك",
+ "Kolektiv muslimana Beograda – Sumud": "تجمّع مسلمي بلغراد – صمود",
+ "je prostor susreta, povezivanja i solidarnosti muslimana koji žive, rade, studiraju ili posećuju Beograd.": "هو فضاء للقاء والتواصل والتضامن بين المسلمين الذين يعيشون أو يعملون أو يدرسون في بلغراد أو يزورونها.",
+ "Negujući kulturu zajedništva i aktivnog učešća u životu grada, Kolektiv želi da doprinese vidljivosti i razvoju muslimanske zajednice u Beogradu.": "من خلال تعزيز ثقافة التآلف والمشاركة الفاعلة في حياة المدينة، يسعى التجمّع إلى الإسهام في إبراز المجتمع المسلم في بلغراد وتنميته.",
+ "Na našem sajtu možete pronaći korisne informacije o mestima za molitvu, halal hrani, druženjima, predavanjima, kulturnim događajima i različitim inicijativama koje obogaćuju svakodnevni život muslimana u našem gradu.": "تجدون في موقعنا معلومات مفيدة عن أماكن الصلاة والطعام الحلال واللقاءات والمحاضرات والفعاليات الثقافية ومبادرات متنوعة تُثري الحياة اليومية للمسلمين في مدينتنا.",
+ "Iznad svega, želimo da budemo snažan oslonac jedni drugima, kako u svakodnevnom životu tako i u trenucima kada nam je podrška najpotrebnija.": "وفوق كل شيء، نريد أن نكون سندًا قويًا لبعضنا بعضًا، في الحياة اليومية وفي اللحظات التي نكون فيها في أمسّ الحاجة إلى الدعم.",
+ "Preporučujemo i angažujemo jedni druge.": "نوصي ببعضنا ونستعين ببعضنا.",
+ "Unajmljujemo i preporučujemo jedni druge, od majstora i lekara do dizajnera i krojača. Za to služi imenik Osloni se na svoje.": "نستعين ببعضنا ونوصي ببعضنا، من الحرفيين والأطباء إلى المصممين والخياطين. ولهذا يوجد دليل اعتمد على أهلك.",
+ "Halal i kulturna mapa": "خريطة الحلال والثقافة",
+ "Proverena mesta za hranu, molitvu i druženje.": "أماكن موثوقة للطعام والصلاة واللقاء.",
+ "Proverene adrese restorana, kafića i prodavnica, sve džamije i mesdžidi sa vaktijom, i kulturni događaji bez alkohola.": "عناوين موثوقة للمطاعم والمقاهي والمتاجر، وكل المساجد مع مواقيت الصلاة، وفعاليات ثقافية بلا كحول.",
+ "Građanska mreža, bez kancelarije i upravnih tela.": "شبكة مدنية، بلا مكتب ولا هيئات إدارية.",
+ "Čisto građansko umrežavanje, bez kancelarije, adrese i upravnih tela. Mrežu gradimo sami, kao komšije.": "تواصل مدني خالص، بلا مكتب ولا عنوان ولا هيئات إدارية. نبني الشبكة بأنفسنا، كجيران.",
+ "Pročitaj celu priču": "اقرأ القصة كاملة",
+ "Šta radimo": "ماذا نفعل"
 };

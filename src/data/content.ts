@@ -76,6 +76,21 @@ export const HISTORY_STORY = {
   photoAlt: 'Čitanje knjige pored drvenog prozora u Beogradu',
 };
 
+export const ABOUT_STORY = {
+  name: 'Kolektiv muslimana Beograda – Sumud',
+  lead: 'je prostor susreta, povezivanja i solidarnosti muslimana koji žive, rade, studiraju ili posećuju Beograd.',
+  paragraphs: [
+    'Negujući kulturu zajedništva i aktivnog učešća u životu grada, Kolektiv želi da doprinese vidljivosti i razvoju muslimanske zajednice u Beogradu.',
+    'Na našem sajtu možete pronaći korisne informacije o mestima za molitvu, halal hrani, druženjima, predavanjima, kulturnim događajima i različitim inicijativama koje obogaćuju svakodnevni život muslimana u našem gradu.',
+    'Iznad svega, želimo da budemo snažan oslonac jedni drugima, kako u svakodnevnom životu tako i u trenucima kada nam je podrška najpotrebnija.',
+  ],
+  highlights: [
+    {title: 'Komšijska ekonomija', short: 'Preporučujemo i angažujemo jedni druge.', text: 'Unajmljujemo i preporučujemo jedni druge, od majstora i lekara do dizajnera i krojača. Za to služi imenik Osloni se na svoje.'},
+    {title: 'Halal i kulturna mapa', short: 'Proverena mesta za hranu, molitvu i druženje.', text: 'Proverene adrese restorana, kafića i prodavnica, sve džamije i mesdžidi sa vaktijom, i kulturni događaji bez alkohola.'},
+    {title: 'Van svake institucije', short: 'Građanska mreža, bez kancelarije i upravnih tela.', text: 'Čisto građansko umrežavanje, bez kancelarije, adrese i upravnih tela. Mrežu gradimo sami, kao komšije.'},
+  ],
+};
+
 export const SITE_GOALS = [
   {
     num: '01',
