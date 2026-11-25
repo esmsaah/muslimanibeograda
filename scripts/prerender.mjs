@@ -114,7 +114,7 @@ function homeGraph(lang, url) {
 
 const ld = (graph) => JSON.stringify({'@context': 'https://schema.org', '@graph': graph}).replace(/</g, '\\u003c');
 const SITE_NAME = (lang) => T(lang, 'Muslimani Beograda');
-const CAT_TITLE = {halal: 'Halal restoran u Beogradu', 'bez-svinjetine': 'Restoran bez svinjetine u Beogradu', kafici: 'Kafić u Beogradu', prodavnice: 'Halal prodavnica u Beogradu'};
+const CAT_TITLE = {halal: 'Halal restoran u Beogradu', 'bez-svinjetine': 'Restoran u Beogradu', kafici: 'Kafić u Beogradu', prodavnice: 'Halal prodavnica u Beogradu'};
 const clip = (s, n = 300) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s);
 const crumbs = (lang, items) => ({
   '@type': 'BreadcrumbList',
