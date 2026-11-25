@@ -436,5 +436,7 @@ export const EN: Record<string, string> = {
  "Vreme namaza": "Prayer times",
  "Muslimani": "Muslims",
  "Beograda": "of Belgrade",
- "Izlazak": "Sunrise"
+ "Izlazak": "Sunrise",
+ "O kolektivu": "About the collective",
+ "Istorija · od 1521. do danas": "History · from 1521 to today"
 };

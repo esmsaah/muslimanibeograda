@@ -436,5 +436,7 @@ export const TR: Record<string, string> = {
  "Vreme namaza": "Namaz vakitleri",
  "Muslimani": "Belgradlı",
  "Beograda": "Müslümanlar",
- "Izlazak": "Güneş"
+ "Izlazak": "Güneş",
+ "O kolektivu": "Kolektif hakkında",
+ "Istorija · od 1521. do danas": "Tarih · 1521'den bugüne"
 };

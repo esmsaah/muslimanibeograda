@@ -436,5 +436,7 @@ export const AR: Record<string, string> = {
  "Vreme namaza": "مواقيت الصلاة",
  "Muslimani": "مسلمو",
  "Beograda": "بلغراد",
- "Izlazak": "الشروق"
+ "Izlazak": "الشروق",
+ "O kolektivu": "عن التجمّع",
+ "Istorija · od 1521. do danas": "التاريخ · من 1521 حتى اليوم"
 };
