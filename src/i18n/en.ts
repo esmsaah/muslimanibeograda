@@ -272,5 +272,13 @@ export const EN: Record<string, string> = {
  "Narodno pozorište · Scena Raša Plaović, Francuska 3": "National Theatre · Raša Plaović Stage, Francuska 3",
  "Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.": "Ljubomir Simović's play based on the famous ballad of Hasanaginica. It premiered in 2001 and has been in the repertoire for years, and Vanja Ejdus won the Sterija Award for the title role.",
  "Karte i termini": "Tickets and dates",
- "Blagajna": "Box office"
+ "Blagajna": "Box office",
+ "svakog, od 18h": "weekly, from 6pm",
+ "nov, 20:30": "Nov, 8:30pm",
+ "Vidi više": "See more",
+ "Vidi manje": "See less",
+ "Narodno pozorište": "National Theatre",
+ "Znaš za dobar događaj?": "Know a good event?",
+ "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "A talk, an iftar, an exhibition, a concert or a walk. Send it to us and we'll add it here.",
+ "Predloži događaj": "Suggest an event"
 };

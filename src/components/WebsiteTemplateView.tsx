@@ -111,6 +111,9 @@ interface CulturalEvent {
   applyEmail?: string;
   ticketUrl?: string;
   phone?: string;
+  short?: string;
+  posterTitle?: string;
+  posterLabel?: string;
 }
 
 interface NeighborListing {
@@ -209,6 +212,9 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     month: 'NOV',
     time: '20:30',
     when: '26. novembar i 16. decembar, u 20:30',
+    short: 'nov, 20:30',
+    posterTitle: 'Hasanaginica',
+    posterLabel: 'Narodno pozorište',
     title: 'Hasanaginica u Narodnom pozorištu',
     place: 'Narodno pozorište · Scena Raša Plaović, Francuska 3',
     photoSrc: '',
@@ -223,6 +229,7 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     month: '',
     time: '18:00',
     when: 'Svakog ponedeljka od 18h',
+    short: 'svakog, od 18h',
     title: 'Deli Monday u KC Gradu',
     place: 'KC Grad · Braće Krsmanović 4',
     photoSrc: '',
@@ -356,6 +363,7 @@ export function WebsiteTemplateView({
 
   // RSVP
   const [rsvpEvent, setRsvpEvent] = useState<CulturalEvent | null>(null);
+  const [openEventId, setOpenEventId] = useState<string | null>(null);
   const [rsvpName, setRsvpName] = useState('');
   const [rsvpContact, setRsvpContact] = useState('');
   const [rsvpCount, setRsvpCount] = useState('1');
@@ -917,95 +925,124 @@ export function WebsiteTemplateView({
           <div className="px-6 sm:px-10 pt-10 lg:pt-12">
           <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
 
-          <ol className="mt-10 border-t border-[#D4D3CD]">
+          <ol className="mt-10 grid grid-cols-1 gap-x-10 border-t border-[#D4D3CD] lg:grid-cols-3">
             {CULTURAL_EVENTS.map((ev) => {
               const joined = Boolean(rsvpIds[ev.id]);
+              const open = openEventId === ev.id;
               return (
-                <li key={ev.id} className={`grid grid-cols-1 gap-10 border-b border-[#D4D3CD] py-10 ${ev.instagramEmbed || ev.photoSrc ? 'lg:grid-cols-[1fr_400px]' : ''}`}>
-                  <div className="flex flex-col">
-                    <div className="flex items-baseline gap-4">
-                      <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{t(ev.day)}</span>
-                      <span className="font-quiet text-[18px] text-[#8F8D88]">{ev.when ? t(ev.when) : `${t(ev.month).toLowerCase()}, ${ev.time}`}</span>
-                    </div>
-                    <h3 className="font-stone mt-5 text-[30px] leading-tight text-[#2B211C]">{t(ev.title)}</h3>
-                    <div className="font-quiet mt-1 text-[18px] text-[#9E2B45]">{t(ev.place)}</div>
-                    <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#4F4A46]">{t(ev.summary)}</p>
-                    {ev.note && (
-                      <div className="mt-5 max-w-xl border-s-2 border-[#D9A02B] ps-4">
-                        <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Halal")}</div>
-                        <p className="mt-1 text-[14px] leading-relaxed text-[#2B211C]">{t(ev.note)}</p>
-                      </div>
-                    )}
-                    <div className="mt-6 flex flex-wrap items-center gap-6">
-                      <IslamicButton
-                        variant={joined ? 'kocka' : 'flowline'}
-                        tone={joined ? 'emerald' : 'charcoal'}
-                        size="sm"
-                        onClick={() => openRsvp(ev)}
-                        iconLeft={joined ? <Check className="h-3.5 w-3.5" /> : undefined}
-                      >
-                        {t(joined ? 'Zabeleženo' : 'Planiram doći')}
-                      </IslamicButton>
-                      {ev.ticketUrl && (
-                        <a href={ev.ticketUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
-                          <Globe className="h-3.5 w-3.5" /> {t("Karte i termini")}
-                        </a>
-                      )}
-                      {ev.phone && (
-                        <a href={telHref(ev.phone)} className={ACTION_CLS}>
-                          <Phone className="h-3.5 w-3.5" /> {t("Blagajna")} {ev.phone}
-                        </a>
-                      )}
-                      {ev.instagramUrl && (
-                        <a href={ev.instagramUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
-                          <Instagram className="h-3.5 w-3.5" /> {t("Objava na Instagramu")}
-                        </a>
-                      )}
-                    </div>
-
-                    {ev.applyEmail && (
-                      <div className="mt-10 max-w-xl rounded-se-[48px] bg-[#EDEDEA] p-6 sm:p-7">
-                        <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Otvoreni poziv")}</div>
-                        <h4 className="font-stone mt-2 text-[22px] leading-tight text-[#2B211C]">{t("Skuvajte za ceo grad")}</h4>
-                        <p className="mt-3 text-[14px] leading-relaxed text-[#4F4A46]">
-                          {t("Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.")}
-                        </p>
-                        <p className="mt-3 text-[14px] leading-relaxed text-[#4F4A46]">
-                          {t("U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.")}
-                        </p>
-                        <p className="font-quiet mt-3 text-[17px] text-[#2B211C]">
-                          {t("Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.")}
-                        </p>
-                        <div className="mt-5 flex flex-wrap items-center gap-6">
-                          <a href={`mailto:${ev.applyEmail}`} className={ACTION_CLS}>
-                            <Mail className="h-3.5 w-3.5" /> {ev.applyEmail}
-                          </a>
-                          <a href="#potrazi-pomoc" className={ACTION_CLS}>
-                            {t("Javi nam se")}
-                          </a>
-                        </div>
-                      </div>
-                    )}
+                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-8 lg:border-b-0 lg:border-e lg:pe-10">
+                  <div className="flex items-baseline justify-between">
+                    <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{t(ev.day)}</span>
+                    <span className="font-quiet text-[18px] text-[#8F8D88]">{ev.short ? t(ev.short) : `${t(ev.month).toLowerCase()}, ${ev.time}`}</span>
                   </div>
-
-                  {ev.instagramEmbed ? (
-                    <div className="w-full overflow-hidden border border-[#D4D3CD] bg-white">
+                  <div className="relative mt-5 aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
+                    {ev.instagramEmbed ? (
                       <iframe
                         src={ev.instagramEmbed}
                         title={`${t(ev.title)} · Instagram`}
                         loading="lazy"
-                        className="block h-[620px] w-full border-0"
                         scrolling="no"
+                        tabIndex={-1}
+                        className="pointer-events-none absolute start-0 top-[-58px] h-[700px] w-full border-0"
                       />
-                    </div>
-                  ) : ev.photoSrc ? (
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
+                    ) : ev.photoSrc ? (
                       <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full w-full flex-col justify-end bg-[#2B211C] p-6">
+                        <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#D9A02B] uppercase">{t(ev.posterLabel ?? '')}</div>
+                        <div className="font-stone mt-2 text-[34px] leading-none text-white">{ev.posterTitle ?? t(ev.title)}</div>
+                      </div>
+                    )}
+                  </div>
+
+                  <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#2B211C]">{t(ev.title)}</h3>
+                  <div className="font-quiet mt-1 text-[17px] text-[#9E2B45]">{t(ev.place)}</div>
+                  <p className={`mt-2 text-[14px] leading-relaxed text-[#4F4A46] ${open ? '' : 'line-clamp-3'}`}>{t(ev.summary)}</p>
+
+                  {open && (
+                    <div className="mt-4 space-y-4">
+                      {ev.when && <p className="font-quiet text-[17px] text-[#2B211C]">{t(ev.when)}</p>}
+                      {ev.note && (
+                        <div className="border-s-2 border-[#D9A02B] ps-4">
+                          <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Halal")}</div>
+                          <p className="mt-1 text-[14px] leading-relaxed text-[#2B211C]">{t(ev.note)}</p>
+                        </div>
+                      )}
+                      <div className="flex flex-wrap gap-x-6 gap-y-2">
+                        {ev.ticketUrl && (
+                          <a href={ev.ticketUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                            <Globe className="h-3.5 w-3.5" /> {t("Karte i termini")}
+                          </a>
+                        )}
+                        {ev.phone && (
+                          <a href={telHref(ev.phone)} className={ACTION_CLS}>
+                            <Phone className="h-3.5 w-3.5" /> {t("Blagajna")} {ev.phone}
+                          </a>
+                        )}
+                        {ev.instagramUrl && (
+                          <a href={ev.instagramUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                            <Instagram className="h-3.5 w-3.5" /> {t("Objava na Instagramu")}
+                          </a>
+                        )}
+                      </div>
+                      {ev.applyEmail && (
+                        <div className="rounded-se-[40px] bg-[#EDEDEA] p-5">
+                          <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Otvoreni poziv")}</div>
+                          <h4 className="font-stone mt-2 text-[20px] leading-tight text-[#2B211C]">{t("Skuvajte za ceo grad")}</h4>
+                          <p className="mt-2 text-[13px] leading-relaxed text-[#4F4A46]">
+                            {t("Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.")}
+                          </p>
+                          <p className="mt-2 text-[13px] leading-relaxed text-[#4F4A46]">
+                            {t("U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.")}
+                          </p>
+                          <p className="font-quiet mt-2 text-[16px] text-[#2B211C]">
+                            {t("Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.")}
+                          </p>
+                          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                            <a href={`mailto:${ev.applyEmail}`} className={ACTION_CLS}>
+                              <Mail className="h-3.5 w-3.5" /> {ev.applyEmail}
+                            </a>
+                            <a href="#potrazi-pomoc" className={ACTION_CLS}>{t("Javi nam se")}</a>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  ) : null}
+                  )}
+
+                  <div className="mt-auto flex flex-wrap items-center gap-6 pt-6">
+                    <IslamicButton
+                      variant={joined ? 'kocka' : 'flowline'}
+                      tone={joined ? 'emerald' : 'charcoal'}
+                      size="sm"
+                      onClick={() => openRsvp(ev)}
+                      iconLeft={joined ? <Check className="h-3.5 w-3.5" /> : undefined}
+                    >
+                      {t(joined ? 'Zabeleženo' : 'Planiram doći')}
+                    </IslamicButton>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      onClick={() => setOpenEventId(open ? null : ev.id)}
+                      className="text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]"
+                    >
+                      {t(open ? 'Vidi manje' : 'Vidi više')}
+                    </button>
+                  </div>
                 </li>
               );
             })}
+            <li className="flex flex-col py-8">
+              <span className="font-stone text-[56px] leading-none text-[#D4D3CD]">+</span>
+              <div className="mt-5 flex aspect-[4/3] w-full flex-col justify-end rounded-se-[96px] bg-[#EDEDEA] p-6">
+                <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
+              </div>
+              <div className="mt-auto pt-6">
+                <IslamicButton variant="flowline" tone="charcoal" size="sm" href="#potrazi-pomoc">
+                  {t("Predloži događaj")}
+                </IslamicButton>
+              </div>
+            </li>
           </ol>
         </div>
           </div>

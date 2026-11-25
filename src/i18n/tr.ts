@@ -272,5 +272,13 @@ export const TR: Record<string, string> = {
  "Narodno pozorište · Scena Raša Plaović, Francuska 3": "Ulusal Tiyatro · Raša Plaović Sahnesi, Francuska 3",
  "Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.": "Ljubomir Simović'in ünlü Hasanaginica türküsünden uyarladığı oyun. İlk kez 2001'de sahnelendi ve yıllardır repertuvarda; Vanja Ejdus başrolüyle Sterija Ödülü'nü kazandı.",
  "Karte i termini": "Biletler ve tarihler",
- "Blagajna": "Gişe"
+ "Blagajna": "Gişe",
+ "svakog, od 18h": "her hafta, 18.00'den",
+ "nov, 20:30": "Kas, 20.30",
+ "Vidi više": "Devamı",
+ "Vidi manje": "Daha az",
+ "Narodno pozorište": "Ulusal Tiyatro",
+ "Znaš za dobar događaj?": "İyi bir etkinlik mi biliyorsun?",
+ "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "Bir konuşma, iftar, sergi, konser ya da yürüyüş. Bize gönder, buraya ekleyelim.",
+ "Predloži događaj": "Etkinlik öner"
 };

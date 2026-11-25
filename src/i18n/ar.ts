@@ -272,5 +272,13 @@ export const AR: Record<string, string> = {
  "Narodno pozorište · Scena Raša Plaović, Francuska 3": "المسرح الوطني · مسرح راشا بلاوفيتش، شارع فرانتسوسكا 3",
  "Drama Ljubomira Simovića prema čuvenoj baladi o Hasanaginici. Predstava je premijerno izvedena 2001. godine i godinama je na repertoaru, a Vanja Ejdus je za naslovnu ulogu dobila Sterijinu nagradu.": "مسرحية للكاتب ليوبومير سيموفيتش مستوحاة من القصيدة الشعبية الشهيرة «حسن آغينيتسا». عُرضت لأول مرة عام 2001 وما زالت تُقدَّم منذ سنوات، ونالت فانيا إيدوس جائزة ستيريا عن دور البطولة.",
  "Karte i termini": "التذاكر والمواعيد",
- "Blagajna": "شباك التذاكر"
+ "Blagajna": "شباك التذاكر",
+ "svakog, od 18h": "أسبوعيًا، من 6 مساءً",
+ "nov, 20:30": "نوفمبر، 8:30 مساءً",
+ "Vidi više": "المزيد",
+ "Vidi manje": "أقل",
+ "Narodno pozorište": "المسرح الوطني",
+ "Znaš za dobar događaj?": "هل تعرف فعالية جيدة؟",
+ "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "محاضرة أو إفطار أو معرض أو حفلة أو جولة. أرسلها لنا وسنضيفها هنا.",
+ "Predloži događaj": "اقترح فعالية"
 };
