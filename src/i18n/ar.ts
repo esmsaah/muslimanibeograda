@@ -281,5 +281,19 @@ export const AR: Record<string, string> = {
  "Znaš za dobar događaj?": "هل تعرف فعالية جيدة؟",
  "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "محاضرة أو إفطار أو معرض أو حفلة أو جولة. أرسلها لنا وسنضيفها هنا.",
  "Predloži događaj": "اقترح فعالية",
- "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "لتكن بين أيام الإثنين أمسية حلال أيضًا. تقدّم بطبقك الخاص."
+ "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "لتكن بين أيام الإثنين أمسية حلال أيضًا. تقدّم بطبقك الخاص.",
+ "Hvala, predlog je poslat. Pogledaćemo ga i dodati događaj na sajt.": "شكرًا، تم إرسال اقتراحك. سنراجعه ونضيف الفعالية إلى الموقع.",
+ "Predloži još jedan": "اقترح فعالية أخرى",
+ "Šaljemo predlog...": "جارٍ إرسال الاقتراح...",
+ "Naziv događaja": "اسم الفعالية",
+ "Npr. Predavanje o islamskoj umetnosti": "مثلًا: محاضرة عن الفن الإسلامي",
+ "Kada": "متى",
+ "Datum i sat": "التاريخ والساعة",
+ "Mesto i adresa": "المكان والعنوان",
+ "Link (opcionalno)": "رابط (اختياري)",
+ "Instagram, sajt ili Facebook": "إنستغرام أو موقع أو فيسبوك",
+ "Kratak opis (opcionalno)": "وصف قصير (اختياري)",
+ "O čemu je i za koga je": "عمّ تدور ولمن هي",
+ "Tvoj kontakt (opcionalno)": "وسيلة تواصلك (اختياري)",
+ "Pošalji predlog": "أرسل الاقتراح"
 };

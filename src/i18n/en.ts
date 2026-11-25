@@ -281,5 +281,19 @@ export const EN: Record<string, string> = {
  "Znaš za dobar događaj?": "Know a good event?",
  "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "A talk, an iftar, an exhibition, a concert or a walk. Send it to us and we'll add it here.",
  "Predloži događaj": "Suggest an event",
- "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "There could be a halal dinner among the Mondays too. Apply with your own dish."
+ "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "There could be a halal dinner among the Mondays too. Apply with your own dish.",
+ "Hvala, predlog je poslat. Pogledaćemo ga i dodati događaj na sajt.": "Thank you, your suggestion has been sent. We'll take a look and add the event to the site.",
+ "Predloži još jedan": "Suggest another",
+ "Šaljemo predlog...": "Sending your suggestion...",
+ "Naziv događaja": "Event name",
+ "Npr. Predavanje o islamskoj umetnosti": "E.g. A talk on Islamic art",
+ "Kada": "When",
+ "Datum i sat": "Date and time",
+ "Mesto i adresa": "Place and address",
+ "Link (opcionalno)": "Link (optional)",
+ "Instagram, sajt ili Facebook": "Instagram, website or Facebook",
+ "Kratak opis (opcionalno)": "Short description (optional)",
+ "O čemu je i za koga je": "What it's about and who it's for",
+ "Tvoj kontakt (opcionalno)": "Your contact (optional)",
+ "Pošalji predlog": "Send suggestion"
 };

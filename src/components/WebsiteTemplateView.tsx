@@ -115,6 +115,7 @@ interface CulturalEvent {
   posterTitle?: string;
   photos?: string[];
   posterLabel?: string;
+  posterBg?: string;
 }
 
 interface NeighborListing {
@@ -238,7 +239,9 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     summary:
       'Od 2011. godine svakog ponedeljka u KC Gradu kuva neko drugi, a publika jede za bon od 600 dinara. Na stolu je svaki put druga kuhinja sveta, uvek uz vegetarijansku i vegansku opciju.',
     note: 'Hrana nije automatski halal jer se kuvari menjaju. Proverite šta se sprema te večeri.',
-    instagramEmbed: 'https://www.instagram.com/p/DgFQM6DjHl-/embed/',
+    posterTitle: 'Deli Monday',
+    posterLabel: 'KC Grad',
+    posterBg: '#0F7A53',
     instagramUrl: 'https://www.instagram.com/p/DgFQM6DjHl-/',
     applyEmail: 'deli@gradbeograd.eu',
   },
@@ -402,6 +405,32 @@ export function WebsiteTemplateView({
   // RSVP
   const [rsvpEvent, setRsvpEvent] = useState<CulturalEvent | null>(null);
   const [openEventId, setOpenEventId] = useState<string | null>(null);
+  const [suggestOpen, setSuggestOpen] = useState(false);
+  const [sgTitle, setSgTitle] = useState('');
+  const [sgWhen, setSgWhen] = useState('');
+  const [sgPlace, setSgPlace] = useState('');
+  const [sgLink, setSgLink] = useState('');
+  const [sgNote, setSgNote] = useState('');
+  const [sgContact, setSgContact] = useState('');
+  const [sgStatus, setSgStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
+  const openSuggest = () => { setSgStatus('idle'); setSuggestOpen(true); };
+  const handleSuggestSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setSgStatus('sending');
+    sendForm(`Predlog događaja · ${sgTitle.trim()}`, {
+      'Događaj': sgTitle.trim(),
+      'Kada': sgWhen.trim(),
+      'Gde': sgPlace.trim(),
+      'Link': sgLink.trim() || '—',
+      'Opis': sgNote.trim() || '—',
+      'Kontakt': sgContact.trim() || '—',
+    })
+      .then(() => {
+        setSgStatus('done');
+        setSgTitle(''); setSgWhen(''); setSgPlace(''); setSgLink(''); setSgNote('');
+      })
+      .catch(() => setSgStatus('error'));
+  };
   const [rsvpName, setRsvpName] = useState('');
   const [rsvpContact, setRsvpContact] = useState('');
   const [rsvpCount, setRsvpCount] = useState('1');
@@ -985,7 +1014,7 @@ export function WebsiteTemplateView({
                     {ev.photos && ev.photos.length > 0 ? (
                       <EventPhotos photos={ev.photos} alt={t(ev.title)} />
                     ) : ev.instagramEmbed ? (
-                      <div className="pointer-events-none absolute top-0 start-[-14%] w-[128%]" style={{marginTop: 'calc(-58px - 80%)'}}>
+                      <div className="pointer-events-none absolute top-0 start-[-14%] w-[128%]" style={{marginTop: 'calc(-58px - 74%)'}}>
                         <iframe
                           src={ev.instagramEmbed}
                           title={`${t(ev.title)} · Instagram`}
@@ -998,7 +1027,7 @@ export function WebsiteTemplateView({
                     ) : ev.photoSrc ? (
                       <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
                     ) : (
-                      <div className="flex h-full w-full flex-col justify-end bg-[#2B211C] p-6">
+                      <div className="flex h-full w-full flex-col justify-end p-6" style={{background: ev.posterBg ?? '#2B211C'}}>
                         <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#D9A02B] uppercase">{t(ev.posterLabel ?? '')}</div>
                         <div className="font-stone mt-2 text-[34px] leading-none text-white">{ev.posterTitle ?? t(ev.title)}</div>
                       </div>
@@ -1086,7 +1115,7 @@ export function WebsiteTemplateView({
                 <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
                 <div className="mt-6">
-                  <IslamicButton variant="flowline" tone="charcoal" size="sm" href="#potrazi-pomoc">
+                  <IslamicButton variant="flowline" tone="charcoal" size="sm" onClick={openSuggest}>
                     {t("Predloži događaj")}
                   </IslamicButton>
                 </div>
@@ -1695,6 +1724,97 @@ export function WebsiteTemplateView({
                   </button>
                 </div>
                 {rsvpStatus === 'error' && (
+                  <p className="text-sm text-[#9E2B45]">{t("Slanje nije uspelo. Pokušajte ponovo.")}</p>
+                )}
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+      {suggestOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("Predloži događaj")}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#221D1A]/80 p-4 sm:p-8"
+          onClick={() => setSuggestOpen(false)}
+        >
+          <div
+            className="max-h-[92vh] w-full max-w-md overflow-y-auto border border-[#221D1A] bg-[#FFFFFF] p-7 sm:p-9"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-[#EAEAE6] pb-3">
+              <span className="font-mono-tabular text-[11px] text-[#0F7A53] uppercase">{t("Kulturni događaji")}</span>
+              <button
+                type="button"
+                onClick={() => setSuggestOpen(false)}
+                aria-label={t("Zatvori prozor")}
+                className="inline-flex h-8 w-8 items-center justify-center border border-[#D4D3CD] text-[#221D1A] hover:border-[#221D1A]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#221D1A]">{t("Predloži događaj")}</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
+
+            {sgStatus === 'done' ? (
+              <div className="mt-6">
+                <div className="inline-flex h-9 w-9 items-center justify-center bg-[#0F7A53] text-[#FFFFFF]">
+                  <Check className="h-4 w-4" />
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-[#4F4A46]">{t("Hvala, predlog je poslat. Pogledaćemo ga i dodati događaj na sajt.")}</p>
+                <div className="mt-6 flex items-center gap-6">
+                  <IslamicButton variant="kocka" tone="charcoal" size="sm" onClick={() => setSuggestOpen(false)}>
+                    {t("Zatvori")}
+                  </IslamicButton>
+                  <button type="button" onClick={() => setSgStatus('idle')} className="text-xs text-[#807E79] hover:text-[#221D1A]">
+                    {t("Predloži još jedan")}
+                  </button>
+                </div>
+              </div>
+            ) : sgStatus === 'sending' ? (
+              <div className="flex min-h-[160px] items-center justify-center">
+                <TespihLoader size={52} label={t("Šaljemo predlog...")} />
+              </div>
+            ) : (
+              <form onSubmit={handleSuggestSubmit} className="mt-6 space-y-4">
+                <div>
+                  <label htmlFor="sg-title" className="block text-xs font-medium text-[#221D1A]">{t("Naziv događaja")}</label>
+                  <input id="sg-title" type="text" required value={sgTitle} onChange={(e) => setSgTitle(e.target.value)} placeholder={t("Npr. Predavanje o islamskoj umetnosti")} className={INPUT_CLS} />
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="sg-when" className="block text-xs font-medium text-[#221D1A]">{t("Kada")}</label>
+                    <input id="sg-when" type="text" required value={sgWhen} onChange={(e) => setSgWhen(e.target.value)} placeholder={t("Datum i sat")} className={INPUT_CLS} />
+                  </div>
+                  <div>
+                    <label htmlFor="sg-place" className="block text-xs font-medium text-[#221D1A]">{t("Gde")}</label>
+                    <input id="sg-place" type="text" required value={sgPlace} onChange={(e) => setSgPlace(e.target.value)} placeholder={t("Mesto i adresa")} className={INPUT_CLS} />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="sg-link" className="block text-xs font-medium text-[#221D1A]">{t("Link (opcionalno)")}</label>
+                  <input id="sg-link" type="text" value={sgLink} onChange={(e) => setSgLink(e.target.value)} placeholder={t("Instagram, sajt ili Facebook")} className={INPUT_CLS} />
+                </div>
+                <div>
+                  <label htmlFor="sg-note" className="block text-xs font-medium text-[#221D1A]">{t("Kratak opis (opcionalno)")}</label>
+                  <textarea id="sg-note" rows={3} value={sgNote} onChange={(e) => setSgNote(e.target.value)} placeholder={t("O čemu je i za koga je")} className={INPUT_CLS} />
+                </div>
+                <div>
+                  <label htmlFor="sg-contact" className="block text-xs font-medium text-[#221D1A]">{t("Tvoj kontakt (opcionalno)")}</label>
+                  <input id="sg-contact" type="text" value={sgContact} onChange={(e) => setSgContact(e.target.value)} placeholder={t("Telefon ili email")} className={INPUT_CLS} />
+                </div>
+                <div className="flex items-center gap-6 pt-2">
+                  <IslamicButton type="submit" variant="kocka" tone="emerald" size="sm">
+                    {t("Pošalji predlog")}
+                  </IslamicButton>
+                  <button type="button" onClick={() => setSuggestOpen(false)} className="text-xs text-[#807E79] hover:text-[#221D1A]">
+                    {t("Otkaži")}
+                  </button>
+                </div>
+                {sgStatus === 'error' && (
                   <p className="text-sm text-[#9E2B45]">{t("Slanje nije uspelo. Pokušajte ponovo.")}</p>
                 )}
               </form>

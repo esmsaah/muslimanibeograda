@@ -281,5 +281,19 @@ export const TR: Record<string, string> = {
  "Znaš za dobar događaj?": "İyi bir etkinlik mi biliyorsun?",
  "Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.": "Bir konuşma, iftar, sergi, konser ya da yürüyüş. Bize gönder, buraya ekleyelim.",
  "Predloži događaj": "Etkinlik öner",
- "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "Pazartesiler arasında helal bir akşam yemeği de olsun. Kendi yemeğinle başvur."
+ "Neka među ponedeljcima bude i halal večera. Prijavite se sa svojim jelom.": "Pazartesiler arasında helal bir akşam yemeği de olsun. Kendi yemeğinle başvur.",
+ "Hvala, predlog je poslat. Pogledaćemo ga i dodati događaj na sajt.": "Teşekkürler, öneriniz gönderildi. İnceleyip etkinliği siteye ekleyeceğiz.",
+ "Predloži još jedan": "Bir tane daha öner",
+ "Šaljemo predlog...": "Öneriniz gönderiliyor...",
+ "Naziv događaja": "Etkinlik adı",
+ "Npr. Predavanje o islamskoj umetnosti": "Örn. İslam sanatı üzerine konuşma",
+ "Kada": "Ne zaman",
+ "Datum i sat": "Tarih ve saat",
+ "Mesto i adresa": "Yer ve adres",
+ "Link (opcionalno)": "Bağlantı (isteğe bağlı)",
+ "Instagram, sajt ili Facebook": "Instagram, web sitesi veya Facebook",
+ "Kratak opis (opcionalno)": "Kısa açıklama (isteğe bağlı)",
+ "O čemu je i za koga je": "Ne hakkında ve kimin için",
+ "Tvoj kontakt (opcionalno)": "İletişim bilgin (isteğe bağlı)",
+ "Pošalji predlog": "Öneriyi gönder"
 };
