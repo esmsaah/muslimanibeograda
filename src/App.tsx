@@ -356,7 +356,7 @@ export default function App() {
             : 'border-[#d5dbe1] bg-[#eceff2]/95'
         }`}
       >
-        <div className={`mx-auto flex max-w-[1260px] items-center justify-between gap-6 px-6 transition-all duration-300 sm:px-10 ${scrolled ? 'py-2' : 'py-3.5'}`}>
+        <div className={`mx-auto flex max-w-[1260px] items-center justify-between gap-6 px-6 transition-all duration-300 sm:px-10 ${scrolled ? 'py-2' : 'py-2.5'}`}>
           <a
             href={isTemplate ? '#o-muslimanima' : '#overview'}
             onClick={() => {
@@ -366,7 +366,7 @@ export default function App() {
               isEditorialWhite ? 'text-[#221D1A]' : 'text-[#1e252c]'
             }`}
           >
-            <span className="flex items-center gap-4"><img src="/assets/sumud-znak.svg" alt={t('SUMUD znak')} className={`w-auto transition-all duration-300 ${scrolled ? 'h-[32px]' : 'h-[44px]'}`} /><span className={`font-stone tracking-[0.3em] text-[#2B211C] transition-all duration-300 ${scrolled ? 'text-[16px]' : 'text-[18px]'}`}>SUMUD</span></span>
+            <span className="flex items-center gap-4"><img src="/assets/sumud-znak.svg" alt={t('SUMUD znak')} className={`w-auto transition-all duration-300 ${scrolled ? 'h-[32px]' : 'h-[38px]'}`} /><span className={`font-stone tracking-[0.3em] text-[#2B211C] transition-all duration-300 ${scrolled ? 'text-[16px]' : 'text-[18px]'}`}>SUMUD</span></span>
           </a>
 
           <nav

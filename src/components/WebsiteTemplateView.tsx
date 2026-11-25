@@ -559,7 +559,7 @@ export function WebsiteTemplateView({
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="grid grid-cols-1 border-s border-[#2B211C] lg:grid-cols-[560px_1fr]">
           {/* Levo, uz čvrstu vertikalu */}
-          <div className="relative flex flex-col justify-between gap-10 bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-8 lg:pt-12 lg:pb-10">
+          <div className="relative flex flex-col justify-between gap-10 bg-[#FFFFFF] px-6 sm:px-10 pt-8 pb-8 lg:pt-8 lg:pb-10">
             <div>
               <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
                 {t("SUMUD")}
