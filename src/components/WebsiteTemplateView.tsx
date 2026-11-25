@@ -56,9 +56,9 @@ const prettyUrl = (u: string) => u.replace(/^https?:\/\//, '').replace(/^www\./,
 const ACTION_CLS = 'inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]';
 
 const PRICA_PHOTOS = [
-  {src: '/assets/community/506A0447.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-center'},
-  {src: '/assets/community/506A2783.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-[50%_40%]'},
-  {src: '/assets/community/506A6413.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
+  {src: '/assets/community/506A0447-siri.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-center'},
+  {src: '/assets/community/506A2783-siri.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-[50%_40%]'},
+  {src: '/assets/community/506A6413-siri.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
 ];
 
 
