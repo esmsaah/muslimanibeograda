@@ -829,7 +829,7 @@ export function WebsiteTemplateView({
           <ChapterMark label={t("Džemati Beograda")} />
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr] lg:grid-rows-[auto_1fr]">
             {/* Levo i desno dele redove, pa su fotografija i spisak poravnati */}
-            <div className="grid grid-cols-1 px-6 sm:px-10 pt-10 pb-8 lg:row-span-2 lg:grid-rows-subgrid lg:pb-14 lg:pt-12">
+            <div className="grid grid-cols-1 px-6 sm:px-10 pt-10 pb-8 lg:row-span-2 lg:grid-rows-subgrid lg:pb-0 lg:pt-12">
               <div>
                 <SignTitle caps={t("Gde")} rest={t("klanjati")} />
                 <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
@@ -841,9 +841,9 @@ export function WebsiteTemplateView({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:row-span-2 lg:grid-rows-subgrid lg:px-14 lg:pt-12">
+            <div className="grid grid-cols-1 bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:row-span-2 lg:grid-rows-subgrid lg:px-14 lg:pt-12 lg:pb-0">
               <div className="self-end"><PrayerTimesCard wide /></div>
-              <ol className="mt-10 grid grid-flow-row-dense grid-cols-1 content-start gap-x-8 border-t border-[#2B211C] sm:grid-cols-2">
+              <ol className="mt-10 grid grid-flow-row-dense grid-cols-1 content-start gap-x-8 border-t border-[#2B211C] sm:grid-cols-2 lg:mb-14">
                 {DZEMATI.map((dz) => {
                   const open = openDzemat === dz.id;
                   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(dz.mapQuery)}&z=15&output=embed`;
