@@ -615,7 +615,7 @@ export function WebsiteTemplateView({
       {/* Istorija, ciljevi i tihi foto-fade u jednom kadru (bez galerije) */}
       <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
-        <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+        <div className="border-s border-t border-s-[#2B211C] border-t-[#2B211C] bg-[#FFFFFF]">
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
             <div className="flex flex-col bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-12 lg:pb-14">
               <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
@@ -629,7 +629,7 @@ export function WebsiteTemplateView({
                 </IslamicButton>
               </div>
             </div>
-            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:px-8 lg:pt-0 lg:pb-12">
+            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:px-8 lg:pt-12 lg:pb-12">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
                 {PRICA_PHOTOS.map((p, i) => (
                   <img loading="lazy" decoding="async"
