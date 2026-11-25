@@ -559,7 +559,7 @@ export function WebsiteTemplateView({
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="grid grid-cols-1 border-s border-[#2B211C] lg:grid-cols-[560px_1fr]">
           {/* Levo, uz čvrstu vertikalu */}
-          <div className="relative flex flex-col justify-between gap-12 bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-8 lg:pt-16 lg:pb-12">
+          <div className="relative flex flex-col justify-between gap-10 bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-8 lg:pt-12 lg:pb-10">
             <div>
               <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
                 {t("SUMUD")}
@@ -567,19 +567,19 @@ export function WebsiteTemplateView({
               <p className="font-stone mt-5 text-[28px] leading-tight text-[#0F7A53] sm:text-[32px]">
                 {t("Kolektiv muslimana Beograda")}
               </p>
-              <div className="mt-8 max-w-[440px] space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
+              <div className="mt-6 max-w-[420px] space-y-3 text-[15px] leading-[1.6] text-[#4F4A46]">
                 <p className="text-[#2B211C]">{t("Sumud")} {t(ABOUT_STORY.lead)}</p>
                 <p>{t(ABOUT_STORY.paragraphs[0])}</p>
               </div>
-              <div className="mt-7">
+              <div className="mt-5">
                 <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
                   {t("Pročitaj celu priču")}
                 </IslamicButton>
               </div>
             </div>
             <div className="mt-8 hidden lg:mt-0 lg:block">
-              <div aria-hidden="true" className="hidden h-[64px] w-[64px] rounded-full bg-[#D9A02B] lg:block" />
-              <blockquote className="font-quiet m-0 mt-6 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
+              <div aria-hidden="true" className="hidden h-[48px] w-[48px] rounded-full bg-[#D9A02B] lg:block" />
+              <blockquote className="font-quiet m-0 mt-5 max-w-[380px] text-[20px] leading-[1.4] text-[#2B211C]">
                 {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
               </blockquote>
               <p className="font-quiet mt-3 text-[15px] text-[#8F8D88]">{t("Hadis, beleže Buhari i Muslim")}</p>
@@ -587,7 +587,7 @@ export function WebsiteTemplateView({
           </div>
 
           {/* Desno, betonsko polje sa crtežom */}
-          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-0 pt-20 pb-4 sm:px-10 lg:px-14 lg:pt-14 lg:pb-8">
+          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-0 pt-20 pb-4 sm:px-10 lg:px-8 lg:pt-10 lg:pb-6">
             <div aria-hidden="true" className="absolute end-8 top-7 h-[48px] w-[48px] rounded-full bg-[#D9A02B] lg:hidden" />
             <div className="pointer-events-none relative overflow-hidden lg:mt-24" style={{aspectRatio: '2400 / 820'}}>
               <canvas
