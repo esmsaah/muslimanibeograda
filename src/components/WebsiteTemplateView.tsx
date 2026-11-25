@@ -114,6 +114,7 @@ interface CulturalEvent {
   short?: string;
   posterTitle?: string;
   photos?: string[];
+  photoContain?: string;
   program?: {when: string; what: string; where: string}[];
   linkLabel?: string;
   noteLabel?: string;
@@ -221,7 +222,8 @@ const CULTURAL_EVENTS: CulturalEvent[] = [
     title: 'Dani solidarnosti sa narodom Palestine',
     place: 'Više lokacija u Beogradu',
     photoSrc: '',
-    photos: ['assets/community/506A6413.jpg'],
+    photos: ['https://zaslobodnupalestinu.org/wp-content/uploads/2026/11/signal-2026-11-16-12-11-35-651_002.jpg'],
+    photoContain: '#F4EEE9',
     summary:
       'Treće izdanje programa kolektiva Za slobodnu Palestinu. Nedelju dana izložbi, predavanja, muzike i razgovora, a na kraju bazar za pomoć narodu Palestine.',
     note: 'Deo programa održava se u kafićima i barovima.',
@@ -317,7 +319,7 @@ function withDj(text: string) {
   );
 }
 
-function EventPhotos({photos, alt}: {photos: string[]; alt: string}) {
+function EventPhotos({photos, alt, contain}: {photos: string[]; alt: string; contain?: string}) {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
     if (photos.length < 2) return;
@@ -332,8 +334,9 @@ function EventPhotos({photos, alt}: {photos: string[]; alt: string}) {
           src={src}
           alt={i === idx ? alt : ''}
           aria-hidden={i !== idx}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms]"
-          style={{opacity: i === idx ? 1 : 0}}
+          referrerPolicy="no-referrer"
+          className={`absolute inset-0 h-full w-full transition-opacity duration-[1400ms] ${contain ? 'object-contain' : 'object-cover'}`}
+          style={{opacity: i === idx ? 1 : 0, background: contain}}
         />
       ))}
       {photos.length > 1 && (
@@ -1041,7 +1044,7 @@ export function WebsiteTemplateView({
                   </div>
                   <div className="relative mt-5 aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
                     {ev.photos && ev.photos.length > 0 ? (
-                      <EventPhotos photos={ev.photos} alt={t(ev.title)} />
+                      <EventPhotos photos={ev.photos} alt={t(ev.title)} contain={ev.photoContain} />
                     ) : ev.instagramEmbed ? (
                       <div className="pointer-events-none absolute top-0 start-[-14%] w-[128%]" style={{marginTop: 'calc(-58px - 68%)'}}>
                         <iframe
