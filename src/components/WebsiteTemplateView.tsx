@@ -1525,18 +1525,18 @@ export function WebsiteTemplateView({
       {/* Tihi završni dio */}
       <footer className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] text-[#2B211C]">
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
-          <div className="border-s border-[#2B211C] bg-[#EDEDEA] px-6 sm:px-10 pt-24 pb-20 lg:pt-28 lg:pb-24">
+          <div className="border-s border-[#2B211C] bg-[#EDEDEA] px-6 sm:px-10 pt-14 pb-12 lg:pt-16 lg:pb-14">
             <figure className="m-0 mx-auto max-w-[760px] text-center">
-              <span aria-hidden="true" className="mx-auto mb-10 block h-[10px] w-[10px] rounded-full bg-[#D9A02B]" />
+              <span aria-hidden="true" className="mx-auto mb-6 block h-[10px] w-[10px] rounded-full bg-[#D9A02B]" />
               <p className="font-amiri-ar text-[24px] leading-[2] text-[#2B211C] sm:text-[27px]" dir="rtl" lang="ar">
                 وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ۖ وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ
               </p>
               {lang !== 'ar' && (
-              <blockquote className="font-stone m-0 mt-7 text-[22px] leading-[1.5] text-[#4F4A46] sm:text-[24px]">
+              <blockquote className="font-stone m-0 mt-4 text-[22px] leading-[1.5] text-[#4F4A46] sm:text-[24px]">
                 {t("Jedni drugima pomažite u dobročinstvu i čestitosti, a ne sudelujte u grehu i neprijateljstvu.")}
               </blockquote>
               )}
-              <figcaption className="font-mono-tabular mt-7 text-[11px] tracking-[0.14em] text-[#8F8D88] uppercase">
+              <figcaption className="font-mono-tabular mt-5 text-[11px] tracking-[0.14em] text-[#8F8D88] uppercase">
                 {t("El-Maide, 2")}
               </figcaption>
             </figure>
