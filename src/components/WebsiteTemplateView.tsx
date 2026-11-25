@@ -631,24 +631,24 @@ export function WebsiteTemplateView({
                 {t(ABOUT_STORY.paragraphs[0])}
               </p>
 
-              <ul className="mt-8 border-t border-[#2B211C]">
+              <ul className="mt-6 grid grid-cols-1 gap-y-3 border-y border-[#D4D3CD] py-4 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-0">
                 {ABOUT_STORY.highlights.map((h) => (
-                  <li key={h.title} className="flex flex-col gap-0.5 border-b border-[#D4D3CD] py-3 sm:flex-row sm:items-baseline sm:gap-4">
-                    <span className="font-stone shrink-0 text-[18px] text-[#2B211C] sm:w-[200px]">{t(h.title)}</span>
-                    <span className="text-[13px] leading-relaxed text-[#4F4A46]">{t(h.short)}</span>
+                  <li key={h.title} className="sm:border-s sm:border-[#D4D3CD] sm:ps-4 sm:first:border-s-0 sm:first:ps-0">
+                    <div className="font-stone text-[16px] leading-tight text-[#2B211C]">{t(h.title)}</div>
+                    <div className="mt-1 text-[12px] leading-snug text-[#8F8D88]">{t(h.short)}</div>
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
                   {t("Pročitaj celu priču")}
                 </IslamicButton>
               </div>
 
-              <div className="mt-14 border-t border-[#2B211C] pt-7">
-                <h3 className="font-stone text-[28px] leading-tight text-[#2B211C]">{t(HISTORY_STORY.title)}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-[#4F4A46]">
+              <div className="mt-10 border-t border-[#2B211C] pt-6">
+                <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t(HISTORY_STORY.title)}</h3>
+                <p className="mt-2 line-clamp-3 text-[15px] leading-relaxed text-[#4F4A46]">
                   {t(HISTORY_STORY.paragraphs[0])}
                 </p>
                 <button type="button" onClick={() => setStoryOpen(true)} className="mt-4 inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]">
