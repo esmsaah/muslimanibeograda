@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Kineski restoran specijalizovan za ručno pravljene rezance i goveđe supe. Poznat i kao 兰州牛拉 Beef Noodles.": "El yapımı erişte ve sığır eti çorbalarında uzmanlaşmış Çin restoranı. 兰州牛拉 Beef Noodles adıyla da bilinir.",
  "Falafel sendviči u Yalla Yalla": "Yalla Yalla'da falafel dürüm",
  "Lanzhou goveđe nudle u supi": "Lanzhou sığır etli erişte çorbası",
  "Na meniju ističe halal sertifikat.": "Menüde helal sertifikasını gösteriyor.",
