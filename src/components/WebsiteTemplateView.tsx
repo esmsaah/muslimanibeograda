@@ -56,9 +56,9 @@ const prettyUrl = (u: string) => u.replace(/^https?:\/\//, '').replace(/^www\./,
 const ACTION_CLS = 'inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]';
 
 const PRICA_PHOTOS = [
-  {src: '/assets/community/506A0447.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-[50%_45%]'},
-  {src: '/assets/community/506A2783.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-[50%_40%]'},
-  {src: '/assets/community/506A6413.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
+  {src: '/assets/community/506A0447-siroko.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-center'},
+  {src: '/assets/community/506A2783-siroko.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-[50%_40%]'},
+  {src: '/assets/community/506A6413-siroko.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
 ];
 
 
@@ -617,9 +617,9 @@ export function WebsiteTemplateView({
       <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
-          <div className="grid grid-cols-1 lg:grid-cols-[520px_1fr]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
             <div className="flex flex-col px-6 pt-10 pb-10 sm:px-10 lg:pt-6 lg:pb-14">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
                 {PRICA_PHOTOS.map((p, i) => (
                   <img loading="lazy" decoding="async"
                     key={p.src}
@@ -632,7 +632,7 @@ export function WebsiteTemplateView({
             </div>
             <div className="flex flex-col px-6 pt-4 pb-12 sm:px-10 lg:pt-6 lg:pb-14">
               <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
-              <div className="mt-7 max-w-[620px] space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
+              <div className="mt-7 space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
                 <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
                 <p>{t(HISTORY_STORY.paragraphs[1])}</p>
               </div>
