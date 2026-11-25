@@ -1,4 +1,5 @@
 export const EN: Record<string, string> = {
+ "Šavarma i kebab tanjiri u Shawarma Baru": "Shawarma and kebab plates at Shawarma Bar",
  "Kineski restoran specijalizovan za ručno pravljene rezance i goveđe supe. Poznat i kao 兰州牛拉 Beef Noodles.": "Chinese restaurant specialising in handmade noodles and beef soups. Also known as 兰州牛拉 Beef Noodles.",
  "Falafel sendviči u Yalla Yalla": "Falafel wraps at Yalla Yalla",
  "Lanzhou goveđe nudle u supi": "Lanzhou beef noodle soup",
