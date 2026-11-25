@@ -553,7 +553,7 @@ export function WebsiteTemplateView({
   const currentFadePhoto = AMBIENT_FADE_PHOTOS[ambientIdx];
 
   return (
-    <div className="bg-[#FFFFFF] text-[#221D1A] overflow-x-hidden">
+    <div className="bg-[#FFFFFF] text-[#221D1A] overflow-x-clip">
       {/* 1. O MUSLIMANIMA BEOGRADA — Uvod & panorama grada */}
       <section id="o-muslimanima" className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_60%,#EDEDEA_60%,#EDEDEA_100%)]">
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
@@ -706,7 +706,7 @@ export function WebsiteTemplateView({
 
             <ol
               ref={halalListRef}
-              className={`relative mt-8 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2 ${visibleCount > 8 ? 'thin-scroll max-h-[560px] overflow-y-auto pe-2' : ''}`}
+              className={`relative mt-8 grid grid-cols-1 gap-x-8 border-t border-[#2B211C] sm:grid-cols-2 ${visibleCount > 8 ? 'thin-scroll max-h-[310px] overflow-y-auto pe-2' : ''}`}
             >
               {filteredHalal.slice(0, visibleCount).map((spot, idx) => {
                 const isSelected = selectedSpot?.id === spot.id;
@@ -768,7 +768,7 @@ export function WebsiteTemplateView({
                       <p className="mt-1 text-[13px] leading-relaxed text-[#2B211C]">{t(selectedSpot.communityTip)}</p>
                     </div>
                   )}
-                  <div className="mt-5 flex max-w-md flex-wrap gap-x-6 gap-y-2">
+                  <div className="mt-5 flex max-w-md flex-wrap gap-x-5 gap-y-2 whitespace-nowrap">
                     {selectedSpot.phones?.map((n) => (
                       <a key={n} href={telHref(n)} className={ACTION_CLS}>
                         <Phone className="h-3.5 w-3.5" /> {n}
