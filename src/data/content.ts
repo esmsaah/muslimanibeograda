@@ -124,7 +124,6 @@ export const HALAL_SPOTS: HalalSpot[] = [
   {id: 'donerium', category: 'bez-svinjetine', categoryLabel: 'Bez svinjetine', name: 'Donerium Kebab House', street: 'Milentija Popovića 32A', district: 'Novi Beograd', hours: '', note: 'Doner i kebab.', communityTip: 'Ne služi svinjetinu. Na društvenim mrežama koristi halal oznake, ali halal nije zvanično potvrđen.', photoSrc: '/assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
   {id: 'mama-sara-zemun', category: 'halal', categoryLabel: 'Halal', name: 'Mama Sara', street: 'Karađorđeva 14B', district: 'Zemun', hours: '', note: 'Šavarma, falafel, baklava i sutlijaš.', communityTip: 'Na meniju ima halal oznaku.', photoSrc: '/assets/community/IMG_7777.jpg', photoAlt: 'Halal hrana u Beogradu'},
   {id: 'mama-sara-airport', category: 'halal', categoryLabel: 'Halal', name: 'Mama Sara', street: 'Omladinskih brigada 98, Airport City', district: 'Novi Beograd', hours: '', note: 'Šavarma, falafel, baklava i sutlijaš.', communityTip: 'Na meniju ima halal oznaku.', photoSrc: '/assets/community/IMG_2412.jpg', photoAlt: 'Halal hrana u Beogradu'},
-  {id: 'alibaba', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Ali Baba Hanabal', street: 'Golsvortijeva 21', district: 'Vračar', hours: '', note: 'Arapska radnja, duh orijenta u centru grada. Ručno rađene kožne torbe, rančevi, sandale, papuče, kaiševi, novčanici i taburei, tunižanska ručno rađena keramika i tadžini, ćilimi, suveniri, nakit i nargile.', communityTip: 'Maloprodaja i veleprodaja.', phones: ['011 244 30 89', '065 57 59 385'], photoSrc: '/assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
   {id: 'meandri', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Meandri', street: 'Jelisavete Načić 4 i Porečka 1 (Palilula)', district: 'Stari grad', hours: '', note: 'Halal mesnica. Sveže meso i peštersko-sjenički proizvodi.', communityTip: 'Halal mesnica, potvrđeno iz zajednice. Radno vreme na Jelisavete Načić od 8 do 16h.', phones: ['062 856 0014'], photoSrc: '/assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
   {id: 'jusuf', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Jusuf', street: 'Kalenić pijaca', district: 'Vračar', hours: '', note: 'Suho meso i sir na Kalenić pijaci.', communityTip: '', phones: [], photoSrc: '/assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
   {id: 'gari', category: 'prodavnice', categoryLabel: 'Prodavnica', name: 'Gari', street: 'Palilulska pijaca', district: 'Palilula', hours: '', note: 'Zrnasti, orašasti i mahunasti proizvodi, suvo voće i začini vrhunskog kvaliteta. Dostava na kućnu adresu.', communityTip: 'Dostava na kućnu adresu, narudžbe telefonom ili preko Instagrama.', phones: ['063 190 7772'], instagram: 'gari_orah', photoSrc: '/assets/community/IMG_7777.jpg', photoAlt: 'Prodavnica u Beogradu'},
@@ -248,4 +247,22 @@ export const FAQ: FaqItem[] = [
   {q: 'Kako da upoznam druge muslimane u Beogradu?', a: 'Dođite na džumu ili na neki od događaja sa sajta, tako se ljudi najlakše upoznaju. Pridružite se i Facebook grupi Sumud, a ako vam treba neko za posao ili savet, u delu Umrežavanje možete preporučiti ili naći majstore, lekare i preduzetnike iz zajednice.'},
   {q: 'Znam dobro mesto ili događaj. Kako da vam javim?', a: 'Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Za događaje postoji i dugme Predloži događaj. Svaki predlog pogledamo pre nego što ga dodamo.'},
   {q: 'Ko pravi ovaj sajt?', a: 'Mi smo Sumud, grupa muslimana koji žive u Beogradu. Nismo deo nijedne verske ni državne institucije, sajt pravimo za sebe i za sve koji ovde žive ili dolaze. Ako vidite grešku, javite nam.'},
+];
+
+export type Neighbor = {
+  id: string;
+  category: 'zdravlje' | 'zanat' | 'biznis' | 'hrana' | 'lepota';
+  categoryLabel: string;
+  name: string;
+  profession: string;
+  district: string;
+  note: string;
+  /** Telefon, @instagram, mejl, sajt ili map:adresa za Google mape. */
+  contacts: string[];
+};
+
+/** Imenik Osloni se na svoje. Novi upisi idu ovde kad ih pregledamo. */
+export const NEIGHBORS: Neighbor[] = [
+  {id: 'alibaba', category: 'biznis', categoryLabel: 'Preduzetnici i frilenseri', name: 'Ali Baba Hanabal', profession: 'Arapska radnja', district: 'Vračar, Golsvortijeva 21', note: 'Ručno rađene kožne torbe, sandale, papuče i kaiševi, tunižanska keramika i tadžini, ćilimi, nakit i nargile. Maloprodaja i veleprodaja.', contacts: ['011 244 30 89', '065 57 59 385', 'map:Ali Baba Hanabal Golsvortijeva 21 Beograd']},
+  {id: 'vintage-shea', category: 'lepota', categoryLabel: 'Lepota i njega', name: 'Vintage Shea Essentials', profession: 'Jamila, prirodna nega sa shea puterom', district: 'Online', note: 'Radi i afričke ručne lepeze.', contacts: ['@vintage_shea_essentials']},
 ];

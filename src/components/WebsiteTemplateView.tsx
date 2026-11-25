@@ -8,11 +8,11 @@ import {
   renderBelgradeGouachePainting,
 } from '../utils/belgradePainting';
 import {IslamicButton} from './IslamicButton';
-import {CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
+import {CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, NEIGHBORS, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
 import {currentRoute, pathFor, setRoute} from '../route';
 import type {Route} from '../route';
 import {PrayerTimesCard} from './PrayerTimesCard';
-import {IMENIK_LAYOUT, PREVIEW_NEIGHBORS} from '../layoutVariant';
+import {IMENIK_LAYOUT} from '../layoutVariant';
 import type {CulturalEvent, HalalSpot} from '../data/content';
 import {useLang, fill} from '../i18n';
 import SumudMark from './SumudMark';
@@ -77,10 +77,11 @@ const COMMUNITY_CHANNELS = [
 ];
 
 /** Kontakt iz imenika kao link: telefon, Instagram, mejl ili sajt. */
-function ContactLink({value}: {value: string}) {
+function ContactLink({value, mapLabel}: {value: string; mapLabel: string}) {
   const v = value.trim();
   if (!v) return null;
-  const cls = 'font-quiet mt-2 inline-flex items-center gap-1.5 text-[18px] text-[#0F7A53] hover:underline';
+  const cls = 'font-quiet inline-flex items-center gap-1.5 text-[18px] text-[#0F7A53] hover:underline';
+  if (v.startsWith('map:')) return <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.slice(4))}`} target="_blank" rel="noopener noreferrer" className={cls}><MapPin className="h-3.5 w-3.5" /> {mapLabel}</a>;
   if (v.startsWith('@')) return <a href={`https://www.instagram.com/${v.slice(1)}/`} target="_blank" rel="noopener noreferrer" className={cls}><Instagram className="h-3.5 w-3.5" /> {v}</a>;
   if (v.includes('@')) return <a href={`mailto:${v}`} className={cls}><Mail className="h-3.5 w-3.5" /> {v}</a>;
   if (/^https?:\/\//.test(v) || /\.[a-z]{2,}/i.test(v)) return <a href={v.startsWith('http') ? v : `https://${v}`} target="_blank" rel="noopener noreferrer" className={cls}><Globe className="h-3.5 w-3.5" /> {prettyUrl(v)}</a>;
@@ -95,7 +96,7 @@ interface NeighborListing {
   profession: string;
   district: string;
   note: string;
-  contact: string;
+  contacts: string[];
   recommendedBy?: string;
 }
 
@@ -309,7 +310,7 @@ export function WebsiteTemplateView({
   const [helpError, setHelpError] = useState(false);
 
   // Neighbor directory
-  const [neighbors, setNeighbors] = useState<NeighborListing[]>(PREVIEW_NEIGHBORS);
+  const [neighbors, setNeighbors] = useState<NeighborListing[]>(NEIGHBORS);
   const [skillFilter, setSkillFilter] = useState<SkillCategory>('sve');
   const [showAddNeighbor, setShowAddNeighbor] = useState(false);
   const [nbrMode, setNbrMode] = useState<'self' | 'rec'>('self');
@@ -1178,9 +1179,11 @@ export function WebsiteTemplateView({
                   {filteredNeighbors.map((item) => (
                     <li key={item.id} className="border-b border-[#D4D3CD] py-4">
                       <div className="font-stone text-[19px] leading-tight text-[#2B211C]">{item.name}</div>
-                      <div className="mt-1 text-[13px] text-[#8F8D88]">{item.profession} · {item.district}</div>
-                      {item.note && <p className="mt-1 text-[13px] leading-relaxed text-[#4F4A46]">{item.note}</p>}
-                      <ContactLink value={item.contact} />
+                      <div className="mt-1 text-[13px] text-[#8F8D88]">{t(item.profession)} · {t(item.district)}</div>
+                      {item.note && <p className="mt-1.5 text-[13px] leading-relaxed text-[#4F4A46]">{t(item.note)}</p>}
+                      <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
+                        {item.contacts.map((c) => <ContactLink key={c} value={c} mapLabel={t("Otvori na mapi")} />)}
+                      </div>
                     </li>
                   ))}
                 </ol>
