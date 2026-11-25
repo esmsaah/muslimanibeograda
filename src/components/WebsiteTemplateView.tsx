@@ -613,9 +613,9 @@ export function WebsiteTemplateView({
       </section>
 
       {/* Istorija, ciljevi i tihi foto-fade u jednom kadru (bez galerije) */}
-      <div className="bg-[#FFFFFF]">
+      <div className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
-        <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+        <div className="border-s border-[#2B211C] bg-[#EDEDEA]">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
             <div className="flex flex-col px-6 pt-10 pb-10 sm:px-10 lg:py-14">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
@@ -629,16 +629,18 @@ export function WebsiteTemplateView({
                 ))}
               </div>
             </div>
-            <div className="flex flex-col px-6 pt-4 pb-12 sm:px-10 lg:py-14">
-              <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
-              <div className="mt-7 space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
-                <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
-                <p>{t(HISTORY_STORY.paragraphs[1])}</p>
-              </div>
-              <div className="mt-auto pt-8">
-                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
-                  {t("Pročitaj više")}
-                </IslamicButton>
+            <div className="flex flex-col px-6 pb-10 sm:px-10 lg:py-14 lg:ps-0">
+              <div className="flex flex-1 flex-col bg-[#FFFFFF] px-8 py-10 sm:px-10">
+                <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
+                <div className="mt-7 space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
+                  <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
+                  <p>{t(HISTORY_STORY.paragraphs[1])}</p>
+                </div>
+                <div className="mt-auto pt-8">
+                  <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                    {t("Pročitaj više")}
+                  </IslamicButton>
+                </div>
               </div>
             </div>
           </div>
