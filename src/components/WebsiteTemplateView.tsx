@@ -586,20 +586,18 @@ export function WebsiteTemplateView({
             </div>
           </div>
 
-          {/* Desno, betonsko polje sa crtežom */}
-          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-0 pt-20 pb-4 sm:px-10 lg:px-8 lg:pt-10 lg:pb-10">
-            <div aria-hidden="true" className="absolute end-8 top-7 h-[48px] w-[48px] rounded-full bg-[#D9A02B] lg:hidden" />
-            <div className="pointer-events-none relative overflow-hidden lg:mt-24" style={{aspectRatio: '2400 / 820'}}>
-              <canvas
-                ref={canvasRef}
-                width={PAINTING_WIDTH}
-                height={PAINTING_HEIGHT}
-                aria-label={t("Ilustracija Beograda sa Bajrakli džamijom u centru i biciklistom u pokretu")}
-                className="absolute start-0 block h-auto w-full mix-blend-multiply"
-                style={{top: '-47%'}}
-              />
+          {/* Desno, sivo polje sa fotografijom zajednice */}
+          <div className="relative flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:px-10 lg:py-10">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
+              {PRICA_PHOTOS.map((p, i) => (
+                <img loading="lazy" decoding="async"
+                  key={p.src}
+                  src={p.src}
+                  alt={t(p.alt)}
+                  className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
+                />
+              ))}
             </div>
-
           </div>
           {/* Hadis ispod crteža, samo na mobitelu */}
           <div className="bg-[#FFFFFF] px-6 pt-8 pb-10 lg:hidden">
@@ -612,36 +610,40 @@ export function WebsiteTemplateView({
         </div>
       </section>
 
-      {/* Istorija, ciljevi i tihi foto-fade u jednom kadru (bez galerije) */}
+      {/* Horizont, crtež grada preko cele širine */}
       <div className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)]">
+      <section aria-hidden="true" className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="border-s border-[#2B211C] bg-[#EDEDEA] px-6 pt-6 sm:px-10 lg:px-14 lg:pt-8">
+          <div className="pointer-events-none relative overflow-hidden" style={{aspectRatio: '2400 / 440'}}>
+            <canvas
+              ref={canvasRef}
+              width={PAINTING_WIDTH}
+              height={PAINTING_HEIGHT}
+              aria-label={t("Ilustracija Beograda sa Bajrakli džamijom u centru i biciklistom u pokretu")}
+              className="absolute start-0 block h-auto w-full mix-blend-multiply"
+              style={{top: '-174%'}}
+            />
+          </div>
+        </div>
+      </section>
+      </div>
+
+      {/* Istorija, Muslimani Beograda kao tekst ispod horizonta */}
+      <div className="bg-[#FFFFFF]">
       <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
-        <div className="border-s border-[#2B211C] bg-[#EDEDEA]">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
-            <div className="flex flex-col px-6 pt-10 pb-10 sm:px-10 lg:py-14">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
-                {PRICA_PHOTOS.map((p, i) => (
-                  <img loading="lazy" decoding="async"
-                    key={p.src}
-                    src={p.src}
-                    alt={t(p.alt)}
-                    className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
-                  />
-                ))}
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-14 lg:pb-16">
+          <div className="grid grid-cols-1 gap-x-14 gap-y-6 lg:grid-cols-[560px_1fr]">
+            <div>
+              <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
+              <div className="mt-7">
+                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                  {t("Pročitaj više")}
+                </IslamicButton>
               </div>
             </div>
-            <div className="flex flex-col px-6 pb-10 sm:px-10 lg:py-14 lg:ps-0">
-              <div className="flex flex-1 flex-col bg-[#FFFFFF] px-8 py-10 sm:px-10">
-                <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
-                <div className="mt-7 space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
-                  <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
-                  <p>{t(HISTORY_STORY.paragraphs[1])}</p>
-                </div>
-                <div className="mt-auto pt-8">
-                  <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
-                    {t("Pročitaj više")}
-                  </IslamicButton>
-                </div>
-              </div>
+            <div className="max-w-[640px] space-y-4 text-[15px] leading-[1.65] text-[#4F4A46]">
+              <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
+              <p>{t(HISTORY_STORY.paragraphs[1])}</p>
             </div>
           </div>
         </div>
