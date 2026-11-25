@@ -8,7 +8,7 @@ import {
   renderBelgradeGouachePainting,
 } from '../utils/belgradePainting';
 import {IslamicButton} from './IslamicButton';
-import {CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, NEIGHBORS, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
+import {ABOUT_STORY, CULTURAL_EVENTS, DZEMATI, FAQ, HALAL_SPOTS, HISTORY_STORY, NEIGHBORS, SITE_GOALS, USEFUL_CONTACTS} from '../data/content';
 import {currentRoute, pathFor, setRoute} from '../route';
 import type {Route} from '../route';
 import {PrayerTimesCard} from './PrayerTimesCard';
@@ -253,6 +253,7 @@ export function WebsiteTemplateView({
   const [selectedSpotId, setSelectedSpotId] = useState<string>(route0Spot ?? HALAL_SPOTS[0].id);
   const [rsvpIds, setRsvpIds] = useState<Record<string, boolean>>({});
   const [storyOpen, setStoryOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const setCommunityModal = (which: 'whatsapp' | 'facebook' | null) => {
     if (which) openCommunity(which);
   };
@@ -624,28 +625,29 @@ export function WebsiteTemplateView({
             <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
               <SignTitle caps={t("Priča")} rest={t("o nama")} />
               <p className="font-quiet mt-8 text-[21px] leading-[1.5] text-[#2B211C]">
-                {t(HISTORY_STORY.paragraphs[0])}
+                <span className="font-stone not-italic">{t(ABOUT_STORY.name)}</span> {t(ABOUT_STORY.lead)}
               </p>
               <p className="mt-4 text-[15px] leading-relaxed text-[#4F4A46]">
-                {t(HISTORY_STORY.paragraphs[1])}
+                {t(ABOUT_STORY.paragraphs[0])}
               </p>
-              <div className="mt-8">
-                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
-                  {t("Pročitaj ceo tekst")}
-                </IslamicButton>
-              </div>
 
-              <dl className="mt-14 border-t border-[#2B211C]">
-                {SITE_GOALS.map((goal) => (
-                  <div key={goal.num} className="border-b border-[#D4D3CD] py-4">
-                    <dt className="sr-only">{goal.num}</dt>
-                    <dd className="m-0">
-                      <div className="font-stone text-[20px] text-[#2B211C]">{t(goal.title)}</div>
-                      <div className="mt-1 text-[13px] leading-relaxed text-[#4F4A46]">{t(goal.text)}</div>
-                    </dd>
-                  </div>
+              <ul className="mt-8 border-t border-[#2B211C]">
+                {ABOUT_STORY.highlights.map((h) => (
+                  <li key={h.title} className="flex flex-col gap-0.5 border-b border-[#D4D3CD] py-3 sm:flex-row sm:items-baseline sm:gap-4">
+                    <span className="font-stone shrink-0 text-[18px] text-[#2B211C] sm:w-[200px]">{t(h.title)}</span>
+                    <span className="text-[13px] leading-relaxed text-[#4F4A46]">{t(h.short)}</span>
+                  </li>
                 ))}
-              </dl>
+              </ul>
+
+              <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
+                  {t("Pročitaj celu priču")}
+                </IslamicButton>
+                <button type="button" onClick={() => setStoryOpen(true)} className="inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]">
+                  {t("Muslimani Beograda")} <ArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1775,6 +1777,52 @@ export function WebsiteTemplateView({
       )}
 
       {/* Modal za puni tekst o istoriji */}
+      {aboutOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="about-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#221D1A]/80 p-4 sm:p-8"
+          onClick={() => setAboutOpen(false)}
+        >
+          <div
+            className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-[#221D1A] bg-[#FFFFFF] p-6 sm:p-10"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 border-b border-[#EAEAE6] pb-4">
+              <span className="font-mono-tabular text-[11px] text-[#0F7A53] uppercase">{t("Priča o nama")}</span>
+              <button
+                type="button"
+                onClick={() => setAboutOpen(false)}
+                aria-label={t("Zatvori priču")}
+                className="inline-flex h-8 w-8 items-center justify-center border border-[#D4D3CD] text-[#221D1A] hover:border-[#221D1A]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
+              <img loading="lazy" decoding="async" src={PRICA_PHOTOS[0].src} alt={t(PRICA_PHOTOS[0].alt)} className={`absolute inset-0 h-full w-full object-cover ${PRICA_PHOTOS[0].pos}`} />
+            </div>
+            <h2 id="about-title" className="font-stone mt-7 text-[30px] leading-tight text-[#221D1A]">{t(ABOUT_STORY.name)}</h2>
+            <p className="font-quiet mt-3 text-[20px] leading-[1.5] text-[#2B211C]">{t(ABOUT_STORY.lead)}</p>
+            <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
+              {ABOUT_STORY.paragraphs.map((p) => (
+                <p key={p}>{t(p)}</p>
+              ))}
+            </div>
+            <h3 className="font-mono-tabular mt-10 text-[11px] tracking-[0.12em] text-[#0F7A53] uppercase">{t("Šta radimo")}</h3>
+            <dl className="mt-3 border-t border-[#2B211C]">
+              {ABOUT_STORY.highlights.map((h) => (
+                <div key={h.title} className="border-b border-[#D4D3CD] py-4">
+                  <dt className="font-stone text-[20px] text-[#2B211C]">{t(h.title)}</dt>
+                  <dd className="m-0 mt-1 text-[14px] leading-relaxed text-[#4F4A46]">{t(h.text)}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      )}
+
       {storyOpen && (
         <div
           role="dialog"

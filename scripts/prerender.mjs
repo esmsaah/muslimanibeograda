@@ -56,7 +56,7 @@ function homeGraph(lang, url) {
       email: 'muslimanibeograda@proton.me',
       sameAs: ['https://www.facebook.com/share/g/19ucSXWVUp/'],
       areaServed: {'@type': 'City', name: 'Beograd'},
-      description: T(lang, HISTORY_STORY.paragraphs[2]),
+      description: `${T(lang, 'Kolektiv muslimana Beograda – Sumud')} ${T(lang, 'je prostor susreta, povezivanja i solidarnosti muslimana koji žive, rade, studiraju ili posećuju Beograd.')}`,
     },
     {
       '@type': 'WebPage',
