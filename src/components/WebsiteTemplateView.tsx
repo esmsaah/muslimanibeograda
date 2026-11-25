@@ -1828,11 +1828,11 @@ export function WebsiteTemplateView({
               </button>
             </div>
 
-            <div className="relative mt-6 aspect-[16/11] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
+            <div className="relative mt-6 aspect-[6/5] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
               <img loading="lazy" decoding="async"
                 src="/assets/community/muslimani-beograda-bajram.jpg"
                 alt={t("Okupljanje u dvorištu Bajrakli džamije")}
-                className="absolute inset-0 h-full w-full object-cover object-[center_42%]"
+                className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
               />
             </div>
             <h3 className="font-stone mt-7 text-[30px] leading-tight text-[#221D1A]">
