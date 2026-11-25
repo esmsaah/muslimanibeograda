@@ -1,4 +1,5 @@
 export const AR: Record<string, string> = {
+ "Ujgurska i srednjoazijska kuhinja, sa ručno vučenim nudlama i jelima od jagnjetine.": "مطبخ أويغوري وآسيوي أوسط، بنودلز مسحوبة يدويًا وأطباق لحم الضأن.",
  "Piletina poseduje halal sertifikat. U ponudi ima i alkohola.": "الدجاج حاصل على شهادة حلال. يُقدَّم الكحول أيضًا.",
  "Poseduje halal sertifikat. Na Jelisavete Načić radi od 8 do 16h.": "حاصل على شهادة حلال. فرع يليسافيتي ناتشيتش مفتوح من 8 صباحًا حتى 4 عصرًا.",
  "Poseduje halal sertifikat.": "حاصل على شهادة حلال.",

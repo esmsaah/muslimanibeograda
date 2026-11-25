@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Ujgurska i srednjoazijska kuhinja, sa ručno vučenim nudlama i jelima od jagnjetine.": "El çekmesi erişte ve kuzu yemekleriyle Uygur ve Orta Asya mutfağı.",
  "Piletina poseduje halal sertifikat. U ponudi ima i alkohola.": "Tavuk helal sertifikalı. Alkol de servis ediliyor.",
  "Poseduje halal sertifikat. Na Jelisavete Načić radi od 8 do 16h.": "Helal sertifikasına sahip. Jelisavete Načić şubesi 08.00–16.00 arası açık.",
  "Poseduje halal sertifikat.": "Helal sertifikasına sahip.",
