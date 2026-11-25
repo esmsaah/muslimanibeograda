@@ -226,6 +226,7 @@ export const TR: Record<string, string> = {
  "klanjati": "namaz kılınır",
  "zvati": "aramalı",
  "tu smo": "buradayız",
+ "Nazad na spisak": "Listeye dön",
  "mesta": "mekân",
  "Ćevapi i roštilj.": "Köfte ve ızgara.",
  "Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.": "Ofisi, adresi ve yönetim organları olmayan tamamen gönüllü bir ağ.",

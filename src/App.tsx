@@ -494,47 +494,47 @@ export default function App() {
 
         {/* Mobile Menu Drawer */}
         {isTemplate && mobileMenuOpen && (
-          <div className="border-t border-[#EAEAE6] bg-[#FFFFFF] px-6 py-4 lg:hidden">
-            <nav className="flex flex-col gap-3 text-sm text-[#221D1A]">
+          <div className="border-t border-[#2B211C] bg-[#FFFFFF] px-6 pt-2 pb-6 lg:hidden">
+            <nav className="flex flex-col text-[#2B211C]">
               <a
                 href="#o-muslimanima"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 hover:text-[#0F7A53]"
+                className="font-stone border-b border-[#D4D3CD] py-3.5 text-[24px] leading-tight hover:text-[#0F7A53]"
               >
                 {t('Priča o nama')}
               </a>
               <a
                 href="#halal-beograd"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 hover:text-[#0F7A53]"
+                className="font-stone border-b border-[#D4D3CD] py-3.5 text-[24px] leading-tight hover:text-[#0F7A53]"
               >
                 {t('Halal Beograd')}
               </a>
               <a
                 href="#dzemati"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 hover:text-[#0F7A53]"
+                className="font-stone border-b border-[#D4D3CD] py-3.5 text-[24px] leading-tight hover:text-[#0F7A53]"
               >
                 {t('Džemati')}
               </a>
               <a
                 href="#kulturni-dogadjaji"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 hover:text-[#0F7A53]"
+                className="font-stone border-b border-[#D4D3CD] py-3.5 text-[24px] leading-tight hover:text-[#0F7A53]"
               >
                 {t('Kulturni događaji')}
               </a>
               <a
                 href="#umrezavanja"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 hover:text-[#0F7A53]"
+                className="font-stone border-b border-[#D4D3CD] py-3.5 text-[24px] leading-tight hover:text-[#0F7A53]"
               >
                 {t('Umrežavanje')}
               </a>
               <a
                 href="#potrazi-pomoc"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1 font-medium text-[#A62C3B]"
+                className="font-quiet py-3.5 text-[24px] leading-tight text-[#9E2B45]"
               >
                 {t('Javi nam se')}
               </a>

@@ -226,6 +226,7 @@ export const AR: Record<string, string> = {
  "klanjati": "تصلّي",
  "zvati": "تتصل",
  "tu smo": "نحن هنا",
+ "Nazad na spisak": "العودة إلى القائمة",
  "mesta": "أماكن",
  "Ćevapi i roštilj.": "تشيفابي ومشاوي.",
  "Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.": "شبكة أهلية خالصة بلا مكتب ولا عنوان ولا هيئات إدارية.",

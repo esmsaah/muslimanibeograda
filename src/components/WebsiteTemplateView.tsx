@@ -274,7 +274,7 @@ function withDj(text: string) {
 
 function ChapterMark({num, label}: {num: string; label: string}) {
   return (
-    <div className="flex items-baseline gap-5 border-b border-[#2B211C] px-10 py-4" data-num={num}>
+    <div className="flex items-baseline gap-5 border-b border-[#2B211C] px-6 sm:px-10 py-4" data-num={num}>
       <span className="font-quiet text-[17px] leading-none text-[#8F8D88]">{label}</span>
     </div>
   );
@@ -333,6 +333,13 @@ export function WebsiteTemplateView({
   }, [areaMenuOpen]);
   const [visibleCount, setVisibleCount] = useState(8);
   const halalListRef = useRef<HTMLOListElement | null>(null);
+  const halalDetailRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
+  const pickSpot = (id: string) => {
+    setSelectedSpotId(id);
+    if (isMobile()) requestAnimationFrame(() => halalDetailRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'}));
+  };
+  const backToHalalList = () => halalListRef.current?.scrollIntoView({behavior: 'smooth', block: 'center'});
 
   const [selectedSpotId, setSelectedSpotId] = useState<string>(HALAL_SPOTS[0].id);
   const [rsvpIds, setRsvpIds] = useState<Record<string, boolean>>({});
@@ -573,7 +580,7 @@ export function WebsiteTemplateView({
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="grid grid-cols-1 border-s border-[#2B211C] lg:grid-cols-[560px_1fr]">
           {/* Levo, uz čvrstu vertikalu */}
-          <div className="relative flex flex-col justify-between bg-[#FFFFFF] px-10 pt-14 pb-12 lg:min-h-[560px] lg:pt-16">
+          <div className="relative flex flex-col justify-between bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-10 lg:min-h-[560px] lg:pt-16 lg:pb-12">
             <div>
               <h1 className="font-stone text-[64px] leading-none tracking-[0.2em] text-[#2B211C] sm:text-[76px]">
                 {t("SUMUD")}
@@ -582,8 +589,8 @@ export function WebsiteTemplateView({
                 {t("Kolektiv muslimana Beograda")}
               </p>
             </div>
-            <div className="mt-24 lg:mt-0">
-              <div aria-hidden="true" className="h-[96px] w-[96px] rounded-full bg-[#D9A02B]" />
+            <div className="mt-12 lg:mt-0">
+              <div aria-hidden="true" className="h-[64px] w-[64px] rounded-full bg-[#D9A02B] lg:h-[96px] lg:w-[96px]" />
               <blockquote className="font-quiet m-0 mt-8 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
                 {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
               </blockquote>
@@ -592,8 +599,8 @@ export function WebsiteTemplateView({
           </div>
 
           {/* Desno, betonsko polje sa crtežom */}
-          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-10 pt-12 pb-8 lg:px-14 lg:pt-14">
-            <div className="pointer-events-none relative mt-24 overflow-hidden" style={{aspectRatio: '2400 / 820'}}>
+          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-3 pt-8 pb-6 sm:px-10 lg:px-14 lg:pt-14 lg:pb-8">
+            <div className="pointer-events-none relative overflow-hidden lg:mt-24" style={{aspectRatio: '2400 / 820'}}>
               <canvas
                 ref={canvasRef}
                 width={PAINTING_WIDTH}
@@ -616,8 +623,8 @@ export function WebsiteTemplateView({
           <ChapterMark num="I" label={t("Priča o nama")} />
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_560px]">
             {/* Levo: jedna fotografija kao ploča */}
-            <div className="bg-[#EDEDEA] px-10 pt-10 pb-10 lg:pt-12">
-              <div className="relative aspect-[4/5] w-full max-w-[560px] overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+            <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-10 lg:pt-12">
+              <div className="relative aspect-[4/3] w-full max-w-[560px] overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-[4/5]">
                 {PRICA_PHOTOS.map((p, i) => (
                   <img
                     key={p.src}
@@ -630,7 +637,7 @@ export function WebsiteTemplateView({
             </div>
 
             {/* Desno: priča */}
-            <div className="bg-[#FFFFFF] px-10 pt-10 pb-14 lg:pt-12">
+            <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
               <SignTitle caps={t("Priča")} rest={t("o nama")} />
               <p className="font-quiet mt-8 text-[21px] leading-[1.5] text-[#2B211C]">
                 {t(HISTORY_STORY.paragraphs[0])}
@@ -668,7 +675,7 @@ export function WebsiteTemplateView({
           <ChapterMark num="III" label={t("Halal Beograd")} />
         <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
           {/* Levo: indeks adresa */}
-          <div className="px-10 pt-10 pb-14 lg:pt-12">
+          <div className="px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
             <SignTitle num={t("Gde jesti i kupovati")} caps={t("Halal")} rest={t("Beograd")} />
 
             <div className="mt-10 flex flex-wrap items-end justify-between gap-x-7 gap-y-3">
@@ -728,7 +735,7 @@ export function WebsiteTemplateView({
                   <li key={spot.id} className="border-b border-[#D4D3CD]">
                     <button
                       type="button"
-                      onClick={() => setSelectedSpotId(spot.id)}
+                      onClick={() => pickSpot(spot.id)}
                       className="block w-full py-3 text-start"
                     >
                       <span>
@@ -766,11 +773,11 @@ export function WebsiteTemplateView({
 
           {/* Desno: velika ploča, pa ispod tekst i mala slika izabranog mesta */}
           {selectedSpot && (
-            <div className="px-10 pt-10 pb-12 lg:sticky lg:top-24 lg:self-start lg:px-14 lg:pt-12">
-              <div className="relative aspect-[16/7] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+            <div className="px-6 sm:px-10 pt-10 pb-12 lg:sticky lg:top-24 lg:self-start lg:px-14 lg:pt-12">
+              <div className="relative hidden aspect-[16/7] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img src="assets/community/IMG_7777.jpg" alt={t("Kuskus, tadžin i čorba na stolu")} className="absolute inset-0 h-full w-full object-cover object-[50%_55%]" />
               </div>
-              <div className="mt-8 grid grid-cols-1 gap-8 border-t border-[#2B211C] pt-6 lg:grid-cols-[1fr_200px]">
+              <div ref={halalDetailRef} className="grid scroll-mt-28 grid-cols-1 gap-8 border-t border-[#2B211C] pt-6 lg:mt-8 lg:grid-cols-[1fr_200px]">
                 <div>
                   <div className={`inline-block px-2 py-0.5 text-[12px] ${selectedSpot.category === 'halal' ? 'bg-[#0F7A53] text-white' : 'bg-[#D4D3CD] text-[#2B211C]'}`}>{t(selectedSpot.category === 'halal' ? 'Halal' : selectedSpot.category === 'prodavnice' ? 'Prodavnica' : selectedSpot.category === 'kafici' ? 'Kafić' : 'Restoran')}</div>
                   <h3 className="font-stone mt-2 text-[30px] leading-tight text-[#2B211C]">{selectedSpot.name}</h3>
@@ -815,10 +822,11 @@ export function WebsiteTemplateView({
                     )}
                   </div>
                 </div>
-                <div className="relative aspect-square w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD]">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[48px] bg-[#D4D3CD] lg:aspect-square">
                   <img key={selectedSpot.id} src={`assets/halal/${selectedSpot.id}.jpg`} alt={selectedSpot.name} onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = selectedSpot.photoSrc; } }} className="animate-fade-in absolute inset-0 h-full w-full object-cover" />
                 </div>
               </div>
+              <button type="button" onClick={backToHalalList} className="font-quiet mt-8 text-[18px] text-[#0F7A53] hover:underline lg:hidden">{t("Nazad na spisak")}</button>
             </div>
           )}
         </div>
@@ -832,7 +840,7 @@ export function WebsiteTemplateView({
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark num="III" label={t("Džemati Beograda")} />
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
-            <div className="px-10 pt-10 pb-14 lg:pt-12">
+            <div className="px-6 sm:px-10 pt-10 pb-8 lg:pb-14 lg:pt-12">
               <SignTitle caps={t("Gde")} rest={t("klanjati")} />
               <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
                 {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
@@ -840,12 +848,12 @@ export function WebsiteTemplateView({
               <p className="mt-6 max-w-md text-[13px] leading-relaxed text-[#8F8D88]">
                 {t("Adrese prema spisku Muftijstva beogradskog. Ako nešto nije tačno, javi nam.")}
               </p>
-              <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD]">
+              <div className="relative mt-10 hidden aspect-[4/5] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img src="assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
             </div>
 
-            <div className="bg-[#EDEDEA] px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
+            <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
               <ol className="border-t border-[#2B211C]">
                 {DZEMATI.map((dz) => {
                   const open = openDzemat === dz.id;
@@ -902,7 +910,7 @@ export function WebsiteTemplateView({
       <section id="kulturni-dogadjaji" className="mx-auto max-w-[1440px] lg:ps-[130px]">
         <div className="border-s border-[#2B211C] bg-[#FFFFFF] pb-16">
           <ChapterMark num="IV" label={t("Kulturni događaji")} />
-          <div className="px-10 pt-10 lg:pt-12">
+          <div className="px-6 sm:px-10 pt-10 lg:pt-12">
           <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
 
           <ol className="mt-10 grid grid-cols-1 gap-x-10 border-t border-[#D4D3CD] lg:grid-cols-3">
@@ -951,7 +959,7 @@ export function WebsiteTemplateView({
           <ChapterMark num="V" label={t("Umrežavanje muslimana")} />
         <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr]">
           {/* Levo: dva kanala kao dve ploče */}
-          <div className="flex flex-col gap-12 bg-[#EDEDEA] px-10 pt-10 pb-12 lg:pt-12">
+          <div className="flex flex-col gap-12 bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-12 lg:pt-12">
             {[
               {id: 'whatsapp' as const, src: 'assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski džemat', sub: 'WhatsApp grupa'},
               {id: 'facebook' as const, src: 'assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Javni kanal'},
@@ -969,7 +977,7 @@ export function WebsiteTemplateView({
           </div>
 
           {/* Desno: važni kontakti pa imenik */}
-          <div className="bg-[#FFFFFF] px-10 pt-10 pb-14 lg:pt-12">
+          <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
             <SignTitle caps={t("Koga")} rest={t("zvati")} accent="#9E2B45" />
             <p className="font-quiet mt-5 max-w-xl text-[19px] leading-[1.5] text-[#2B211C]">
               {t("Brojevi koji trebaju svakome ko tek dođe u Beograd.")}
@@ -1287,7 +1295,7 @@ export function WebsiteTemplateView({
           <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark num="VI" label={t("Javi nam se")} />
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
-            <div className="flex flex-col justify-between bg-[#FFFFFF] px-10 pt-10 pb-14 lg:pt-12">
+            <div className="flex flex-col justify-between bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
               <div>
                 <SignTitle caps={t("Javi se,")} rest={t("tu smo")} />
                 <p className="font-quiet mt-6 text-[19px] leading-[1.5] text-[#2B211C]">
@@ -1316,7 +1324,7 @@ export function WebsiteTemplateView({
               </div>
             </div>
 
-            <div className="bg-[#EDEDEA] px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
+            <div className="bg-[#EDEDEA] px-6 sm:px-10 pt-10 pb-14 lg:px-14 lg:pt-12">
               {helpSending ? (
                 <div className="flex min-h-[240px] flex-col items-center justify-center py-10">
                   <TespihLoader size={64} label={t("Šaljemo vaš upit komšijama...")} />
@@ -1434,7 +1442,7 @@ export function WebsiteTemplateView({
       {/* Tihi završni dio */}
       <footer className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] text-[#2B211C]">
         <div className="mx-auto max-w-[1440px] lg:ps-[130px]">
-          <div className="border-s border-[#2B211C] bg-[#EDEDEA] px-10 pt-16 pb-12">
+          <div className="border-s border-[#2B211C] bg-[#EDEDEA] px-6 sm:px-10 pt-16 pb-12">
             <figure className="m-0 max-w-3xl">
               <p className="font-amiri-ar text-left [[dir=rtl]_&]:text-right text-[26px] leading-[1.9] text-[#0F7A53] sm:text-[30px]" dir="rtl" lang="ar">
                 وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ۖ وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ

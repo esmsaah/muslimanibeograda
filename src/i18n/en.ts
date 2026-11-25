@@ -226,6 +226,7 @@ export const EN: Record<string, string> = {
  "klanjati": "to pray",
  "zvati": "to call",
  "tu smo": "we're here",
+ "Nazad na spisak": "Back to the list",
  "mesta": "places",
  "Ćevapi i roštilj.": "Ćevapi and grill.",
  "Čisto građansko umrežavanje bez kancelarije, adrese i upravnih tela.": "A purely grassroots network with no office, address or governing bodies.",
