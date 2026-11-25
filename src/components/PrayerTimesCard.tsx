@@ -31,6 +31,34 @@ export function PrayerTimesCard({wide = false}: {wide?: boolean}) {
   const next = now ? PRAYER_KEYS.find((k) => k !== 'sunrise' && times[k].getTime() > now.getTime()) : undefined;
   const dateLabel = new Intl.DateTimeFormat(LOCALE[lang], {timeZone: 'Europe/Belgrade', weekday: 'long', day: 'numeric', month: 'long'}).format(ref);
 
+  if (wide) {
+    return (
+      <div id="vaktija" className="scroll-mt-28 rounded-se-[48px] bg-[#FFFFFF] px-6 py-6 sm:px-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+          <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t('Vreme namaza')}</h3>
+          <span className="text-[13px] text-[#8F8D88]" suppressHydrationWarning>{t('Beograd')} · {dateLabel}</span>
+        </div>
+        <dl className="mt-5 grid grid-cols-3 gap-y-5 sm:grid-cols-6">
+          {PRAYER_KEYS.map((k, i) => {
+            const isNext = k === next;
+            return (
+              <div key={k} className={`relative min-w-0 ${i === 0 ? '' : 'border-s border-[#E3E2DD] ps-3'} ${i === 3 ? 'max-sm:border-s-0 max-sm:ps-0' : ''}`}>
+                <dt className={`whitespace-nowrap text-[12px] ${isNext ? 'text-[#0F7A53]' : 'text-[#8F8D88]'}`}>{t(k === 'sunrise' ? 'Izlazak' : NAMES[k])}</dt>
+                <dd
+                  className={`font-stone mt-1 text-[30px] leading-none lining-nums tabular-nums ${isNext ? 'text-[#0F7A53]' : k === 'sunrise' ? 'text-[#A8A6A0]' : 'text-[#2B211C]'}`}
+                  suppressHydrationWarning
+                >
+                  {formatBelgrade(times[k])}
+                </dd>
+                {isNext && <span className="mt-1.5 block h-[2px] w-8 bg-[#0F7A53]" aria-label={t('sledeći')} />}
+              </div>
+            );
+          })}
+        </dl>
+      </div>
+    );
+  }
+
   return (
     <div id="vaktija" className={wide ? 'scroll-mt-28 border-t border-[#2B211C] pt-5' : 'mt-10 max-w-md scroll-mt-28 border-t border-[#2B211C] pt-5'}>
       <div className="flex items-baseline justify-between gap-4">

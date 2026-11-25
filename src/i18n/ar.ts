@@ -432,5 +432,9 @@ export const AR: Record<string, string> = {
  "Upravo u toj dubokoj ukorenjenosti i postojanosti prepoznajemo duh istrajnosti koji je vekovima oblikovao muslimansko prisustvo u Beogradu i koji danas predstavlja temelj za izgradnju budućnosti zajednice u našem gradu.": "وفي هذا التجذّر العميق والثبات بالذات نرى روح الصمود التي شكّلت الحضور الإسلامي في بلغراد عبر القرون، والتي تمثل اليوم الأساس لبناء مستقبل المجتمع في مدينتنا.",
  "Pročitaj više": "اقرأ المزيد",
  "Pišite nam preko forme Javi nam se na dnu sajta ili na muslimanibeograda@proton.me. Svaki predlog pogledamo pre nego što ga dodamo.": "راسلنا عبر نموذج تواصل معنا في أسفل الموقع أو على muslimanibeograda@proton.me. نراجع كل اقتراح قبل إضافته.",
- "Čika Ljubina 7 i TC Galerija": "تشيكا ليوبينا 7 ومركز غاليريا التجاري"
+ "Čika Ljubina 7 i TC Galerija": "تشيكا ليوبينا 7 ومركز غاليريا التجاري",
+ "Vreme namaza": "مواقيت الصلاة",
+ "Muslimani": "مسلمو",
+ "Beograda": "بلغراد",
+ "Izlazak": "الشروق"
 };

@@ -176,6 +176,7 @@ function SignTitle({
   num,
   className = '',
   accent,
+  small = false,
 }: {
   caps: string;
   rest: string;
@@ -183,13 +184,14 @@ function SignTitle({
   dark?: boolean;
   accent?: string;
   className?: string;
+  small?: boolean;
 }) {
   return (
     <div className={className}>
       {num && (
         <div className="font-mono-tabular mb-4 text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{num}</div>
       )}
-      <h2 className="font-stone text-[40px] leading-[1.05] tracking-[0.12em] text-[#2B211C] uppercase sm:text-[48px]">
+      <h2 className={`font-stone leading-[1.05] tracking-[0.12em] text-[#2B211C] uppercase ${small ? 'text-[30px] sm:text-[34px]' : 'text-[40px] sm:text-[48px]'}`}>
         {caps} <span className="font-quiet normal-case tracking-normal" style={{color: accent ?? '#0F7A53'}}>{rest}</span>
       </h2>
     </div>
@@ -624,10 +626,10 @@ export function WebsiteTemplateView({
             {/* Desno: priča */}
             <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
               <SignTitle caps={t("Priča")} rest={t("o nama")} />
-              <p className="font-quiet mt-8 text-[21px] leading-[1.5] text-[#2B211C]">
+              <p className="font-stone mt-8 text-[21px] leading-[1.55] text-[#2B211C]">
                 {t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}
               </p>
-              <p className="font-quiet mt-4 text-[21px] leading-[1.5] text-[#2B211C]">
+              <p className="font-stone mt-4 text-[19px] leading-[1.6] text-[#4F4A46]">
                 {t(ABOUT_STORY.paragraphs[0])}
               </p>
 
@@ -637,14 +639,16 @@ export function WebsiteTemplateView({
                 </IslamicButton>
               </div>
 
-              <div className="mt-10 border-t border-[#2B211C] pt-6">
-                <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t(HISTORY_STORY.title)}</h3>
-                <p className="mt-2 line-clamp-3 text-[15px] leading-relaxed text-[#4F4A46]">
+              <div className="mt-12 border-t border-[#2B211C] pt-8">
+                <SignTitle small caps={t("Muslimani")} rest={t("Beograda")} />
+                <p className="font-stone mt-5 line-clamp-4 text-[19px] leading-[1.6] text-[#4F4A46]">
                   {t(HISTORY_STORY.paragraphs[0])}
                 </p>
-                <button type="button" onClick={() => setStoryOpen(true)} className="mt-4 inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]">
-                  {t("Pročitaj više")} <ArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
-                </button>
+                <div className="mt-6">
+                  <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                    {t("Pročitaj više")}
+                  </IslamicButton>
+                </div>
               </div>
             </div>
           </div>
@@ -824,12 +828,12 @@ export function WebsiteTemplateView({
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark label={t("Džemati Beograda")} />
           <div className="grid grid-cols-1 lg:grid-cols-[560px_1fr]">
-            <div className="px-6 sm:px-10 pt-10 pb-8 lg:pb-14 lg:pt-12">
+            <div className="flex flex-col px-6 sm:px-10 pt-10 pb-8 lg:pb-14 lg:pt-12">
               <SignTitle caps={t("Gde")} rest={t("klanjati")} />
               <p className="font-quiet mt-5 max-w-md text-[19px] leading-[1.5] text-[#2B211C]">
                 {t("Džamije i mesdžidi Beograda, od Dorćola do Batajnice. Klikni na džemat za adresu i mesto na mapi.")}
               </p>
-              <div className="relative mt-10 hidden aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
+              <div className="relative mt-10 hidden min-h-[320px] w-full flex-1 overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:block">
                 <img loading="lazy" decoding="async" src="/assets/community/506A5593.jpg" alt={t("Čovek uzima abdest na šadrvanu")} className="absolute inset-0 h-full w-full object-cover object-[45%_center]" />
               </div>
             </div>
