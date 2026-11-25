@@ -137,3 +137,8 @@ html[lang='ar'] .font-mono-tabular {
 html[lang='ar'] h2.font-stone {
   letter-spacing: 0;
 }
+
+/* Ujednačen ton svih fotografija: malo manje zasićenja, topliji ton, isti kontrast. */
+section img:not([src$=".svg"]) {
+  filter: saturate(0.82) sepia(0.1) contrast(1.04) brightness(0.98);
+}
