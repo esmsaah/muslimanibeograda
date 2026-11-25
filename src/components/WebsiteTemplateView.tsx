@@ -577,29 +577,18 @@ export function WebsiteTemplateView({
                 </IslamicButton>
               </div>
             </div>
-            <div className="mt-12 border-t border-[#D4D3CD] pt-8 lg:mt-0">
-              <SignTitle small caps={t("Muslimani")} rest={t("Beograda")} />
-              <p className="mt-4 line-clamp-3 max-w-[440px] text-[16px] leading-[1.7] text-[#4F4A46]">
-                {t(HISTORY_STORY.paragraphs[0])}
-              </p>
-              <div className="mt-5">
-                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
-                  {t("Pročitaj više")}
-                </IslamicButton>
-              </div>
-            </div>
-          </div>
-
-          {/* Desno, betonsko polje sa crtežom */}
-          <div className="relative flex flex-col justify-between bg-[#EDEDEA] px-0 pt-20 pb-4 sm:px-10 lg:px-14 lg:pt-14 lg:pb-8">
-            <div aria-hidden="true" className="absolute end-8 top-7 h-[48px] w-[48px] rounded-full bg-[#D9A02B] lg:hidden" />
-            <div className="hidden lg:block">
-              <div aria-hidden="true" className="h-[64px] w-[64px] rounded-full bg-[#D9A02B]" />
-              <blockquote className="font-quiet m-0 mt-6 max-w-[420px] text-[22px] leading-[1.4] text-[#2B211C]">
+            <div className="mt-8 hidden lg:mt-0 lg:block">
+              <div aria-hidden="true" className="hidden h-[64px] w-[64px] rounded-full bg-[#D9A02B] lg:block" />
+              <blockquote className="font-quiet m-0 mt-6 max-w-[380px] text-[22px] leading-[1.4] text-[#2B211C]">
                 {t("„Vernici su u svojoj međusobnoj ljubavi, milosti i saosećanju poput jednog tela.”")}
               </blockquote>
               <p className="font-quiet mt-3 text-[15px] text-[#8F8D88]">{t("Hadis, beleže Buhari i Muslim")}</p>
             </div>
+          </div>
+
+          {/* Desno, betonsko polje sa crtežom */}
+          <div className="relative flex flex-col justify-end bg-[#EDEDEA] px-0 pt-20 pb-4 sm:px-10 lg:px-14 lg:pt-14 lg:pb-8">
+            <div aria-hidden="true" className="absolute end-8 top-7 h-[48px] w-[48px] rounded-full bg-[#D9A02B] lg:hidden" />
             <div className="pointer-events-none relative overflow-hidden lg:mt-24" style={{aspectRatio: '2400 / 820'}}>
               <canvas
                 ref={canvasRef}
@@ -622,6 +611,41 @@ export function WebsiteTemplateView({
         </div>
         </div>
       </section>
+
+      {/* Istorija, ciljevi i tihi foto-fade u jednom kadru (bez galerije) */}
+      <div className="bg-[#FFFFFF]">
+      <section className="mx-auto max-w-[1440px] lg:ps-[130px]">
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
+          <ChapterMark label={t("Muslimani Beograda")} />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
+            <div className="flex flex-col bg-[#EDEDEA] px-6 pt-10 pb-10 sm:px-10 lg:py-12">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#D4D3CD] lg:aspect-auto lg:min-h-[420px] lg:flex-1">
+                {PRICA_PHOTOS.map((p, i) => (
+                  <img loading="lazy" decoding="async"
+                    key={p.src}
+                    src={p.src}
+                    alt={t(p.alt)}
+                    className={`absolute inset-0 h-full w-full object-cover ${p.pos} transition-opacity duration-[1400ms] ease-in-out ${i === pricaIdx ? 'opacity-100' : 'opacity-0'}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col bg-[#FFFFFF] px-6 pt-10 pb-12 sm:px-10 lg:pt-12 lg:pb-14">
+              <SignTitle caps={t("Muslimani")} rest={t("Beograda")} />
+              <div className="mt-7 space-y-4 text-[16px] leading-[1.7] text-[#4F4A46]">
+                <p className="text-[#2B211C]">{t(HISTORY_STORY.paragraphs[0])}</p>
+                <p>{t(HISTORY_STORY.paragraphs[1])}</p>
+              </div>
+              <div className="mt-auto pt-8">
+                <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                  {t("Pročitaj više")}
+                </IslamicButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
 
       {/* 2. HALAL BEOGRAD — Redizajnirani arhitektonski gradski vodič */}
       <div className="bg-[linear-gradient(90deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)] rtl:bg-[linear-gradient(270deg,#FFFFFF_0,#FFFFFF_9%,#EDEDEA_9%,#EDEDEA_100%)]">
@@ -864,9 +888,9 @@ export function WebsiteTemplateView({
       {/* 3. KULTURNI DOGAĐAJI — Halal i kulturna dešavanja u gradu */}
       <div className="bg-[#FFFFFF]">
       <section id="kulturni-dogadjaji" className="mx-auto max-w-[1440px] lg:ps-[130px]">
-        <div className="border-s border-[#2B211C] bg-[#FFFFFF] pb-16">
+        <div className="border-s border-[#2B211C] bg-[#FFFFFF] pb-8">
           <ChapterMark label={t("Kulturni događaji")} />
-          <div className="bg-[#EDEDEA] px-6 pt-10 pb-9 sm:px-10 lg:pt-12">
+          <div className="bg-[#EDEDEA] px-6 pt-8 pb-7 sm:px-10 lg:pt-10">
             <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
           </div>
           <div className="px-6 sm:px-10">
@@ -876,7 +900,7 @@ export function WebsiteTemplateView({
               const joined = Boolean(rsvpIds[ev.id]);
               const open = openEventId === ev.id;
               return (
-                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-7 lg:border-b-0 lg:border-e lg:pe-10 lg:last:border-e-0">
+                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-6 lg:border-b-0 lg:border-e lg:pe-10 lg:last:border-e-0">
                   <div className="flex items-baseline justify-between">
                     <span className="font-stone text-[40px] leading-none text-[#D9A02B]">{t(ev.day)}</span>
                     <span className="font-quiet text-[18px] text-[#8F8D88]">{ev.short ? t(ev.short) : `${t(ev.month).toLowerCase()}, ${ev.time}`}</span>
