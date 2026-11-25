@@ -644,8 +644,15 @@ export function WebsiteTemplateView({
                 <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
                   {t("Pročitaj celu priču")}
                 </IslamicButton>
-                <button type="button" onClick={() => setStoryOpen(true)} className="inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]">
-                  {t("Muslimani Beograda")} <ArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
+              </div>
+
+              <div className="mt-14 border-t border-[#2B211C] pt-7">
+                <h3 className="font-stone text-[28px] leading-tight text-[#2B211C]">{t(HISTORY_STORY.title)}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-[#4F4A46]">
+                  {t(HISTORY_STORY.paragraphs[0])}
+                </p>
+                <button type="button" onClick={() => setStoryOpen(true)} className="mt-4 inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]">
+                  {t("Pročitaj više")} <ArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
                 </button>
               </div>
             </div>
@@ -1858,7 +1865,7 @@ export function WebsiteTemplateView({
                 />
               </div>
               <div className="sm:col-span-7">
-                <h3 className="font-brutal text-2xl font-semibold tracking-[-0.02em] text-[#221D1A] sm:text-3xl">
+                <h3 className="font-stone text-[30px] leading-tight text-[#221D1A]">
                   {t(HISTORY_STORY.title)}
                 </h3>
               </div>

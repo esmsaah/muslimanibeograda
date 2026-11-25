@@ -65,12 +65,14 @@ export interface CulturalEvent {
 }
 
 export const HISTORY_STORY = {
-  label: 'Istorija i kontinuitet · Beograd',
-  title: 'Viševekovni trag muslimana u Beogradu',
+  label: 'Muslimani Beograda',
+  title: 'Muslimani Beograda',
   paragraphs: [
-    'Prisustvo muslimana u Beogradu utkano je u samo tkivo grada — od starih dorćolskih mahala, nekadašnjih džamija i česmi, do 1867. godine kada Bajrakli džamija ostaje kao jedini sačuvani svedok tog vremena.',
-    'Tokom dvadesetog veka grad je oblikovao novi val života: hiljade porodica, radnika, zanatlija i studenata iz Sandžaka, Bosne, Makedonije, sa juga i iz prijateljskih nesvrstanih zemalja gradilo je Novi Beograd i ostavilo nove generacije rođenih Beograđana.',
-    'Danas ovu mrežu čine komšije različitih pozadina i generacija. Ovaj sajt nastaje iz potrebe građana da se upoznaju, čuvaju kulturno nasleđe i podržavaju jedni druge u poslu i svakodnevnom životu — potpuno van zvaničnih institucija i bez fizičke adrese.',
+    'Istorija muslimana Beograda duga je više vekova. Od 1521. godine i uspostavljanja osmanske vlasti, Beograd se razvijao u jedan od značajnih urbanih, trgovačkih i kulturnih centara Osmanskog carstva na evropskom tlu. Brojne džamije, medrese, tekije, hamami, čaršije i vakufi činili su neraskidivi deo njegovog urbanog i društvenog života.',
+    'Devetnaesti vek doneo je dramatične promene – prisilno iseljavanje muslimanskog stanovništva i nestajanje najvećeg dela islamskog vizuelnog i arhitektonskog nasleđa Beograda. Ipak, muslimanski život u Beogradu nije ugašen. Obnova Bajrakli džamije 1868. godine i zvanično priznanje islamske veroispovesti u Kneževini Srbiji označili su početak novog poglavlja u istoriji zajednice.',
+    'Tokom Kraljevine, a potom i socijalističke Jugoslavije, muslimanska zajednica se obnavljala i rasla, obogaćena dolaskom muslimana iz različitih krajeva zemlje i sveta. Uprkos izazovima koji su pratili raspad Jugoslavije i decenije koje su usledile, muslimani su nastavili da grade svoj život u Beogradu.',
+    'Danas muslimansko prisustvo u Beogradu ponovo dobija na vitalnosti. Novi džemati i sve raznovrsniji društveni i kulturni život svedoče o snazi zajednice i njenom potencijalu.',
+    'Upravo u toj dubokoj ukorenjenosti i postojanosti prepoznajemo duh istrajnosti koji je vekovima oblikovao muslimansko prisustvo u Beogradu i koji danas predstavlja temelj za izgradnju budućnosti zajednice u našem gradu.',
   ],
   photoSrc: '/assets/community/506A4303.jpg',
   photoAlt: 'Čitanje knjige pored drvenog prozora u Beogradu',
