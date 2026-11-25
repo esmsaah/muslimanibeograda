@@ -254,5 +254,17 @@ export const TR: Record<string, string> = {
  "Kralja Petra 23 i Cara Lazara 3": "Kralja Petra 23 ve Cara Lazara 3",
  "Jelisavete Načić 4 i Porečka 1 (Palilula)": "Jelisavete Načić 4 ve Porečka 1 (Palilula)",
  "Strahinjića Bana 57, Njegoševa 31v i Nemanjina 32": "Strahinjića Bana 57, Njegoševa 31v ve Nemanjina 32",
- "Beograd": "Belgrad"
+ "Beograd": "Belgrad",
+ "PON": "PZT",
+ "Svakog ponedeljka od 18h": "Her pazartesi 18.00'den itibaren",
+ "Deli Monday u KC Gradu": "KC Grad'da Deli Monday",
+ "KC Grad · Braće Krsmanović 4": "KC Grad · Braće Krsmanović 4",
+ "Od 2011. godine svakog ponedeljka u KC Gradu kuva neko drugi, a publika jede za bon od 600 dinara. Na stolu je svaki put druga kuhinja sveta, uvek uz vegetarijansku i vegansku opciju.": "2011'den beri her pazartesi KC Grad'da başka biri yemek pişiriyor, misafirler 600 dinarlık yemek fişiyle yiyor. Her hafta dünyadan farklı bir mutfak, her zaman vejetaryen ve vegan seçeneklerle.",
+ "Hrana nije automatski halal jer se kuvari menjaju. Proverite šta se sprema te večeri.": "Aşçılar değiştiği için yemekler otomatik olarak helal değildir. O akşam ne pişirildiğini kontrol edin.",
+ "Objava na Instagramu": "Instagram gönderisi",
+ "Otvoreni poziv": "Açık çağrı",
+ "Skuvajte za ceo grad": "Tüm şehir için yemek pişirin",
+ "Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.": "Program yeni pazartesiler için aşçı arıyor. Restoranlar, dernekler, aktivistler ve kalabalığa yemek yapan herkes başvurabilir, herkese açık bir diaspora akşam yemeği de olabilir. 50 ile 200 arası kişi geliyor.",
+ "U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.": "E-postanızda kim olduğunuzu, ne pişireceğinizi, neyi tanıtmak istediğinizi ve tercih ettiğiniz tarihi yazın.",
+ "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "Haydi Sumud herkes için helal bir akşam yemeği pişirsin. Bizimle yemek yapmak isterseniz bize yazın."
 };

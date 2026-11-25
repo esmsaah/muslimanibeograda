@@ -254,5 +254,17 @@ export const EN: Record<string, string> = {
  "Kralja Petra 23 i Cara Lazara 3": "Kralja Petra 23 and Cara Lazara 3",
  "Jelisavete Načić 4 i Porečka 1 (Palilula)": "Jelisavete Načić 4 and Porečka 1 (Palilula)",
  "Strahinjića Bana 57, Njegoševa 31v i Nemanjina 32": "Strahinjića Bana 57, Njegoševa 31v and Nemanjina 32",
- "Beograd": "Belgrade"
+ "Beograd": "Belgrade",
+ "PON": "MON",
+ "Svakog ponedeljka od 18h": "Every Monday from 6pm",
+ "Deli Monday u KC Gradu": "Deli Monday at KC Grad",
+ "KC Grad · Braće Krsmanović 4": "KC Grad · Braće Krsmanović 4",
+ "Od 2011. godine svakog ponedeljka u KC Gradu kuva neko drugi, a publika jede za bon od 600 dinara. Na stolu je svaki put druga kuhinja sveta, uvek uz vegetarijansku i vegansku opciju.": "Since 2011, every Monday someone different cooks at KC Grad, and guests eat with a 600 dinar food ticket. Each week brings a different cuisine from around the world, always with vegetarian and vegan options.",
+ "Hrana nije automatski halal jer se kuvari menjaju. Proverite šta se sprema te večeri.": "The food is not automatically halal because the cooks change. Check what is being served that evening.",
+ "Objava na Instagramu": "Instagram post",
+ "Otvoreni poziv": "Open call",
+ "Skuvajte za ceo grad": "Cook for the whole city",
+ "Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.": "The programme is looking for cooks for new Mondays. Restaurants, associations, activists and anyone who cooks for a big crowd can apply, including a dinner for your own diaspora open to everyone. Between 50 and 200 people come.",
+ "U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.": "In your email, say who you are, what you would cook, what you want to promote and your preferred date.",
+ "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "Let's have Sumud cook a halal evening for everyone. If you'd like to cook with us, get in touch."
 };

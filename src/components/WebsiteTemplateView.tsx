@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Check, Download, Globe, Instagram, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
+import {Check, Download, Globe, Instagram, Mail, MapPin, MessageCircle, Pause, Phone, Play, Plus, X} from 'lucide-react';
 import {COMMUNITY_PHOTOS} from '../data/communityPhotos';
 import {
   drawDeliveryCyclist,
@@ -104,6 +104,11 @@ interface CulturalEvent {
   time: string;
   photoSrc: string;
   summary: string;
+  when?: string;
+  note?: string;
+  instagramEmbed?: string;
+  instagramUrl?: string;
+  applyEmail?: string;
 }
 
 interface NeighborListing {
@@ -197,37 +202,20 @@ const HALAL_SPOTS: HalalSpot[] = [
 
 const CULTURAL_EVENTS: CulturalEvent[] = [
   {
-    id: 'ev-1',
-    day: '28',
-    month: 'NOV',
-    title: 'Veče čitanja, poezije i kaligrafije',
-    place: 'Kulturni prostor · Stari grad',
-    time: '18:30',
-    photoSrc: 'assets/community/506A4303.jpg',
+    id: 'deli-monday',
+    day: 'PON',
+    month: '',
+    time: '18:00',
+    when: 'Svakog ponedeljka od 18h',
+    title: 'Deli Monday u KC Gradu',
+    place: 'KC Grad · Braće Krsmanović 4',
+    photoSrc: '',
     summary:
-      'Otvoreno druženje uz knjigu, čaj i predstavljanje savremene grafike inspirisane tradicijom pisma.',
-  },
-  {
-    id: 'ev-2',
-    day: '05',
-    month: 'DEC',
-    title: 'Šetnja: Osmanski i moderni slojevi grada',
-    place: 'Polazak · Trg republike',
-    time: '14:00',
-    photoSrc: 'assets/community/506A0447.jpg',
-    summary:
-      'Dvosatna šetnja sa ljubiteljima gradske istorije — tragom nekadašnjih česmi, ulica i moderne arhitekture.',
-  },
-  {
-    id: 'ev-3',
-    day: '12',
-    month: 'DEC',
-    title: 'Projekcija dokumentarca o komšiluku',
-    place: 'Otvoreni atelje · Savski kej',
-    time: '19:00',
-    photoSrc: 'assets/community/506A0454.jpg',
-    summary:
-      'Projekcija kratkih filmova o životu manjina i doseljenika u Beogradu uz neformalno druženje i posluženje.',
+      'Od 2011. godine svakog ponedeljka u KC Gradu kuva neko drugi, a publika jede za bon od 600 dinara. Na stolu je svaki put druga kuhinja sveta, uvek uz vegetarijansku i vegansku opciju.',
+    note: 'Hrana nije automatski halal jer se kuvari menjaju. Proverite šta se sprema te večeri.',
+    instagramEmbed: 'https://www.instagram.com/p/DgFQM6DjHl-/embed/',
+    instagramUrl: 'https://www.instagram.com/p/DgFQM6DjHl-/',
+    applyEmail: 'deli@gradbeograd.eu',
   },
 ];
 
@@ -913,33 +901,82 @@ export function WebsiteTemplateView({
           <div className="px-6 sm:px-10 pt-10 lg:pt-12">
           <SignTitle caps={t("Šta se")} rest={t("dešava u gradu")} />
 
-          <ol className="mt-10 grid grid-cols-1 gap-x-10 border-t border-[#D4D3CD] lg:grid-cols-3">
-            {CULTURAL_EVENTS.map((ev, i) => {
+          <ol className="mt-10 border-t border-[#D4D3CD]">
+            {CULTURAL_EVENTS.map((ev) => {
               const joined = Boolean(rsvpIds[ev.id]);
               return (
-                <li key={ev.id} className="flex flex-col border-b border-[#D4D3CD] py-8 lg:border-b-0 lg:border-e lg:pe-10 lg:last:border-e-0">
-                  <div className="flex items-baseline justify-between">
-                    <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{ev.day}</span>
-                    <span className="font-quiet text-[18px] text-[#8F8D88]">{t(ev.month).toLowerCase()}, {ev.time}</span>
-                  </div>
-                  <div className={`relative mt-5 aspect-[4/3] w-full overflow-hidden bg-[#EDEDEA] rounded-se-[96px]`}>
-                    <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
+                <li key={ev.id} className="grid grid-cols-1 gap-10 border-b border-[#D4D3CD] py-10 lg:grid-cols-[1fr_400px]">
+                  <div className="flex flex-col">
+                    <div className="flex items-baseline gap-4">
+                      <span className="font-stone text-[56px] leading-none text-[#D9A02B]">{t(ev.day)}</span>
+                      <span className="font-quiet text-[18px] text-[#8F8D88]">{ev.when ? t(ev.when) : `${t(ev.month).toLowerCase()}, ${ev.time}`}</span>
+                    </div>
+                    <h3 className="font-stone mt-5 text-[30px] leading-tight text-[#2B211C]">{t(ev.title)}</h3>
+                    <div className="font-quiet mt-1 text-[18px] text-[#9E2B45]">{t(ev.place)}</div>
+                    <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#4F4A46]">{t(ev.summary)}</p>
+                    {ev.note && (
+                      <div className="mt-5 max-w-xl border-s-2 border-[#D9A02B] ps-4">
+                        <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Halal")}</div>
+                        <p className="mt-1 text-[14px] leading-relaxed text-[#2B211C]">{t(ev.note)}</p>
+                      </div>
+                    )}
+                    <div className="mt-6 flex flex-wrap items-center gap-6">
+                      <IslamicButton
+                        variant={joined ? 'kocka' : 'flowline'}
+                        tone={joined ? 'emerald' : 'charcoal'}
+                        size="sm"
+                        onClick={() => openRsvp(ev)}
+                        iconLeft={joined ? <Check className="h-3.5 w-3.5" /> : undefined}
+                      >
+                        {t(joined ? 'Zabeleženo' : 'Planiram doći')}
+                      </IslamicButton>
+                      {ev.instagramUrl && (
+                        <a href={ev.instagramUrl} target="_blank" rel="noopener noreferrer" className={ACTION_CLS}>
+                          <Instagram className="h-3.5 w-3.5" /> {t("Objava na Instagramu")}
+                        </a>
+                      )}
+                    </div>
+
+                    {ev.applyEmail && (
+                      <div className="mt-10 max-w-xl rounded-se-[48px] bg-[#EDEDEA] p-6 sm:p-7">
+                        <div className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Otvoreni poziv")}</div>
+                        <h4 className="font-stone mt-2 text-[22px] leading-tight text-[#2B211C]">{t("Skuvajte za ceo grad")}</h4>
+                        <p className="mt-3 text-[14px] leading-relaxed text-[#4F4A46]">
+                          {t("Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.")}
+                        </p>
+                        <p className="mt-3 text-[14px] leading-relaxed text-[#4F4A46]">
+                          {t("U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.")}
+                        </p>
+                        <p className="font-quiet mt-3 text-[17px] text-[#2B211C]">
+                          {t("Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.")}
+                        </p>
+                        <div className="mt-5 flex flex-wrap items-center gap-6">
+                          <a href={`mailto:${ev.applyEmail}`} className={ACTION_CLS}>
+                            <Mail className="h-3.5 w-3.5" /> {ev.applyEmail}
+                          </a>
+                          <a href="#potrazi-pomoc" className={ACTION_CLS}>
+                            {t("Javi nam se")}
+                          </a>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  <h3 className="font-stone mt-5 text-[26px] leading-tight text-[#2B211C]">{t(ev.title)}</h3>
-                  <div className="font-quiet mt-1 text-[17px] text-[#9E2B45]">{t(ev.place)}</div>
-                  <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[#4F4A46]">{t(ev.summary)}</p>
-                  <div className="mt-6">
-                    <IslamicButton
-                      variant={joined ? 'kocka' : 'flowline'}
-                      tone={joined ? 'emerald' : 'charcoal'}
-                      size="sm"
-                      onClick={() => openRsvp(ev)}
-                      iconLeft={joined ? <Check className="h-3.5 w-3.5" /> : undefined}
-                    >
-                      {t(joined ? 'Zabeleženo' : 'Planiram doći')}
-                    </IslamicButton>
-                  </div>
+                  {ev.instagramEmbed ? (
+                    <div className="w-full overflow-hidden border border-[#D4D3CD] bg-white">
+                      <iframe
+                        src={ev.instagramEmbed}
+                        title={`${t(ev.title)} · Instagram`}
+                        loading="lazy"
+                        className="block h-[620px] w-full border-0"
+                        scrolling="no"
+                      />
+                    </div>
+                  ) : ev.photoSrc ? (
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-se-[96px] bg-[#EDEDEA]">
+                      <img src={ev.photoSrc} alt={t(ev.title)} className="h-full w-full object-cover" />
+                    </div>
+                  ) : null}
                 </li>
               );
             })}

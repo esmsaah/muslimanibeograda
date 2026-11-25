@@ -254,5 +254,17 @@ export const AR: Record<string, string> = {
  "Kralja Petra 23 i Cara Lazara 3": "كراليا بيترا 23 وتسارا لازارا 3",
  "Jelisavete Načić 4 i Porečka 1 (Palilula)": "يليسافيتي ناتشيتش 4 وبوريتشكا 1 (باليلولا)",
  "Strahinjića Bana 57, Njegoševa 31v i Nemanjina 32": "ستراهينيتشا بانا 57، نييغوشيفا 31v ونيمانينا 32",
- "Beograd": "بلغراد"
+ "Beograd": "بلغراد",
+ "PON": "الإثنين",
+ "Svakog ponedeljka od 18h": "كل يوم إثنين من الساعة 6 مساءً",
+ "Deli Monday u KC Gradu": "Deli Monday في مركز غراد الثقافي",
+ "KC Grad · Braće Krsmanović 4": "مركز غراد الثقافي · براتشه كرسمانوفيتش 4",
+ "Od 2011. godine svakog ponedeljka u KC Gradu kuva neko drugi, a publika jede za bon od 600 dinara. Na stolu je svaki put druga kuhinja sveta, uvek uz vegetarijansku i vegansku opciju.": "منذ عام 2011، يطبخ شخص مختلف كل يوم إثنين في مركز غراد، ويأكل الحضور بقسيمة ثمنها 600 دينار. في كل مرة مطبخ مختلف من العالم، مع خيارات نباتية دائمًا.",
+ "Hrana nije automatski halal jer se kuvari menjaju. Proverite šta se sprema te večeri.": "الطعام ليس حلالًا تلقائيًا لأن الطهاة يتغيّرون. تحقّق مما يُقدَّم في تلك الليلة.",
+ "Objava na Instagramu": "المنشور على إنستغرام",
+ "Otvoreni poziv": "دعوة مفتوحة",
+ "Skuvajte za ceo grad": "اطبخ للمدينة كلها",
+ "Program traži kuvare za nove ponedeljke. Mogu se prijaviti restorani, udruženja, aktivisti i svako ko kuva za veliko društvo, pa i večera za svoju dijasporu otvorena za sve. Dolazi između 50 i 200 ljudi.": "يبحث البرنامج عن طهاة لأيام إثنين جديدة. يمكن أن تتقدّم المطاعم والجمعيات والناشطون وكل من يطبخ لمجموعة كبيرة، بما في ذلك عشاء لجاليتك مفتوح للجميع. يحضر ما بين 50 و200 شخص.",
+ "U mejlu napišite ko ste, šta biste spremili, šta želite da promovišete i željeni termin.": "اكتب في رسالتك من أنت، وماذا ستطبخ، وما الذي تريد الترويج له، والموعد الذي تفضّله.",
+ "Hajde da Sumud skuva halal veče za sve. Ako želite da kuvate s nama, javite nam se.": "لنجعل صمود يطبخ أمسية حلال للجميع. إذا أردت أن تطبخ معنا فتواصل معنا."
 };
