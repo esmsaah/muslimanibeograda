@@ -26,9 +26,10 @@ const DESC = 'Halal restorani i prodavnice, džamije i mesdžidi, kulturni doga�
 const SHARE = 'Halal mesta, džamije, događaji i umrežavanje muslimana u Beogradu.';
 
 const spotType = (c) => (c === 'prodavnice' ? 'Store' : c === 'kafici' ? 'CafeOrCoffeeShop' : 'Restaurant');
+const NO_ADDR = 'Adresu dodajemo uskoro';
 const address = (street, district) => ({
   '@type': 'PostalAddress',
-  streetAddress: street,
+  ...(street && street !== NO_ADDR && street !== T('en', NO_ADDR) ? {streetAddress: street} : {}),
   addressLocality: district ? `Beograd, ${district}` : 'Beograd',
   addressRegion: 'Beograd',
   addressCountry: 'RS',
@@ -155,8 +156,9 @@ function page(lang, route) {
   if (route.kind === 'dzamija') {
     const d = DZEMATI.find((x) => x.id === route.id);
     const name = T(lang, d.name);
-    const title = `${name}, ${d.address} · ${T(lang, 'Džamija u Beogradu')} | ${SITE_NAME(lang)}`;
-    const desc = `${name}, ${d.address}, ${d.district}. ${T(lang, 'Adresa, mapa i svi džemati Beograda na jednom mestu.')}`;
+    const where = d.address === NO_ADDR ? d.district : d.address;
+    const title = `${name}, ${where} · ${T(lang, 'Džamija u Beogradu')} | ${SITE_NAME(lang)}`;
+    const desc = `${name}, ${d.address === NO_ADDR ? '' : d.address + ', '}${d.district}. ${T(lang, 'Adresa, mapa i svi džemati Beograda na jednom mestu.')}`;
     const entity = {'@type': 'Mosque', '@id': `${url}#place`, name, url, address: address(d.address, d.district), hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.mapQuery)}`};
     return {url, title, desc, graph: [website, entity, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Džemati Beograda'), `${home}#dzemati`], [name, url]])]};
   }
@@ -264,7 +266,7 @@ function fullText(lang) {
     L.push(`- **[${s.name}](${SITE}${pathFor(lang, {kind: 'halal', id: s.id})})** · ${bits.filter(Boolean).join(' · ')}`);
   }
   L.push('', `## ${t('Džemati Beograda')}`, '');
-  for (const d of DZEMATI) L.push(`- **[${t(d.name)}](${SITE}${pathFor(lang, {kind: 'dzamija', id: d.id})})** · ${d.address}, ${d.district}`);
+  for (const d of DZEMATI) L.push(`- **[${t(d.name)}](${SITE}${pathFor(lang, {kind: 'dzamija', id: d.id})})** · ${d.address === NO_ADDR ? d.district : `${d.address}, ${d.district}`}`);
   L.push('', `## ${t('Kulturni događaji')}`, '');
   for (const e of CULTURAL_EVENTS) {
     const bits = [t(e.when ?? `${e.day} ${e.month}`), t(e.place), t(e.summary)];

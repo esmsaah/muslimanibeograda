@@ -7,6 +7,7 @@ export const DZEMATI: Dzemat[] = [
   {id: 'islamski-centar', name: 'Mesdžid Islamski centar', district: 'Zvezdara', address: 'Bulevar kralja Aleksandra 241', mapQuery: 'Bulevar kralja Aleksandra 241, Beograd'},
   {id: 'borca', name: 'Borčanska džamija', district: 'Borča', address: 'Beočinska bb', mapQuery: 'Beočinska, Borča, Beograd'},
   {id: 'krnjaca', name: 'Mesdžid Krnjača', district: 'Krnjača', address: 'Palilula', mapQuery: '44.85369,20.51756'},
+  {id: 'vozdovac', name: 'Mesdžid na Voždovcu', district: 'Voždovac', address: 'Adresu dodajemo uskoro', mapQuery: 'Voždovac, Beograd'},
   {id: 'karaburma', name: 'Džamija na Karaburmi', district: 'Karaburma', address: 'Mirijevsko brdo 66', mapQuery: 'Mirijevsko brdo 66, Beograd'},
   {id: 'zemun', name: 'Mesdžid Vojni put', district: 'Zemun', address: 'Pazovački put 14c', mapQuery: '44.84606,20.37594'},
   {id: 'zemun-polje', name: 'Džamija u Zemun Polju', district: 'Zemun Polje', address: 'Kurirska 41', mapQuery: 'Kurirska 41, Zemun Polje, Beograd'},
@@ -238,7 +239,7 @@ export type FaqItem = {q: string; a: string};
 export const FAQ: FaqItem[] = [
   {q: 'Gde mogu da jedem halal u Beogradu?', a: 'Najviše halal restorana je u centru, na Dorćolu, oko Zelenog venca i Savskog venca. Ima libanske, turske, arapske, pa i kineske i ujgurske kuhinje, a nekoliko mesta je i u Zemunu i na Novom Beogradu. Kod svakog mesta na sajtu piše kako znamo da je halal. Ako niste sigurni, slobodno pitajte za certifikat.'},
   {q: 'Gde da kupim halal meso i namirnice?', a: 'Halal mesnica Meandri je u Jelisavete Načić 4 i u Porečkoj 1. Suho meso i sir ima Jusuf na Kalenić pijaci, a arapske i turske namirnice Arapski dućan u Zemunu i Belgrad Türk Marketi na Paliluli. Neke radnje dostavljaju i na kućnu adresu.'},
-  {q: 'Gde mogu da klanjam u Beogradu?', a: 'U Beogradu ima jedanaest džamija i mesdžida, na Dorćolu, Zvezdari i Karaburmi, u Borči i Krnjači, u Zemunu, Zemun Polju i Batajnici, na Ledinama, u Surčinu i Sremčici. Na sajtu su adresa i mapa za svaki, pa lako nađete onaj koji vam je najbliži.'},
+  {q: 'Gde mogu da klanjam u Beogradu?', a: 'U Beogradu ima dvanaest džamija i mesdžida, na Dorćolu, Zvezdari, Voždovcu i Karaburmi, u Borči i Krnjači, u Zemunu, Zemun Polju i Batajnici, na Ledinama, u Surčinu i Sremčici. Na sajtu su adresa i mapa za svaki, pa lako nađete onaj koji vam je najbliži.'},
   {q: 'Gde se klanja džuma?', a: 'Džuma se klanja u vreme podne-namaza, a tačno vreme za svaki dan je u našoj vaktiji. Klanja se u Bajrakli džamiji na Dorćolu, u mesdžidu Islamskog centra na Bulevaru kralja Aleksandra 241, na Voždovcu i u džematima po naseljima, na primer u Borči, Zemunu, Ledinama i Sremčici. U Islamskom centru postoji i druga džuma u 13 sati, sa hutbom na arapskom.'},
   {q: 'Kada je namaz danas?', a: 'Vaktija za Beograd je na sajtu, u delu Džemati Beograda. Menja se sama svakog dana, a sledeći namaz je označen zelenom bojom.'},
   {q: 'Postoji li nešto za sestre?', a: 'Da, postoji ženski džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.'},
