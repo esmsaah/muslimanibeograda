@@ -126,6 +126,7 @@ function routes() {
     {kind: 'vaktija'},
     ...HALAL_SPOTS.map((x) => ({kind: 'halal', id: x.id})),
     ...DZEMATI.map((x) => ({kind: 'dzamija', id: x.id})),
+    ...CULTURAL_EVENTS.map((x) => ({kind: 'dogadjaj', id: x.id})),
   ];
 }
 
@@ -158,6 +159,27 @@ function page(lang, route) {
     const desc = `${name}, ${d.address}, ${d.district}. ${T(lang, 'Adresa, mapa i svi džemati Beograda na jednom mestu.')}`;
     const entity = {'@type': 'Mosque', '@id': `${url}#place`, name, url, address: address(d.address, d.district), hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.mapQuery)}`};
     return {url, title, desc, graph: [website, entity, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Džemati Beograda'), `${home}#dzemati`], [name, url]])]};
+  }
+  if (route.kind === 'dogadjaj') {
+    const e = CULTURAL_EVENTS.find((x) => x.id === route.id);
+    const name = T(lang, e.title);
+    const when = T(lang, e.when ?? `${e.day} ${e.month}`);
+    const title = `${name} · ${when} | ${SITE_NAME(lang)}`;
+    const desc = clip(`${name}, ${when}, ${T(lang, e.place)}. ${T(lang, e.summary)}`);
+    const events = (e.isoDates ?? []).map((start, i) => ({
+      '@type': 'Event',
+      '@id': `${url}#event-${i}`,
+      name,
+      description: T(lang, e.summary),
+      startDate: start,
+      ...(e.isoEnd ? {endDate: e.isoEnd} : {}),
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: {'@type': 'Place', name: T(lang, e.place), address: address(T(lang, e.place), '')},
+      image: `${SITE}${(e.photos?.[0] ?? e.photoSrc).replace(/^\/?/, '/')}`,
+      url,
+    }));
+    return {url, title, desc, graph: [website, ...events, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Kulturni događaji'), `${home}#kulturni-dogadjaji`], [name, url]])]};
   }
   if (route.kind === 'vaktija') {
     return {url, title: T(lang, 'Vaktija Beograd · vreme namaza danas | Muslimani Beograda'), desc: T(lang, 'Današnja vaktija za Beograd. Sabah, podne, ikindija, akšam i jacija, uz sve džamije i mesdžide u gradu.'), graph: [website, crumbs(lang, [[SITE_NAME(lang), home], [T(lang, 'Vreme namaza · Beograd'), url]])]};

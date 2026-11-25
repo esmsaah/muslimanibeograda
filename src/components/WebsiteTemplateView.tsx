@@ -244,7 +244,8 @@ export function WebsiteTemplateView({
 
   // RSVP
   const [rsvpEvent, setRsvpEvent] = useState<CulturalEvent | null>(null);
-  const [openEventId, setOpenEventId] = useState<string | null>(null);
+  const [openEventId, setOpenEventId] = useState<string | null>(route0.kind === 'dogadjaj' && CULTURAL_EVENTS.some((x) => x.id === route0.id) ? route0.id : null);
+  const toggleEvent = (id: string | null) => { setOpenEventId(id); setRoute(lang, id ? {kind: 'dogadjaj', id} : {kind: 'home'}); };
   const [suggestOpen, setSuggestOpen] = useState(false);
   const [sgTitle, setSgTitle] = useState('');
   const [sgWhen, setSgWhen] = useState('');
@@ -418,10 +419,28 @@ export function WebsiteTemplateView({
     filteredHalal.find((s) => s.id === selectedSpotId) ?? filteredHalal[0];
 
   useEffect(() => {
-    const target = route0Spot ? (isMobile() ? halalDetailRef.current : document.getElementById('halal-beograd')) : route0Dzemat ? document.getElementById('dzemati') : route0.kind === 'vaktija' ? document.getElementById('vaktija') : null;
+    const target = route0Spot ? (isMobile() ? halalDetailRef.current : document.getElementById('halal-beograd')) : route0Dzemat ? document.getElementById('dzemati') : route0.kind === 'vaktija' ? document.getElementById('vaktija') : route0.kind === 'dogadjaj' ? document.getElementById('kulturni-dogadjaji') : null;
     if (target) window.setTimeout(() => target.scrollIntoView({block: 'start'}), 150);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Linkovi u meniju (#halal-beograd...) samo skroluju, a adresa ostaje čista,
+  // bez # i bez ostatka prethodne stranice (npr. /vaktija/#halal-beograd).
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!a) return;
+      const id = a.getAttribute('href')!.slice(1);
+      const el = id ? document.getElementById(id) : null;
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({behavior: 'smooth', block: 'start'});
+      setRoute(lang, {kind: 'home'});
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, [lang]);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -958,7 +977,7 @@ export function WebsiteTemplateView({
                     <button
                       type="button"
                       aria-expanded={open}
-                      onClick={() => setOpenEventId(open ? null : ev.id)}
+                      onClick={() => toggleEvent(open ? null : ev.id)}
                       className="text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]"
                     >
                       {t(open ? 'Vidi manje' : 'Vidi više')}
@@ -1497,7 +1516,7 @@ export function WebsiteTemplateView({
                 <button type="button" onClick={() => setCommunityModal('facebook')} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Facebook")}</button>
                 <a href={pathFor(lang, {kind: 'vaktija'})} onClick={(e) => { e.preventDefault(); setRoute(lang, {kind: 'vaktija'}); document.getElementById('vaktija')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Vreme namaza · Beograd")}</a>
                 <a href={pathFor(lang, {kind: 'pitanja'})} onClick={(e) => { e.preventDefault(); openFaq(true); }} className="border-b border-[#D4D3CD] py-3.5 text-start text-[16px] leading-tight text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:border-0 sm:py-0 sm:text-[14px]">{t("Česta pitanja")}</a>
-                <button type="button" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} aria-label={t("Povratak na vrh")} title={t("Povratak na vrh")} className="mt-4 inline-flex h-9 w-9 items-center justify-center self-start border border-[#D4D3CD] text-[#4F4A46] transition-colors hover:border-[#221D1A] hover:text-[#221D1A] sm:mt-0"><ArrowUp className="h-4 w-4" /></button>
+                <button type="button" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} aria-label={t("Povratak na vrh")} title={t("Povratak na vrh")} className="mt-4 inline-flex h-9 w-9 items-center justify-center self-start text-[#4F4A46] transition-colors hover:text-[#221D1A] sm:mt-0"><ArrowUp className="h-[18px] w-[18px]" /></button>
               </nav>
             </div>
           </div>
