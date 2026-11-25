@@ -402,5 +402,7 @@ export const EN: Record<string, string> = {
  "Vesti, događaji i objave zajednice": "Community news, events and posts",
  "Pridruži se": "Join",
  "Prati nas": "Follow us",
- "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "Yes, there is a women's online jamaat, a WhatsApp group for sisters. The link to join is in the Network section and at the bottom of the site."
+ "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "Yes, there is a women's online jamaat, a WhatsApp group for sisters. The link to join is in the Network section and at the bottom of the site.",
+ "Dođite na džumu ili na neki od događaja sa sajta, tako se ljudi najlakše upoznaju. Pridružite se i Facebook grupi Sumud, a ako vam treba neko za posao ili savet, u delu Umrežavanje možete preporučiti ili naći majstore, lekare i preduzetnike iz zajednice.": "Come to Friday prayer or one of the events on the site, that's the easiest way to meet people. Join the Sumud Facebook group too, and if you need someone for a job or advice, the Network section lets you find or recommend tradespeople, doctors and entrepreneurs from the community.",
+ "Facebook grupa Sumud": "Sumud Facebook group"
 };

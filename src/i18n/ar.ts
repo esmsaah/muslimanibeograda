@@ -402,5 +402,7 @@ export const AR: Record<string, string> = {
  "Vesti, događaji i objave zajednice": "أخبار المجتمع وفعالياته ومنشوراته",
  "Pridruži se": "انضمي",
  "Prati nas": "تابعنا",
- "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "نعم، توجد جماعة نسائية إلكترونية، وهي مجموعة واتساب للأخوات. رابط الانضمام في قسم التواصل وفي أسفل الموقع."
+ "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "نعم، توجد جماعة نسائية إلكترونية، وهي مجموعة واتساب للأخوات. رابط الانضمام في قسم التواصل وفي أسفل الموقع.",
+ "Dođite na džumu ili na neki od događaja sa sajta, tako se ljudi najlakše upoznaju. Pridružite se i Facebook grupi Sumud, a ako vam treba neko za posao ili savet, u delu Umrežavanje možete preporučiti ili naći majstore, lekare i preduzetnike iz zajednice.": "تعال إلى صلاة الجمعة أو إلى إحدى الفعاليات في الموقع، فهذه أسهل طريقة للتعارف. انضم أيضًا إلى مجموعة صمود على فيسبوك، وإن احتجت إلى أحد لعمل أو نصيحة، ففي قسم التواصل يمكنك أن تجد أو توصي بحرفيين وأطباء ورواد أعمال من المجتمع.",
+ "Facebook grupa Sumud": "مجموعة صمود على فيسبوك"
 };

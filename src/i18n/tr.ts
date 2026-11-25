@@ -402,5 +402,7 @@ export const TR: Record<string, string> = {
  "Vesti, događaji i objave zajednice": "Topluluk haberleri, etkinlikleri ve paylaşımları",
  "Pridruži se": "Katıl",
  "Prati nas": "Bizi takip et",
- "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "Evet, kız kardeşler için WhatsApp'ta bir kadınlar online cemaati var. Katılma bağlantısı Dayanışma ağı bölümünde ve sitenin altında."
+ "Da, postoji ženski online džemat, grupa za sestre na WhatsAppu. Link za pristup je u delu Umrežavanje i na dnu sajta.": "Evet, kız kardeşler için WhatsApp'ta bir kadınlar online cemaati var. Katılma bağlantısı Dayanışma ağı bölümünde ve sitenin altında.",
+ "Dođite na džumu ili na neki od događaja sa sajta, tako se ljudi najlakše upoznaju. Pridružite se i Facebook grupi Sumud, a ako vam treba neko za posao ili savet, u delu Umrežavanje možete preporučiti ili naći majstore, lekare i preduzetnike iz zajednice.": "Cuma namazına ya da sitedeki etkinliklerden birine gelin, tanışmanın en kolay yolu bu. Sumud Facebook grubuna da katılın. Bir iş ya da tavsiye için birine ihtiyacınız varsa, Dayanışma ağı bölümünde topluluktan ustaları, doktorları ve girişimcileri bulabilir ya da önerebilirsiniz.",
+ "Facebook grupa Sumud": "Sumud Facebook grubu"
 };

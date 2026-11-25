@@ -26,7 +26,7 @@ export interface WebsiteTemplateViewProps {
   gifPercent?: number | null;
 }
 
-const FACEBOOK_URL = 'https://www.facebook.com/share/g/1DP6NJB5ka/';
+const FACEBOOK_URL = 'https://www.facebook.com/share/g/19ucSXWVUp/';
 const WHATSAPP_URL = 'https://chat.whatsapp.com/GjN9oBUI2EiJ8TIm4QguJj';
 const CONTACT_EMAIL = 'muslimanibeograda@proton.me';
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
@@ -73,7 +73,7 @@ type SkillCategory = 'sve' | 'zdravlje' | 'zanat' | 'biznis' | 'hrana' | 'lepota
 
 const COMMUNITY_CHANNELS = [
   {id: 'whatsapp' as const, src: '/assets/community/506A5547.jpg', alt: 'Žene uče u džamiji uz prozore', pos: 'object-[60%_center]', title: 'Ženski online džemat', sub: 'WhatsApp grupa za sestre', action: 'Pridruži se'},
-  {id: 'facebook' as const, src: '/assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook stranica', sub: 'Vesti, događaji i objave zajednice', action: 'Prati nas'},
+  {id: 'facebook' as const, src: '/assets/community/506A0430.jpg', alt: 'Muškarci ispred džamije posle namaza', pos: 'object-center', title: 'Facebook grupa Sumud', sub: 'Vesti, događaji i objave zajednice', action: 'Pridruži se'},
 ];
 
 /** Kontakt iz imenika kao link: telefon, Instagram, mejl ili sajt. */
@@ -1051,7 +1051,7 @@ export function WebsiteTemplateView({
         <div className="border-s border-[#2B211C] bg-[#FFFFFF]">
           <ChapterMark label={t("Umrežavanje muslimana")} />
 
-          {/* Zajednica: Ženski džemat i Facebook */}
+          {/* Zajednica: Ženski online džemat i Facebook grupa Sumud */}
           {IMENIK_LAYOUT === 'd1' ? (
             <div className="grid grid-cols-1 gap-x-10 gap-y-5 bg-[#EDEDEA] px-6 py-6 sm:px-10 md:grid-cols-2">
               {COMMUNITY_CHANNELS.map((ch) => (
@@ -1408,7 +1408,7 @@ export function WebsiteTemplateView({
                   onClick={() => setCommunityModal('facebook')}
                   className="font-medium text-[#221D1A] hover:text-[#0F7A53] transition-colors"
                 >
-                  {t("Facebook stranica")}
+                  {t("Facebook grupa Sumud")}
                 </button>
               </div>
             </div>
