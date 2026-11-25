@@ -985,14 +985,14 @@ export function WebsiteTemplateView({
                     {ev.photos && ev.photos.length > 0 ? (
                       <EventPhotos photos={ev.photos} alt={t(ev.title)} />
                     ) : ev.instagramEmbed ? (
-                      <div className="pointer-events-none absolute inset-x-0 top-0" style={{marginTop: 'calc(-58px - 42%)'}}>
+                      <div className="pointer-events-none absolute top-0 start-[-14%] w-[128%]" style={{marginTop: 'calc(-58px - 80%)'}}>
                         <iframe
                           src={ev.instagramEmbed}
                           title={`${t(ev.title)} · Instagram`}
                           loading="lazy"
                           scrolling="no"
                           tabIndex={-1}
-                          className="block h-[900px] w-full border-0"
+                          className="block h-[1100px] w-full border-0"
                         />
                       </div>
                     ) : ev.photoSrc ? (
@@ -1082,14 +1082,14 @@ export function WebsiteTemplateView({
             })}
             <li className="flex flex-col py-8">
               <span aria-hidden="true" className="font-stone hidden text-[56px] leading-none text-[#D4D3CD] lg:block">+</span>
-              <div className="flex w-full flex-col justify-end rounded-se-[48px] bg-[#EDEDEA] px-6 pt-10 pb-6 lg:mt-5 lg:aspect-[4/3] lg:rounded-se-[96px] lg:p-6">
+              <div className="flex w-full flex-col justify-end rounded-se-[48px] bg-[#EDEDEA] px-6 pt-10 pb-6 lg:mt-5 lg:min-h-[260px] lg:flex-1 lg:rounded-se-[96px] lg:p-6">
                 <h3 className="font-stone text-[26px] leading-tight text-[#2B211C]">{t("Znaš za dobar događaj?")}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-[#4F4A46]">{t("Predavanje, iftar, izložba, koncert ili šetnja. Pošalji nam i dodaćemo ga ovde.")}</p>
-              </div>
-              <div className="mt-auto pt-6">
-                <IslamicButton variant="flowline" tone="charcoal" size="sm" href="#potrazi-pomoc">
-                  {t("Predloži događaj")}
-                </IslamicButton>
+                <div className="mt-6">
+                  <IslamicButton variant="flowline" tone="charcoal" size="sm" href="#potrazi-pomoc">
+                    {t("Predloži događaj")}
+                  </IslamicButton>
+                </div>
               </div>
             </li>
           </ol>
