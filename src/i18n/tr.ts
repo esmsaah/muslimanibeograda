@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Piletina poseduje halal sertifikat. U ponudi ima i alkohola.": "Tavuk helal sertifikalı. Alkol de servis ediliyor.",
  "Poseduje halal sertifikat. Na Jelisavete Načić radi od 8 do 16h.": "Helal sertifikasına sahip. Jelisavete Načić şubesi 08.00–16.00 arası açık.",
  "Poseduje halal sertifikat.": "Helal sertifikasına sahip.",
  "Preporuka zajednice.": "Topluluğun tavsiyesi.",
