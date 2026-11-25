@@ -625,37 +625,30 @@ export function WebsiteTemplateView({
 
             {/* Desno: priča */}
             <div className="bg-[#FFFFFF] px-6 sm:px-10 pt-10 pb-14 lg:pt-12">
-              <SignTitle num={t("O kolektivu")} caps={t("Priča")} rest={t("o nama")} />
-              <p className="font-stone mt-8 text-[26px] leading-[1.35] text-[#2B211C] sm:text-[28px]">
+              <SignTitle caps={t("Priča")} rest={t("o nama")} />
+              <p className="font-stone mt-7 text-[25px] leading-[1.4] text-[#2B211C]">
                 {t(ABOUT_STORY.name)} {t(ABOUT_STORY.lead)}
               </p>
-              <div className="mt-6 flex gap-5">
-                <span aria-hidden="true" className="mt-2 h-[10px] w-[10px] shrink-0 rounded-full bg-[#D9A02B]" />
-                <p className="text-[15px] leading-relaxed text-[#4F4A46]">
-                  {t(ABOUT_STORY.paragraphs[0])}
-                </p>
-              </div>
-              <div className="mt-7 ps-[30px]">
+              <p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-[#4F4A46]">
+                {t(ABOUT_STORY.paragraphs[0])}
+              </p>
+              <div className="mt-7">
                 <IslamicButton variant="flowline" size="sm" onClick={() => setAboutOpen(true)}>
                   {t("Pročitaj celu priču")}
                 </IslamicButton>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setStoryOpen(true)}
-                className="group mt-12 grid w-full grid-cols-1 items-start gap-x-6 rounded-se-[56px] sm:grid-cols-[auto_1fr] bg-[#EDEDEA] p-6 text-start transition-colors hover:bg-[#E6E5E0] sm:p-7"
-              >
-                <span className="font-stone mb-3 text-[44px] leading-[0.85] text-[#B07D16] lining-nums sm:row-span-3 sm:mb-0 sm:text-[52px]">1521</span>
-                <span className="font-mono-tabular text-[10px] tracking-[0.14em] text-[#8F8D88] uppercase">{t("Istorija · od 1521. do danas")}</span>
-                <span className="font-stone mt-1 text-[26px] leading-tight text-[#2B211C] transition-colors group-hover:text-[#0F7A53]">{t(HISTORY_STORY.title)}</span>
-                <span className="mt-2 block">
-                  <span className="line-clamp-3 text-[14px] leading-relaxed text-[#4F4A46]">{t(HISTORY_STORY.paragraphs[0])}</span>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53]">
-                    {t("Pročitaj više")} <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:-scale-x-100" />
-                  </span>
-                </span>
-              </button>
+              <div className="mt-14 border-t border-[#D4D3CD] pt-8">
+                <SignTitle small caps={t("Muslimani")} rest={t("Beograda")} />
+                <p className="mt-5 max-w-[520px] line-clamp-3 text-[15px] leading-relaxed text-[#4F4A46]">
+                  {t(HISTORY_STORY.paragraphs[0])}
+                </p>
+                <div className="mt-6">
+                  <IslamicButton variant="flowline" size="sm" onClick={() => setStoryOpen(true)}>
+                    {t("Pročitaj više")}
+                  </IslamicButton>
+                </div>
+              </div>
             </div>
           </div>
         </div>
