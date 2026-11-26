@@ -1,4 +1,5 @@
 export const TR: Record<string, string> = {
+ "Mladić sa serdžadom posle namaza": "Namazdan sonra seccadesiyle bir genç",
  "Vlasnica je Jamila, studentkinja medicine iz Gane. Pravi 100% organski shea puter i ručno rađene proizvode za prirodnu negu kose i kože, a uz njih i afričke ručne lepeze.": "Sahibi Ganalı tıp öğrencisi Jamila. %100 organik shea yağı ve doğal saç ve cilt bakımı için el yapımı ürünler hazırlıyor, ayrıca Afrika el yelpazeleri de yapıyor.",
  "Piletina poseduje halal sertifikat.": "Tavuk helal sertifikalı.",
  "Ujgurska i srednjoazijska kuhinja, sa ručno vučenim nudlama i jelima od jagnjetine.": "El çekmesi erişte ve kuzu yemekleriyle Uygur ve Orta Asya mutfağı.",

@@ -1,4 +1,5 @@
 export const AR: Record<string, string> = {
+ "Mladić sa serdžadom posle namaza": "شاب يحمل سجادة الصلاة بعد الصلاة",
  "Vlasnica je Jamila, studentkinja medicine iz Gane. Pravi 100% organski shea puter i ručno rađene proizvode za prirodnu negu kose i kože, a uz njih i afričke ručne lepeze.": "صاحبة المشروع جميلة، طالبة طب من غانا. تصنع زبدة شيا عضوية 100% ومنتجات يدوية للعناية الطبيعية بالشعر والبشرة، إلى جانب مراوح يدوية أفريقية.",
  "Piletina poseduje halal sertifikat.": "الدجاج حاصل على شهادة حلال.",
  "Ujgurska i srednjoazijska kuhinja, sa ručno vučenim nudlama i jelima od jagnjetine.": "مطبخ أويغوري وآسيوي أوسط، بنودلز مسحوبة يدويًا وأطباق لحم الضأن.",

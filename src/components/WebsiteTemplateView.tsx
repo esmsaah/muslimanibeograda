@@ -1797,8 +1797,8 @@ export function WebsiteTemplateView({
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
-              <img loading="lazy" decoding="async" src={PRICA_PHOTOS[0].src} alt={t(PRICA_PHOTOS[0].alt)} className={`absolute inset-0 h-full w-full object-cover ${PRICA_PHOTOS[0].pos}`} />
+            <div className="relative mt-6 aspect-[6/5] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
+              <img loading="lazy" decoding="async" src="/assets/community/506A0414-prica.jpg" alt={t("Mladić sa serdžadom posle namaza")} className="absolute inset-0 h-full w-full object-cover" />
             </div>
             <h2 id="about-title" className="font-stone mt-7 text-[30px] leading-tight text-[#221D1A]">{t(ABOUT_STORY.name)}</h2>
             <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
