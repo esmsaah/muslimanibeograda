@@ -56,7 +56,7 @@ const prettyUrl = (u: string) => u.replace(/^https?:\/\//, '').replace(/^www\./,
 const ACTION_CLS = 'inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] transition-colors hover:text-[#221D1A]';
 
 const PRICA_PHOTOS = [
-  {src: '/assets/community/506A0447-43.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-center'},
+  {src: '/assets/community/506A0414.jpg', alt: 'Mladić sa serdžadom posle namaza', pos: 'object-[50%_32%]'},
   {src: '/assets/community/506A2783-43.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-center'},
   {src: '/assets/community/506A6413-43.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
 ];
@@ -1798,7 +1798,7 @@ export function WebsiteTemplateView({
               </button>
             </div>
             <div className="relative mt-6 aspect-[6/5] w-full overflow-hidden rounded-se-[64px] bg-[#D4D3CD]">
-              <img loading="lazy" decoding="async" src="/assets/community/506A0414-prica.jpg" alt={t("Mladić sa serdžadom posle namaza")} className="absolute inset-0 h-full w-full object-cover" />
+              <img loading="lazy" decoding="async" src="/assets/community/506A0447-43.jpg" alt={t("Okupljanje u dvorištu Bajrakli džamije")} className="absolute inset-0 h-full w-full object-cover" />
             </div>
             <h2 id="about-title" className="font-stone mt-7 text-[30px] leading-tight text-[#221D1A]">{t(ABOUT_STORY.name)}</h2>
             <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#4F4A46]">
