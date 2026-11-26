@@ -288,7 +288,7 @@ export type Neighbor = {
 /** Imenik Osloni se na svoje. Novi upisi idu ovde kad ih pregledamo. */
 export const NEIGHBORS: Neighbor[] = [
   {id: 'alibaba', category: 'biznis', categoryLabel: 'Preduzetnici i frilenseri', name: 'Ali Baba Hanabal', profession: 'Arapska radnja', district: 'Vračar, Golsvortijeva 21', note: 'Ručno rađene kožne torbe, sandale, papuče i kaiševi, tunižanska keramika i tadžini, ćilimi, nakit i nargile. Maloprodaja i veleprodaja.', contacts: ['011 244 30 89', '065 57 59 385', 'map:Ali Baba Hanabal Golsvortijeva 21 Beograd']},
-  {id: 'vintage-shea', category: 'lepota', categoryLabel: 'Lepota i njega', name: 'Vintage Shea Essentials', profession: 'Prirodna nega od shea putera', district: 'Online', note: 'Vlasnica je Jamila. Pravi 100% organski shea puter i ručno rađene proizvode za prirodnu negu kose i kože, a uz njih i afričke ručne lepeze.', contacts: ['@vintage_shea_essentials']},
+  {id: 'vintage-shea', category: 'lepota', categoryLabel: 'Lepota i njega', name: 'Vintage Shea Essentials', profession: 'Prirodna nega od shea putera', district: 'Online', note: 'Vlasnica je Jamila, studentkinja medicine iz Gane. Pravi 100% organski shea puter i ručno rađene proizvode za prirodnu negu kose i kože, a uz njih i afričke ručne lepeze.', contacts: ['@vintage_shea_essentials']},
 ];
 
 /** Kratka vremenska linija istorije, za blok Muslimani Beograda. */
