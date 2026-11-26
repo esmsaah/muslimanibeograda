@@ -1807,6 +1807,17 @@ export function WebsiteTemplateView({
                 <p key={p}>{t(p)}</p>
               ))}
             </div>
+
+            <div className="mt-8 flex justify-end border-t border-[#EAEAE6] pt-5">
+              <IslamicButton
+                variant="kocka"
+                tone="charcoal"
+                size="sm"
+                onClick={() => setAboutOpen(false)}
+              >
+                {t("Zatvori")}
+              </IslamicButton>
+            </div>
           </div>
         </div>
       )}
