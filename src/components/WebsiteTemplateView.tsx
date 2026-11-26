@@ -57,8 +57,8 @@ const ACTION_CLS = 'inline-flex items-center gap-1.5 text-[14px] text-[#0F7A53] 
 
 const PRICA_PHOTOS = [
   {src: '/assets/community/506A0447-43.jpg', alt: 'Okupljanje u dvorištu Bajrakli džamije', pos: 'object-center'},
-  {src: '/assets/community/506A2783.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-[50%_40%]'},
-  {src: '/assets/community/506A6413.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
+  {src: '/assets/community/506A2783-43.jpg', alt: 'Pekar vadi lepinje iz krušne peći', pos: 'object-center'},
+  {src: '/assets/community/506A6413-43.jpg', alt: 'Žena sa zastavom Palestine na Trgu republike', pos: 'object-center'},
 ];
 
 
